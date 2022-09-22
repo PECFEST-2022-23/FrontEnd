@@ -1,0 +1,23 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run prettify && next dev",
+    "build": "npm run prettify && next build",
+    "start": "next start",
+    "lint": "npm run prettify && next lint",
+    "prettify": "prettier --write \"**/*.{js, jsx}\""
+  },
+  "dependencies": {
+    "next": "12.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "eslint": "8.23.1",
+    "eslint-config-next": "12.3.1",
+    "eslint-config-prettier": "8.5.0",
+    "prettier": "2.7.1"
+  }
+}
