@@ -2,22 +2,49 @@ import NextLink from 'next/link';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useRouter } from 'next/router';
 
 export default function Login() {
-  const handleSubmit = (event) => {
+  const router = useRouter();
+
+  function onSignIn(googleUser) {
+    var id_token = googleUser.getAuthResponse().id_token;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', process.env.NEXT_PUBLIC_BACKEND_API + '/goolgeauth');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function () {
+      if (xhr.responseText === 'success') {
+        router.push('/');
+      } else if (xhr.responseText === 'incomplete') {
+        router.push('/profile');
+      }
+    };
+    xhr.send(JSON.stringify({ token: id_token }));
+  }
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const email = data.get;
+    const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_API + '/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: data.get('email'),
+        password: data.get('password'),
+      }),
+    }).then((res) => res.json());
+    if (res.message === 'success') {
+      router.push('/');
+    } else if (res.message === 'incomplete') {
+      router.push('/profile');
+    } else {
+      router.push('/register');
+    }
   };
 
   return (
@@ -32,7 +59,7 @@ export default function Login() {
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign in
+          Login
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -55,10 +82,21 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            style={{ minHeight: '40px' }}
+          >
+            <Grid item xs={3}>
+              <div className="g-signin2" data-onsuccess="onSignIn">
+                Sign inSigned in
+              </div>
+            </Grid>
+          </Grid>
+
           <Button
             type="submit"
             fullWidth
@@ -68,11 +106,6 @@ export default function Login() {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-              <NextLink href={'/forgot-password'}>
-                <Link variant="body2">Forgot password?</Link>
-              </NextLink>
-            </Grid>
             <Grid item>
               <NextLink href={'/signup'}>
                 <Link variant="body2">{"Don't have an account? Sign Up"}</Link>
