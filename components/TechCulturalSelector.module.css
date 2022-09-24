@@ -102,3 +102,20 @@
 .shade {
   filter: brightness(60%);
 }
+.sideBySideContainer {
+  display: flex !important;
+}
+.parallelContainer {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .sideBySideContainer {
+    display: none !important;
+    cursor: pointer;
+  }
+  .parallelContainer {
+    display: block !important;
+    cursor: pointer;
+  }
+}
