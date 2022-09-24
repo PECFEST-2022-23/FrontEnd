@@ -16,6 +16,9 @@ const TechCulturalSelector = ({
   const [isHoveredOnCultural, setHoveredOnCultural] = useState(false);
   const router = useRouter();
   useEffect(() => {
+    // document.body.style.position = 'absolute';
+  });
+  useEffect(() => {
     if (openTechnical || openCultural) {
       setTimeout(() => {
         if (openTechnical) {
@@ -27,8 +30,11 @@ const TechCulturalSelector = ({
     }
   }, [openTechnical, openCultural]);
   return (
-    <>
-      <div style={{ height: '100vh' }}>
+    <div>
+      <div
+        className={classes.sideBySideContainer}
+        style={{ height: '100vh', display: 'flex' }}
+      >
         <div
           onMouseOver={() => {
             setHoveredOnTechnical(true);
@@ -84,60 +90,72 @@ const TechCulturalSelector = ({
           <img src={culturalImageUrl} className={`${classes.technicalImage}`} />
         </div>
       </div>
-      {/* <div
-        className="d-flex bg-dark d-md-none vh-100 zi-top flex-column"
+      <div
+        className={classes.parallelContainer}
         style={{ background: '#07202a' }}
       >
         <div
           onClick={() => {
             setOpenTechnical(true);
           }}
-          className={`cursor-pointer vh-50 mb-1 bg-white position-relative transition-smooth d-flex flex-row justify-content-center ${
-            openTechnical && 'vh-100 zi-1'
-          }`}
         >
           {!openCultural && (
-            <h1
-              onClick={() => {
-                setOpenTechnical(true);
-              }}
-              className={`animate__animated zi-1 cursor-pointer text-white position-absolute top-50 mx-autor translate-middle-y ${classes.header_large}`}
-            >
-              {leftName}
-            </h1>
-          )}
+            <>
+              <h1
+                onClick={() => {
+                  setOpenTechnical(true);
+                }}
+                style={{ top: '40%' }}
+                className={`${classes.header_large}`}
+              >
+                {leftName}
+              </h1>
 
-          <img
-            src={technicalImageUrl}
-            className={`${classes.culturalImage} ${classes.shade} h-100 vw-100`}
-          />
+              <img
+                src={technicalImageUrl}
+                style={{
+                  position: 'relative',
+                  width: '100vw',
+                  height: openTechnical ? '100vh' : '50vh',
+                }}
+                className={` ${classes.shade}`}
+              />
+            </>
+          )}
         </div>
 
         <div
           onClick={() => {
             setOpenCultural(true);
           }}
-          className={`cursor-pointer bg-image vh-50 pt-1  position-absolute bottom-0 transition-smooth ${
-            openCultural && 'vh-100'
-          }`}
         >
           {!openTechnical && (
-            <h1
-              onClick={() => {
-                setOpenCultural(true);
-              }}
-              className={`zi-1 animate__animated animate__faster cursor-pointer text-white position-absolute top-50 end-0 mx-5 px-5 translate-middle-y ${classes.header_large}`}
-            >
-              {rightName}
-            </h1>
+            <>
+              <h1
+                onClick={() => {
+                  setOpenCultural(true);
+                }}
+                style={{ top: '90%' }}
+                className={`${classes.header_large}`}
+              >
+                {rightName}
+              </h1>
+
+              <img
+                src={culturalImageUrl}
+                style={{
+                  position: 'absolute',
+                  bottom: '0',
+                  width: '100vw',
+                  height: openCultural ? '100vh' : '50vh',
+                }}
+                className={` ${classes.shade}`}
+              />
+            </>
           )}
-          <img
-            src={culturalImageUrl}
-            className={`${classes.technicalImage}  ${classes.shade} vw-100 h-100`}
-          />
         </div>
-      </div> */}
-    </>
+      </div>
+    </div>
   );
 };
 
