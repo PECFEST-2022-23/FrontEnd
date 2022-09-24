@@ -11,6 +11,16 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
+          <script
+            src="https://apis.google.com/js/platform.js"
+            async
+            defer
+          ></script>
+          <meta
+            name="google-signin-client_id"
+            content={process.env.NEXT_PUBLIC_GOOGLE_SIGNIN_CLIENT_ID}
+          />
+
           <link rel="shortcut icon" href="/favicon.ico" />
           <link
             rel="stylesheet"
