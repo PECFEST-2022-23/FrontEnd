@@ -6,7 +6,6 @@ import Box from '@mui/material/Box';
 import TeamMemberCard from '../../Components/TeamTiles/TeamMemberCard';
 
 function Developers() {
-
   return (
     <div className={`vw-100 vh-100 d-flex`}>
       <Container
