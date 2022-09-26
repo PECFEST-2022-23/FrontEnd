@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import classes from './TwoHeadingSelector.module.css';
+import Image from 'next/image';
 
 const TwoHeadingSelector = ({
   leftName = 'Technical',
@@ -26,7 +27,7 @@ const TwoHeadingSelector = ({
         router.push(rightRoute);
       }, 700);
     }
-  }, [openTechnical, openCultural]);
+  }, [openTechnical, openCultural, leftRoute, rightRoute, router]);
 
   return (
     <div style={{ position: 'fixed' }}>
@@ -58,7 +59,12 @@ const TwoHeadingSelector = ({
           >
             {leftName}
           </h1>
-          <img src={technicalImageUrl} className={`${classes.culturalImage}`} />
+          <Image
+            layout="fill"
+            alt="Technical Image"
+            src={technicalImageUrl}
+            className={`${classes.culturalImage}`}
+          />
         </div>
 
         <div
@@ -86,7 +92,12 @@ const TwoHeadingSelector = ({
           >
             {rightName}
           </h1>
-          <img src={culturalImageUrl} className={`${classes.technicalImage}`} />
+          <Image
+            layout="fill"
+            alt="Cultural Image"
+            src={culturalImageUrl}
+            className={`${classes.technicalImage}`}
+          />
         </div>
       </div>
       <div
@@ -117,7 +128,9 @@ const TwoHeadingSelector = ({
             </h1>
           )}
 
-          <img
+          <Image
+            layout="fill"
+            alt="Technical Image"
             src={technicalImageUrl}
             style={{
               height: openTechnical ? '100vh' : '50vh',
@@ -148,7 +161,10 @@ const TwoHeadingSelector = ({
               {rightName}
             </h1>
           )}
-          <img
+
+          <Image
+            layout="fill"
+            alt="Cultural Image"
             src={culturalImageUrl}
             style={{
               height: openCultural ? '100vh' : '50vh',

@@ -117,6 +117,7 @@
   overflow: hidden;
   transition: all 0.3s;
   display: flex;
+  width: 100vw;
   flex-direction: row;
   justify-content: center;
 }
