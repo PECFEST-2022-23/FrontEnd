@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import classes from './TechCulturalSelector.module.css';
+import classes from './TwoHeadingSelector.module.css';
 
-const TechCulturalSelector = ({
+const TwoHeadingSelector = ({
   leftName = 'Technical',
   rightName = 'Cultural',
   leftRoute,
@@ -15,9 +15,7 @@ const TechCulturalSelector = ({
   const [isHoveredOnTechnical, setHoveredOnTechnical] = useState(false);
   const [isHoveredOnCultural, setHoveredOnCultural] = useState(false);
   const router = useRouter();
-  useEffect(() => {
-    // document.body.style.position = 'absolute';
-  });
+
   useEffect(() => {
     if (openTechnical || openCultural) {
       setTimeout(() => {
@@ -29,8 +27,9 @@ const TechCulturalSelector = ({
       }, 700);
     }
   }, [openTechnical, openCultural]);
+
   return (
-    <div>
+    <div style={{ position: 'fixed' }}>
       <div
         className={classes.sideBySideContainer}
         style={{ height: '100vh', display: 'flex' }}
@@ -98,65 +97,68 @@ const TechCulturalSelector = ({
           onClick={() => {
             setOpenTechnical(true);
           }}
+          className={classes.imageParallelContainer}
+          style={{
+            minHeight: openTechnical ? '100vh' : '50vh',
+            zIndex: openTechnical ? '1000' : '1',
+          }}
         >
           {!openCultural && (
-            <>
-              <h1
-                onClick={() => {
-                  setOpenTechnical(true);
-                }}
-                style={{ top: '40%' }}
-                className={`${classes.header_large}`}
-              >
-                {leftName}
-              </h1>
-
-              <img
-                src={technicalImageUrl}
-                style={{
-                  position: 'relative',
-                  width: '100vw',
-                  height: openTechnical ? '100vh' : '50vh',
-                }}
-                className={` ${classes.shade}`}
-              />
-            </>
+            <h1
+              onClick={() => {
+                setOpenTechnical(true);
+              }}
+              style={{
+                cursor: 'pointer',
+              }}
+              className={`${classes.header_large}`}
+            >
+              {leftName}
+            </h1>
           )}
+
+          <img
+            src={technicalImageUrl}
+            style={{
+              height: openTechnical ? '100vh' : '50vh',
+            }}
+            className={`${classes.culturalImage} ${classes.shade}`}
+          />
         </div>
 
         <div
           onClick={() => {
             setOpenCultural(true);
           }}
+          className={classes.imageParallelContainer}
+          style={{
+            position: 'absolute',
+            minHeight: openCultural ? '100%' : '50%',
+            bottom: '0',
+            zIndex: openCultural ? '1000' : '1',
+          }}
         >
           {!openTechnical && (
-            <>
-              <h1
-                onClick={() => {
-                  setOpenCultural(true);
-                }}
-                style={{ top: '90%' }}
-                className={`${classes.header_large}`}
-              >
-                {rightName}
-              </h1>
-
-              <img
-                src={culturalImageUrl}
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  width: '100vw',
-                  height: openCultural ? '100vh' : '50vh',
-                }}
-                className={` ${classes.shade}`}
-              />
-            </>
+            <h1
+              onClick={() => {
+                setOpenCultural(true);
+              }}
+              className={`${classes.header_large}`}
+            >
+              {rightName}
+            </h1>
           )}
+          <img
+            src={culturalImageUrl}
+            style={{
+              height: openCultural ? '100vh' : '50vh',
+            }}
+            className={`${classes.technicalImage} ${classes.shade}`}
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default TechCulturalSelector;
+export default TwoHeadingSelector;

@@ -20,6 +20,8 @@
   clip-path: polygon(100% 0, 100% 0%, 100% 100%, 100% 100%) !important;
 }
 .image {
+  height: 100vh;
+  width: 100vw;
   transition: all 0.3s;
   filter: brightness(40%);
 }
@@ -36,7 +38,7 @@
   transition: all 0.3s;
 }
 .image:hover {
-  filter: brightness(80%);
+  filter: brightness(100%);
 }
 .image:hover img {
   transform: scale(1.05);
@@ -68,7 +70,7 @@
 .technicalImage {
   height: 100vh;
   width: 100vw;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   object-fit: cover;
 }
 .header_large {
@@ -77,11 +79,11 @@
   font-weight: 700;
   position: absolute;
   top: 50%;
-  z-index: 1000;
+  z-index: 1;
+  cursor: pointer;
   color: white;
   line-height: 1;
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-white-rgb), var(--bs-text-opacity));
   padding-right: 3rem;
   padding-left: 3rem;
   margin-right: 3rem !important;
@@ -108,14 +110,32 @@
 .parallelContainer {
   display: none !important;
 }
-
+.imageParallelContainer {
+  cursor: pointer;
+  height: 50vh;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 @media (max-width: 768px) {
   .sideBySideContainer {
     display: none !important;
     cursor: pointer;
   }
   .parallelContainer {
-    display: block !important;
+    display: flex !important;
+    z-index: 1000;
+    height: 100vh;
+    flex-direction: column;
     cursor: pointer;
+  }
+}
+
+@media (max-width: 450px) {
+  .header_large {
+    font-size: 1.8em;
   }
 }
