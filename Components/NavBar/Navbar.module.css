@@ -1,0 +1,57 @@
+.container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.appbar {
+    background-color: #2D4059;
+    height: 75px;
+}
+
+.navbar_logo {
+    min-width: 0 !important;
+    min-height: 0 !important;
+    width: 50% !important;
+    height: 50% !important;
+    top: 10% !important;
+    background-color: #2D4059;
+    border-radius: 1rem;
+}
+
+.navbar_logo_shrunk {
+    min-width: 0 !important;
+    min-height: 0 !important;
+    width: 30% !important;
+    height: 30% !important;
+}
+
+.toolbar {
+    display: flex !important;
+    justify-content: center; 
+}
+
+.toolbar_box {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .toolbar_box {
+        display: none;
+    }
+
+    .navbar_logo {
+        max-width: 35% !important;
+        max-height: 35% !important;
+        margin-left: 25% !important;
+    }
+
+    .menu_logo {
+        max-width: 100px !important;
+        max-height: 100px !important;
+        width: 100px !important;
+        height: 100px !important;
+        margin: 0 auto !important;
+    }
+}
