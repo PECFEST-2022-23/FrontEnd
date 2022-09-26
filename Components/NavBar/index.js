@@ -1,7 +1,7 @@
 import styles from './Navbar.module.css';
 import pecfest from '../../public/PECFEST_Logo_Small.png';
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import Collapse from '@mui/material/Collapse';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -11,21 +11,28 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
+import NavData from './links.json';
 
 const drawerWidth = 240;
-const navItemsOne = ['Events', 'Competitions', 'Schedule'];
-const navItemsTwo = ['Merchandise', 'Sponsors', 'About Us'];
+const navItemsOne = NavData.slice(0, NavData.length / 2);
+const navItemsTwo = NavData.slice(NavData.length / 2);
 
 const Navbar = (props) => {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  // const [isShrunk, setShrunk] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+    setMobileOpen(true);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -38,22 +45,81 @@ const Navbar = (props) => {
   });
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Image
-        className={styles.menu_logo}
-        src={pecfest}
-        alt="PECFEST-Logo"
-      />
+    <Box
+      className={styles.navbar_drawer}
+      onClick={handleDrawerToggle}
+      sx={{ textAlign: 'center' }}
+    >
+      <Image className={styles.menu_logo} src={pecfest} alt="PECFEST-Logo" />
       <Divider />
       <List>
-        {navItemsOne.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {navItemsOne.map((item) =>
+          item.children ? (
+            <>
+              <ListItemButton onClick={handleClick}>
+                <ListItemText primary={item.name} />
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse
+                className={styles.navbar_collapse}
+                in
+                timeout="auto"
+                unmountOnExit
+              >
+                {item.children.map((child) => (
+                  <List key={child.name} component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemText primary={child.name} />
+                    </ListItemButton>
+                  </List>
+                ))}
+              </Collapse>
+            </>
+          ) : (
+            <ListItem key={item.name} disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <ListItemText primary={item.name} />
+              </ListItemButton>
+            </ListItem>
+          )
+        )}
       </List>
+      <Divider />
+      <List>
+        {navItemsTwo.map((item) =>
+          item.children ? (
+            <>
+              <ListItemButton onClick={handleClick}>
+                <ListItemText primary={item.name} />
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={open} timeout="auto" unmountOnExit>
+                {item.children.map((child) => (
+                  <List key={child.name} component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemText primary={child.name} />
+                    </ListItemButton>
+                  </List>
+                ))}
+              </Collapse>
+            </>
+          ) : (
+            <ListItem key={item.name} disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <ListItemText primary={item.name} />
+              </ListItemButton>
+            </ListItem>
+          )
+        )}
+      </List>
+      <Divider />
+      <Button>Register / Log In</Button>
+      <Divider />
+      <ListItem>
+        <ListItemButton sx={{ textAlign: 'center' }}>
+          <ListItemText primary={'Campus Ambassador'} />
+        </ListItemButton>
+      </ListItem>
     </Box>
   );
 
@@ -78,8 +144,8 @@ const Navbar = (props) => {
             sx={{ display: { xs: 'none', sm: 'none' } }}
           >
             {navItemsOne.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
+              <Button key={item.name} sx={{ color: '#fff' }}>
+                {item.name}
               </Button>
             ))}
           </Box>
@@ -93,10 +159,11 @@ const Navbar = (props) => {
             sx={{ display: { xs: 'none', sm: 'none' } }}
           >
             {navItemsTwo.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
+              <Button key={item.name} sx={{ color: '#fff' }}>
+                {item.name}
               </Button>
             ))}
+            <Button>Register / Log In</Button>
           </Box>
         </Toolbar>
       </AppBar>
@@ -120,6 +187,7 @@ const Navbar = (props) => {
         >
           {drawer}
         </Drawer>
+        <Button>Register / Log In</Button>
       </Box>
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />

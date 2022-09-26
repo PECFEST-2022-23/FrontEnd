@@ -36,6 +36,21 @@
     width: 100%;
 }
 
+.navbar_drawer {
+    background-color: #2D4059;
+    color: white;
+    height: 100vh;
+}
+
+.navbar_collapse {
+    display: flex;
+    justify-content: center;
+}
+
+.navbar_drawer > span {
+    max-width: 50% !important;
+}
+
 @media only screen and (max-width: 600px) {
     .toolbar_box {
         display: none;
@@ -47,11 +62,9 @@
         margin-left: 25% !important;
     }
 
-    .menu_logo {
-        max-width: 100px !important;
-        max-height: 100px !important;
-        width: 100px !important;
-        height: 100px !important;
-        margin: 0 auto !important;
+    .navbar_logo_shrunk {
+        max-height: 70px !important;
+        max-width: auto !important;
+        margin-left: 27.5% !important;
     }
 }
