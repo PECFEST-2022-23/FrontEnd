@@ -1,0 +1,39 @@
+[
+  {
+    "name": "Events",
+    "link": "events"
+  },
+  {
+    "name": "Competitions",
+    "link": "competitions"
+  },
+  {
+    "name": "Schedule",
+    "link": "schedule"
+  },
+  {
+    "name": "Merchandise",
+    "link": "merchandise"
+  },
+  {
+    "name": "Sponsors",
+    "link": "sponsors"
+  },
+  {
+    "name": "About PECFEST",
+    "children": [
+        {
+            "name": "The PECFEST Team",
+            "link": "team"
+        },
+        {
+            "name": "Developers",
+            "link": "developers"
+        },
+        {
+            "name": "Contact Us",
+            "link": "contact"
+        }
+    ]
+  }
+]
