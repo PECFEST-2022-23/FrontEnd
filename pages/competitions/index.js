@@ -1,4 +1,4 @@
-import TwoHeadingSelector from '../../Components/TwoHeadingSelector';
+import TwoHeadingSelector from '../../Components/TwoHeadingSelector/TwoHeadingSelector';
 
 const competitions = () => {
   return (
