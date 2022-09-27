@@ -1,0 +1,189 @@
+.main_container {
+    margin-top: 2.5rem;
+    overflow-x: hidden;
+  }
+  
+  .pageheader {
+    color: white !important;
+    font-family: "Audiowide", cursive;
+    font-size: 45px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-shadow: 5px 5px 5px #000;
+    text-align: center;
+    /* margin: 20px auto; */
+    /* padding: 10px 10px; */
+  }
+  
+@media screen and (max-width: 576px) {
+  
+  .pageheader {
+    font-size: 28px;
+  }
+
+}
+
+.contact {
+    position: relative;
+    min-height: 100vh;
+    padding: 0 100px 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.content{
+    max-width: 800px;
+    text-align: center;
+}
+
+
+.container {
+    /* width: 100%; */
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    margin-top: 30px;
+}
+
+.contactInfo {
+    width: 50%;
+}
+
+.box {
+    padding: 20px 0;
+}
+
+.icon {
+    min-width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid #FEC007;
+    font-size: 2em;
+}
+
+.contactIcon {
+    fill: #333;
+}
+
+.text {
+    margin-left: 20px;
+    font-size: 16px;
+    color: blue;
+    font-weight: 300;
+}
+
+.container .contactInfo .box .text h3{
+    font-weight: 500;
+    color: #8a8a8a !important;
+    margin: 0;
+}
+
+.container .contactInfo .box .text p{
+    transition: all 0.3s;
+    overflow-wrap: anywhere;
+    margin: 0;
+}
+
+.container .contactInfo .box .text p:hover{
+    transform: scale(1.1);
+}
+
+.socialInfo {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+}
+
+.social {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.socialIcon{
+    font-size: 1.7em;
+    transition: all 0.3s;
+    margin: 5px 10px 0 0;
+}
+  
+.socialIcon:hover{
+    transform: scale(1.3);
+}
+
+.instagram{
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.facebook{
+    color: #3b5998;
+    background-image: linear-gradient( to bottom, transparent 20%, white 20%, white 93%, transparent 93% );
+    background-size: 40%;
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+}
+
+.youtube{
+    color: #FF0000;
+    background-image: linear-gradient( to bottom, transparent 20%, white 10%, white 55%, transparent 93% );
+    background-size: 80%;
+    background-position: 40% 0%;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+}
+
+.linkedin{
+    color: #0A66C2;
+    background-image: linear-gradient( to bottom, transparent 15%, white 10%, white 75%, transparent 93% );
+    background-size: 80%;
+    background-position: 40% 0%;
+    background-repeat: no-repeat;
+}
+
+
+
+/* Contact Form */
+.contactForm{
+    width: 40%;
+    background: grey;
+    padding: 1em 2em;
+    border-radius: 15px;
+}
+
+.contactForm h2 {
+    font-size: 30px;
+    color: #333;
+    font-weight: 500;
+}
+
+.inputBox {
+    position: relative;
+    margin: 10px 0;
+}
+
+@media (max-width: 876px) {
+    .contact {
+        padding: 50px;
+    }
+    
+    .container {
+        flex-direction: column;
+    }
+
+    .container .contactInfo {
+        margin-bottom: 40px;
+    }
+
+    .container .contactInfo,
+    .contactForm {
+        width: 100%;
+    }
+}
+    
