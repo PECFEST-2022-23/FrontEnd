@@ -19,6 +19,7 @@ import Button from '@mui/material/Button';
 import Image from 'next/image';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import NavData from './links.json';
+import Link from 'next/link';
 
 const drawerWidth = 240;
 const navItemsOne = NavData.slice(0, NavData.length / 2);
@@ -50,7 +51,9 @@ const Navbar = (props) => {
       onClick={handleDrawerToggle}
       sx={{ textAlign: 'center' }}
     >
-      <Image className={styles.menu_logo} src={pecfest} alt="PECFEST-Logo" />
+      <Link href={`/`}>
+        <Image className={styles.menu_logo} src={pecfest} alt="PECFEST-Logo" />
+      </Link>
       <Divider />
       <List>
         {navItemsOne.map((item) =>
@@ -68,18 +71,22 @@ const Navbar = (props) => {
               >
                 {item.children.map((child) => (
                   <List key={child.name} component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemText primary={child.name} />
-                    </ListItemButton>
+                    <Link href={`/${child.link}`}>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemText primary={child.name} />
+                      </ListItemButton>
+                    </Link>
                   </List>
                 ))}
               </Collapse>
             </>
           ) : (
             <ListItem key={item.name} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
+              <Link href={`/${item.link}`}>
+                <ListItemButton sx={{ textAlign: 'center' }}>
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              </Link>
             </ListItem>
           )
         )}
@@ -96,18 +103,22 @@ const Navbar = (props) => {
               <Collapse in={open} timeout="auto" unmountOnExit>
                 {item.children.map((child) => (
                   <List key={child.name} component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemText primary={child.name} />
-                    </ListItemButton>
+                    <Link href={`/${child.link}`}>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemText primary={child.name} />
+                      </ListItemButton>
+                    </Link>
                   </List>
                 ))}
               </Collapse>
             </>
           ) : (
             <ListItem key={item.name} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
+              <Link href={`/${item.link}`}>
+                <ListItemButton sx={{ textAlign: 'center' }}>
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              </Link>
             </ListItem>
           )
         )}
@@ -116,9 +127,11 @@ const Navbar = (props) => {
       <Button>Register / Log In</Button>
       <Divider />
       <ListItem>
-        <ListItemButton sx={{ textAlign: 'center' }}>
-          <ListItemText primary={'Campus Ambassador'} />
-        </ListItemButton>
+        <Link href={`/ambassador`}>
+          <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemText primary={'Campus Ambassador'} />
+          </ListItemButton>
+        </Link>
       </ListItem>
     </Box>
   );
@@ -127,7 +140,7 @@ const Navbar = (props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box className={styles.appbar_box} sx={{ display: 'flex' }}>
       <AppBar component="nav" className={styles.appbar}>
         <Toolbar className={styles.toolbar}>
           <IconButton
@@ -145,25 +158,37 @@ const Navbar = (props) => {
           >
             {navItemsOne.map((item) => (
               <Button key={item.name} sx={{ color: '#fff' }}>
-                {item.name}
+                <Link href={`/${item.link}`}>{item.name}</Link>
               </Button>
             ))}
           </Box>
-          <Image
-            className={trigger ? styles.navbar_logo_shrunk : styles.navbar_logo}
-            src={pecfest}
-            alt="PECFEST-Logo"
-          />
+          <Link href="/">
+            <Image
+              className={
+                trigger ? styles.navbar_logo_shrunk : styles.navbar_logo
+              }
+              src={pecfest}
+              alt="PECFEST-Logo"
+            />
+          </Link>
           <Box
             className={styles.toolbar_box}
             sx={{ display: { xs: 'none', sm: 'none' } }}
           >
             {navItemsTwo.map((item) => (
-              <Button key={item.name} sx={{ color: '#fff' }}>
-                {item.name}
-              </Button>
+              item.children ? (
+                <Button key={item.name} sx={{ color: '#fff' }}>
+                  {item.name}
+                </Button>
+              ) : (
+                <Button key={item.name} sx={{ color: '#fff' }}>
+                  <Link href={`/${item.link}`}>{item.name}</Link>
+                </Button>
+              )
             ))}
-            <Button>Register / Log In</Button>
+            <Button>
+              <Link href={`/login`}>Register / Log In</Link>
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
@@ -187,7 +212,9 @@ const Navbar = (props) => {
         >
           {drawer}
         </Drawer>
-        <Button>Register / Log In</Button>
+        <Button>
+          <Link href={`/login`}>Register / Log In</Link>
+        </Button>
       </Box>
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
