@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Container,
   Box,
@@ -12,6 +12,11 @@ import {
   DialogContent,
   Input,
   FormHelperText,
+  Card,
+  CardContent,
+  CardActions,
+  CardMedia,
+  CardHeader,
 } from '@mui/material';
 import { DropzoneArea } from 'mui-file-dropzone';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
@@ -20,8 +25,9 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import SampleData from './sample.json';
 
-const EventDialog = ({ onClose, open }) => {
+const EventDialog = ({ onClose, open, eventId }) => {
   const eventObj = {
     eventName: '',
     eventStart: Date(),
@@ -79,7 +85,7 @@ const EventDialog = ({ onClose, open }) => {
 
   const handleEventSubmit = (e) => {
     e.preventDefault();
-    if(!dateError) {
+    if (!dateError) {
       // make POST request
       console.log(event);
       setEvent(eventObj);
@@ -87,9 +93,29 @@ const EventDialog = ({ onClose, open }) => {
     }
   };
 
+  useEffect(() => {
+    // get data from backend for a particular event
+    eventId &&
+      (async () => {
+        // tinker with date formats
+        const startDateTimeObj = new Date(SampleData.eventStart * 1000);
+        const endDateTimeObj = new Date(SampleData.eventEnd * 1000);
+        setEvent({
+          ...SampleData,
+          eventStart: startDateTimeObj,
+          eventEnd: endDateTimeObj,
+        });
+      })();
+  }, [eventId, event]);
+
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle sx={{ textAlign: 'center' }}>Add a New Event</DialogTitle>
+    <Dialog
+      open={open}
+      onClose={onClose}
+    >
+      <DialogTitle sx={{ textAlign: 'center' }}>
+        {eventId ? `Edit Event Details` : `Add a New Event`}
+      </DialogTitle>
       <DialogContent>
         <Box
           component="form"
@@ -219,7 +245,7 @@ const EventDialog = ({ onClose, open }) => {
             </Grid>
             <Grid item xs={12} sm={12}>
               <Button fullWidth variant="contained" type="submit">
-                Add Event
+                {eventId ? `Edit Event` : `Add Event`}
               </Button>
             </Grid>
           </Grid>
@@ -229,11 +255,39 @@ const EventDialog = ({ onClose, open }) => {
   );
 };
 
+const EventCard = ({ id, openDialog }) => {
+  // Design will be changed, This is a basic one
+  return (
+    <Card variant="outlined">
+      <CardContent>
+        <CardHeader>
+          <Typography sx={{ fontSize: 20 }}>Event Name</Typography>
+        </CardHeader>
+        <CardMedia
+          component="img"
+          height="194"
+          image="https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg"
+          alt="Event Photo"
+        />
+      </CardContent>
+      <CardActions sx={{ justifyContent: 'center' }}>
+        <Button variant="contained" size="small" onClick={openDialog}>
+          Edit Information
+        </Button>
+        <Button variant="outlined" size="small">
+          Delete Event
+        </Button>
+      </CardActions>
+    </Card>
+  );
+};
+
 const AdminPanel = () => {
   const [currentUser, setCurrentUser] = useState(
     "Speakers' Association and Study Circle"
   );
   const [eventDialogOpen, setEventDialogOpen] = useState(false);
+  const [eventEditDialogOpen, setEventEditDialogOpen] = useState(false);
 
   const handleAddEventOpen = () => {
     setEventDialogOpen(true);
@@ -243,20 +297,30 @@ const AdminPanel = () => {
     setEventDialogOpen(false);
   };
 
+  const handleEditEventOpen = () => {
+    setEventEditDialogOpen(true);
+  };
+
+  const handleEditEventClose = () => {
+    setEventEditDialogOpen(false);
+  };
+
   return (
-    <Container component={`main`} maxWidth={`xs`}>
+    <Container component={`main`}>
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
+          maxWidth: '440px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexWrap: 'wrap',
           gap: '1em',
+          margin: 'auto',
+          marginTop: 8,
         }}
       >
-        <Typography variant={`h5`}>Events by {currentUser}</Typography>
+        <Typography variant={`h5`}>Events by: {currentUser}</Typography>
         <Button
           sx={{ display: 'flex', gap: '1em', alignItems: 'center' }}
           variant={`contained`}
@@ -264,8 +328,28 @@ const AdminPanel = () => {
         >
           Add an Event <AddBoxOutlinedIcon />
         </Button>
-        <EventDialog open={eventDialogOpen} onClose={handleAddEventClose} />
+        <EventDialog
+          open={eventDialogOpen}
+          onClose={handleAddEventClose}
+          eventId={null}
+        />
       </Box>
+      <Grid
+        sx={{ mt: 8, justifyContent: 'center', gap: '2em', mb: 4 }}
+        container
+        fullWidth
+      >
+        {[1, 2, 3, 4, 5, 6].map((event, idx) => (
+          <>
+            <EventCard openDialog={handleEditEventOpen} key={idx} id={idx} />
+            <EventDialog
+              open={eventEditDialogOpen}
+              onClose={handleEditEventClose}
+              eventId={idx}
+            />
+          </>
+        ))}
+      </Grid>
     </Container>
   );
 };
