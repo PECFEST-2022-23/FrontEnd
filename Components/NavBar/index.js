@@ -175,7 +175,7 @@ const Navbar = (props) => {
             className={styles.toolbar_box}
             sx={{ display: { xs: 'none', sm: 'none' } }}
           >
-            {navItemsTwo.map((item) => (
+            {navItemsTwo.map((item) =>
               item.children ? (
                 <Button key={item.name} sx={{ color: '#fff' }}>
                   {item.name}
@@ -185,7 +185,7 @@ const Navbar = (props) => {
                   <Link href={`/${item.link}`}>{item.name}</Link>
                 </Button>
               )
-            ))}
+            )}
             <Button>
               <Link href={`/login`}>Register / Log In</Link>
             </Button>
