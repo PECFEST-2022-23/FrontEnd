@@ -2,7 +2,7 @@
     /* background-image: linear-gradient(to bottom right, #EA5455, #2D4059); */
     /* background-image: linear-gradient(to bottom right, #F07B3F, #EA5455); */
     position: relative;
-    background-color: #2D4059;
+    background-color: #062043;
 }
 
 .circles {
@@ -16,7 +16,7 @@
     width: 800px;
     padding: 0px;
     margin: 0px;
-    background-image: radial-gradient(#F07B3F 0%, #2D4059 70%);
+    background-image: radial-gradient(#909090 0%, #062043 70%);
     border-radius: 50%;
     opacity: 0.5;
 }
