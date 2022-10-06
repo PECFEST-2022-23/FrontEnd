@@ -30,7 +30,7 @@ const GradientBackground = (props) => {
   useEffect(() => {
     setHeight(childRef.current.clientHeight);
     setWidth(childRef.current.clientWidth);
-    const count = height;
+    const count = 2 * height;
     const circles = [];
     const coord = [[-250, -250]];
     for (let i = 0; i < count; i++) {
@@ -47,7 +47,7 @@ const GradientBackground = (props) => {
           )
         );
       }
-      if (dis >= (4 * circleRef.current.clientWidth) / 3) {
+      if (dis >= 2 * circleRef.current.clientWidth) {
         coord.push([x, y]);
         circles.push(
           <div
@@ -59,7 +59,7 @@ const GradientBackground = (props) => {
       }
     }
     setCirclesArray(circles);
-  }, [props, height, width, windowSize]);
+  }, [props, height, width, windowSize.width]);
 
   return (
     <div className={styles.gradient}>
