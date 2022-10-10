@@ -1,0 +1,86 @@
+.main_container {
+    margin-top: 2.5rem;
+    overflow-x: hidden;
+  }
+  
+  .pageheader {
+    color: white !important;
+    font-family: "Audiowide", cursive;
+    font-size: 45px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-shadow: 5px 5px 5px #000;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px 10px;
+    /* margin-bottom: 70vh; */
+  }
+  
+@media screen and (max-width: 576px) {
+  
+  .pageheader {
+    font-size: 28px;
+    margin-bottom: 100vh;
+  }
+
+}
+
+.schedule {
+    position: relative;
+    min-height: 100vh;
+    padding: 0 100px 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tabs {
+    position: relative;
+    /* min-height: 100vh; */
+    padding: 0 100px;
+    margin-bottom: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.eventlist {
+    position: relative;
+    margin-top: 25px;
+}
+
+.eventheader {
+  position: relative;
+  border: solid white;
+  border-radius: 5px;
+  margin: 16px 0;
+
+}
+
+.event {
+    position: relative;
+    border: 1px solid #000;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.eventobject {
+    padding: 10px !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.scheduleimage {
+  position: relative;
+  display: inline-block;
+  padding: 20px;
+}
+
+@media (max-width: 876px) {
+    .schedule {
+        padding: 50px;
+    }
+}
+    
