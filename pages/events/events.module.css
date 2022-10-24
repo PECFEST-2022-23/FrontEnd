@@ -1,0 +1,63 @@
+.eventElementHeading {
+    color: #576F72;
+    text-align: center;
+    font-size: 28px !important;
+    font-weight: bold !important;
+}
+
+.eventCard {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 #8E3200, 0 6px 20px 0 #8E3200;
+}
+
+.borderCardMediaDiv {
+    position: relative;
+}
+
+.borderCardMedia {
+    padding: 0;
+}
+
+.imageCardMediaDiv {
+    width: 78%;
+    position: absolute;
+    color: white;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 42%;
+    transform: translateY(-42%);
+}
+
+.imageCardMedia {
+    padding: 0;
+    border-radius: 10px;
+}
+
+.eventContentDiv {
+    margin-top: 30px;
+}
+
+.eventContent {
+    color: #576F72;
+}
+
+.iconButton {
+    color: #F1A661 !important;
+    margin-right: 2%;
+}
+
+.eventTimePlace {
+    font-weight: bold;
+    color: #576F72;
+}
+
+.project-button {
+    background: linear-gradient(45deg, #e65d7a, #D82148, rgb(16, 106, 106), cyan);
+}
+
+.eventButton {
+    background: linear-gradient(45deg, #805106, #d48b16, #eead43, #f3ca88);
+    margin-top: 0;
+}
