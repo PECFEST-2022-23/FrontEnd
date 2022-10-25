@@ -1,0 +1,86 @@
+.container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.appbar_box {
+  margin-bottom: -50px !important;
+}
+
+.appbar_box a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.appbar_box a:hover {
+  color: #f07b3f;
+}
+
+.appbar {
+  background-color: black;
+  height: 75px;
+}
+
+.navbar_logo {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: 10rem !important;
+  height: 10rem !important;
+  top: 10% !important;
+  background-color: black;
+  border-radius: 1rem;
+  z-index: 2 !important;
+  cursor: pointer;
+}
+
+.navbar_logo_shrunk {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: 30% !important;
+  height: 30% !important;
+}
+
+.toolbar {
+  display: flex !important;
+  justify-content: center;
+  color: white;
+}
+
+.toolbar_box {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.navbar_drawer {
+  background-color: black;
+  color: white;
+  height: 100vh;
+}
+
+.navbar_collapse {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar_drawer > span {
+  max-width: 50% !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .toolbar_box {
+    display: none;
+  }
+
+  .navbar_logo {
+    max-width: 35% !important;
+    max-height: 35% !important;
+    margin-left: 25% !important;
+  }
+
+  .navbar_logo_shrunk {
+    max-height: 70px !important;
+    max-width: auto !important;
+    margin-left: 27.5% !important;
+  }
+}

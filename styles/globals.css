@@ -15,10 +15,36 @@ a {
   box-sizing: border-box;
 }
 
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: -2px;
+}
+
+*::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: -2px;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: black;
