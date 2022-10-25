@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import GradientBackground from '../../../../Components/Backgrounds/GradientBackground';
 import Event from '../../../../Components/Event/Event';
 
-const CulturalEventDetails = () => {
+const TechnicalEventDetails = () => {
   const router = useRouter();
   const { id } = router.query;
   const eventDetails = {
@@ -28,4 +28,4 @@ const CulturalEventDetails = () => {
   );
 };
 
-export default CulturalEventDetails;
+export default TechnicalEventDetails;

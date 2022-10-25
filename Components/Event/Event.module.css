@@ -1,0 +1,24 @@
+.imageGridItem {
+  position: relative;
+  height: 80vh;
+  margin: 12px auto;
+  background: white;
+  border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
+  color: white;
+  box-shadow: 20px 20px rgba(0, 0, 0, 0.85);
+  transition: all 0.4s ease;
+}
+
+.imageGridItem:hover {
+  border-radius: 0% 0% 50% 50% / 0% 0% 5% 5%;
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.95);
+}
+
+.Card {
+  background-color: transparent;
+  color: white;
+  border: dashed 5px grey;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  letter-spacing: 0.3ch;
+  position: relative;
+}

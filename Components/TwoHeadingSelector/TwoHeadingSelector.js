@@ -8,8 +8,8 @@ const TwoHeadingSelector = ({
   rightName = 'Cultural',
   leftRoute,
   rightRoute,
-  technicalImageUrl,
-  culturalImageUrl,
+  leftImageUrl,
+  rightImageUrl,
 }) => {
   const [openTechnical, setOpenTechnical] = useState(false);
   const [openCultural, setOpenCultural] = useState(false);
@@ -62,7 +62,7 @@ const TwoHeadingSelector = ({
           <Image
             layout="fill"
             alt="Technical Image"
-            src={technicalImageUrl}
+            src={leftImageUrl}
             className={`${classes.culturalImage}`}
           />
         </div>
@@ -95,7 +95,7 @@ const TwoHeadingSelector = ({
           <Image
             layout="fill"
             alt="Cultural Image"
-            src={culturalImageUrl}
+            src={rightImageUrl}
             className={`${classes.technicalImage}`}
           />
         </div>
@@ -131,7 +131,7 @@ const TwoHeadingSelector = ({
           <Image
             layout="fill"
             alt="Technical Image"
-            src={technicalImageUrl}
+            src={leftImageUrl}
             style={{
               height: openTechnical ? '100vh' : '50vh',
             }}
@@ -165,7 +165,7 @@ const TwoHeadingSelector = ({
           <Image
             layout="fill"
             alt="Cultural Image"
-            src={culturalImageUrl}
+            src={rightImageUrl}
             style={{
               height: openCultural ? '100vh' : '50vh',
             }}
