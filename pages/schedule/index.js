@@ -43,7 +43,6 @@ function Schedule() {
           </Box>
           <Box className={styles.eventlist}>
             <Grid container spacing={2} className={styles.eventheader}>
-<<<<<<< HEAD
               <Grid container item md={3} className={styles.eventobject}>
                 Event Name
               </Grid>
@@ -57,22 +56,6 @@ function Schedule() {
                 Venue
               </Grid>
             </Grid>
-=======
-                <Grid container item md={3} className={styles.eventobject}>
-                  Event Name
-                </Grid>
-                <Grid container item md={2} className={styles.eventobject}>
-                  Date
-                </Grid>
-                <Grid container item md={2} className={styles.eventobject}>
-                  Time
-                </Grid>
-                <Grid container item md={3} className={styles.eventobject}>
-                  Venue
-                </Grid>
-                
-              </Grid>
->>>>>>> eb0403a31258d47abfa5b161e1e71e7b924f7ccd
           </Box>
           {alignment == 'ongoing' ? (
             <Box className={styles.eventlist}>
@@ -93,10 +76,6 @@ function Schedule() {
                   <Button>Register</Button>
                 </Grid>
               </Grid>
-<<<<<<< HEAD
-=======
-              
->>>>>>> eb0403a31258d47abfa5b161e1e71e7b924f7ccd
             </Box>
           ) : (
             <></>
