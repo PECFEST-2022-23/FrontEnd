@@ -10,10 +10,13 @@
     "prettify": "prettier --write \"**/*.{js, jsx}\""
   },
   "dependencies": {
+<<<<<<< HEAD
     "next": "12.2.5",
     "next-auth": "^4.12.0",
     "nodemailer": "^6.7.8",
     "normalize.css": "^8.0.1",
+=======
+>>>>>>> eb0403a31258d47abfa5b161e1e71e7b924f7ccd
     "@emotion/react": "11.10.4",
     "@emotion/server": "11.10.0",
     "@emotion/styled": "11.10.4",
@@ -22,6 +25,11 @@
     "@mui/x-date-pickers": "^5.0.3",
     "dayjs": "^1.11.5",
     "mui-file-dropzone": "^4.0.2",
+<<<<<<< HEAD
+=======
+    "next": "12.3.1",
+    "normalize.css": "8.0.1",
+>>>>>>> eb0403a31258d47abfa5b161e1e71e7b924f7ccd
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },

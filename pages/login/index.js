@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+<<<<<<< HEAD
 import styles from './Login.module.css';
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
@@ -14,6 +15,12 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 export default function Login() {
   const router = useRouter();
   const { data: session } = useSession();
+=======
+import { useRouter } from 'next/router';
+
+export default function Login() {
+  const router = useRouter();
+>>>>>>> eb0403a31258d47abfa5b161e1e71e7b924f7ccd
 
   function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
@@ -50,6 +57,7 @@ export default function Login() {
     }
   };
 
+<<<<<<< HEAD
   if (session)
     return (
       <div>
@@ -139,4 +147,75 @@ export default function Login() {
         </Box>
       </Container>
     );
+=======
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          Login
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            style={{ minHeight: '40px' }}
+          >
+            <Grid item xs={3}>
+              <div className="g-signin2" data-onsuccess="onSignIn">
+                Sign inSigned in
+              </div>
+            </Grid>
+          </Grid>
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item>
+              <NextLink href={'/signup'}>
+                <Link variant="body2">{"Don't have an account? Sign Up"}</Link>
+              </NextLink>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
+  );
+>>>>>>> eb0403a31258d47abfa5b161e1e71e7b924f7ccd
 }
