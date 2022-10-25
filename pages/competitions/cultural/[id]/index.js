@@ -7,7 +7,11 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box, shadows, textAlign } from '@mui/system';
+import GradientBackground from '../../../../Components/Backgrounds/GradientBackground';
 import CardHeader from '@mui/material/CardHeader';
+import RoomIcon from '@mui/icons-material/Room';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import EventIcon from '@mui/icons-material/Event';
 
 const EventDetails = () => {
   const router = useRouter();
@@ -18,7 +22,8 @@ const EventDetails = () => {
     name: 'Lorem Ipsum',
     desc: `Hi, Sports enthusiasts 👋\n We are back with the first sports event- MARATHON 🏃‍♂️🏃‍♀️\n 92.7 FM Chandigarh is organising Chandigarh Marathon season-7 on 2nd October, 2022 (Sunday) at Chandigarh Club from 6 am till 9am.\n To promote this event, PEC is organising a session on 28 September, 2022 (Wednesday) in the PEC Auditorium at 5pm. An RJ from BIG FM will be conducting some exciting activities after the session, such as Skipping, pushups, etc. \n Goodies and gift vouchers will be provided to the attendees.🎁 \n Everybody is encouraged to attend this event and contribute to the cause. \n See you all.\n  For any queries contact:\n Anubhav Tuknayat- 7011015656\n Ayushi Bagga- 9876753080`,
     id: id,
-    date: '29th October 2001, 5:30 PM',
+    date: '29th October 2001',
+    time: '5:30 PM',
     location: 'Cyber Security center 2nd floor sector 15, Chandigarh',
     isRegisterationOpen: true,
     rulebookUrl:
@@ -26,63 +31,74 @@ const EventDetails = () => {
     isTeamEvent: true,
   };
   return (
-    <div style={{ margin: '30px' }}>
-      <Grid container spacing={2} direction="row-reverse">
-        <Grid
-          item
-          xs={12}
-          md={6}
-          style={{
-            position: 'relative',
-            height: '80vh',
-            margin: 'auto',
-          }}
-        >
-          <Image
-            priority
-            layout="fill"
-            alt="Cultural Image"
-            src={eventDetails.poster}
-          />
-        </Grid>
-        <Grid item xs={12} md={5} style={{ margin: '0 auto' }}>
-          <Card>
-            <CardHeader
-              title={eventDetails.name}
-              subheader={
-                <span>
-                  {eventDetails.date} <br />
-                  {eventDetails.location}
-                </span>
-              }
+    <GradientBackground>
+      <div style={{ margin: '30px', marginTop: '50px' }}>
+        <Grid container spacing={2} direction="row-reverse">
+          <Grid
+            item
+            xs={12}
+            sm={9}
+            md={5}
+            style={{
+              position: 'relative',
+              height: '80vh',
+              margin: 'auto',
+            }}
+          >
+            <Image
+              priority
+              layout="fill"
+              alt="Cultural Image"
+              src={eventDetails.poster}
             />
-            <CardContent>
-              <hr />
-              <br />
-              <br />
-              <Typography variant="body2" style={{ textAlign: 'justify' }}>
-                {eventDetails.desc}
-                {/* <div style={{ textAlign: 'justify' }}>{eventDetails.desc}</div> */}
+          </Grid>
+          <Grid item sm={12} md={6} style={{ margin: '0 auto' }}>
+            <Card>
+              <CardHeader
+                title={eventDetails.name}
+                subheader={
+                  <span>
+                    <br />
+                    <EventIcon style={{ verticalAlign: '-5px' }} />{' '}
+                    {eventDetails.date} <br />
+                    <AccessTimeIcon style={{ verticalAlign: '-5px' }} />{' '}
+                    {eventDetails.time}
+                    <br />
+                    <RoomIcon
+                      style={{ color: 'red', verticalAlign: '-5px' }}
+                    />{' '}
+                    {eventDetails.location}
+                  </span>
+                }
+              />
+              <CardContent>
+                <hr />
                 <br />
-              </Typography>
-            </CardContent>
-            <br />
-            <CardActions>
-              <a href={eventDetails.rulebookUrl}>
-                <Button variant="contained" size="small">
-                  Rulebook
-                </Button>
-              </a>
-              <a href="#">
-                <Button variant="contained" size="small">
-                  Register
-                </Button>
-              </a>
-            </CardActions>
-          </Card>
+                <br />
+                <Typography variant="body2" style={{ textAlign: 'justify' }}>
+                  {eventDetails.desc}
+                  {/* <div style={{ textAlign: 'justify' }}>{eventDetails.desc}</div> */}
+                  <br />
+                </Typography>
+              </CardContent>
+              <br />
+              <CardActions>
+                <a href={eventDetails.rulebookUrl}>
+                  <Button variant="contained" size="small">
+                    Rulebook
+                  </Button>
+                </a>
+                <a href="#">
+                  <Button variant="contained" size="small">
+                    Register
+                  </Button>
+                </a>
+              </CardActions>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </div>
+    </GradientBackground>
   );
 };
 
