@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import styles from './Login.module.css';
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
 
@@ -97,18 +98,6 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
             />
-            <Grid
-              container
-              spacing={0}
-              direction="column"
-              alignItems="center"
-              justifyContent="center"
-              style={{ minHeight: '40px' }}
-            >
-              <Grid item xs={3}>
-                <Button onClick={() => signIn()}>Login</Button>
-              </Grid>
-            </Grid>
 
             <Button
               type="submit"
@@ -118,6 +107,25 @@ export default function Login() {
             >
               Sign In
             </Button>
+
+            <Grid
+              container
+              spacing={0}
+              direction="column"
+              alignItems="center"
+              justifyContent="center"
+              style={{ minHeight: '40px' }}
+            >
+              <Grid item xs={3}>
+                <Button
+                  onClick={() => signIn('google')}
+                  className={styles.google_btn}
+                >
+                  Sign In With Google
+                </Button>
+              </Grid>
+            </Grid>
+
             <Grid container>
               <Grid item>
                 <NextLink href={'/signup'}>

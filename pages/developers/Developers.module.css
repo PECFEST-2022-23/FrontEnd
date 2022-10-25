@@ -1,27 +1,22 @@
 .main_container {
-    margin-top: 3.5em;
-    overflow-x: hidden;
-  }
-  
-  .pageheader {
-    color: white !important;
-    font-family: "Audiowide", cursive;
-    font-size: 45px;
-    font-weight: 700;
-    letter-spacing: 5px;
-    text-shadow: 5px 5px 5px #000;
-    text-align: center;
-    /* margin: 20px auto; */
-    /* padding: 10px 10px; */
-  }
-  
+  margin-top: 3.5em;
+  overflow-x: hidden;
+}
+
+.pageheader {
+  color: white !important;
+  font-family: 'Audiowide', cursive;
+  font-size: 45px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-shadow: 5px 5px 5px #000;
+  text-align: center;
+  /* margin: 20px auto; */
+  /* padding: 10px 10px; */
+}
+
 @media screen and (max-width: 576px) {
-  
   .pageheader {
     font-size: 28px;
   }
-
 }
-
-
-    

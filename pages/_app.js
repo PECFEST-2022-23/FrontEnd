@@ -22,7 +22,6 @@ export default function MyApp(props) {
   } = props;
 
   return (
-<<<<<<< HEAD
     <SessionProvider session={session}>
       <CacheProvider value={emotionCache}>
         <Head>
@@ -31,23 +30,11 @@ export default function MyApp(props) {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
+          <Navbar />
           <Component {...pageProps} />
         </ThemeProvider>
       </CacheProvider>
     </SessionProvider>
-=======
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </Head>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <Navbar />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </CacheProvider>
->>>>>>> eb0403a31258d47abfa5b161e1e71e7b924f7ccd
   );
 }
 
