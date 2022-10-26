@@ -37,7 +37,7 @@ const Event = (props) => {
           <Card raised className={classes.Card}>
             <CardHeader
               title={
-                <span style={{ fontWeight: 'bold', fontSize: '55px' }}>
+                <span style={{ fontWeight: 'bold', fontSize: '40px' }}>
                   {props.eventDetails?.name}
                 </span>
               }
@@ -75,13 +75,7 @@ const Event = (props) => {
             <CardContent>
               <hr />
               <br />
-              <Typography
-                variant="body2"
-                style={{
-                  textAlign: 'justify',
-                  whiteSpace: 'pre-line',
-                }}
-              >
+              <Typography variant="body2" className={classes.eventDescription}>
                 {props.eventDetails?.desc}
               </Typography>
             </CardContent>
