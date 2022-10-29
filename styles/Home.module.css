@@ -62,8 +62,11 @@
 
 .parallaxIndianOdyssey {
   position: absolute;
-  width: 100%;
-  bottom: 7%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 80%;
+  bottom: 10%;
   z-index: 2;
 }
 
