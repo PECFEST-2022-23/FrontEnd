@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -10,43 +11,42 @@ import Container from '@mui/material/Container';
 import styles from './Login.module.css';
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { encrypt } from '../../lib/auth/enctryption';
+import getAuthData from '../../lib/auth/getAuthData';
 
 export default function Login() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  function onSignIn(googleUser) {
-    var id_token = googleUser.getAuthResponse().id_token;
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', process.env.NEXT_PUBLIC_BACKEND_API + '/goolgeauth');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onload = function () {
-      if (xhr.responseText === 'success') {
-        router.push('/');
-      } else if (xhr.responseText === 'incomplete') {
-        router.push('/profile');
-      }
-    };
-    xhr.send(JSON.stringify({ token: id_token }));
-  }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const email = data.get;
-    const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_API + '/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: data.get('email'),
-        password: data.get('password'),
-      }),
-    }).then((res) => res.json());
-    if (res.message === 'success') {
-      router.push('/');
-    } else if (res.message === 'incomplete') {
-      router.push('/profile');
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_BACKEND_API + '/auth/login/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.get('email'),
+          password: data.get('password'),
+        }),
+      }
+    ).then((res) => res.json());
+    if (res.user_status === '1') {
+      if (res.message === 'Please Verify the link sent on your email')
+        toast.info(res.message);
+      else toast.error(res.message);
+      const form = document.getElementById('login_form');
+      form.reset();
     } else {
-      router.push('/register');
+      toast.success('Login successful.');
+      const user = res.user,
+        token = res.token;
+      localStorage.setItem('user', encrypt(JSON.stringify(user)));
+      localStorage.setItem('token', encrypt(JSON.stringify(token)));
+      router.push('/');
     }
   };
 
@@ -77,6 +77,7 @@ export default function Login() {
             onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}
+            id="login_form"
           >
             <TextField
               margin="normal"
@@ -131,6 +132,13 @@ export default function Login() {
                 <NextLink href={'/signup'}>
                   <Link variant="body2">
                     {"Don't have an account? Sign Up"}
+                  </Link>
+                </NextLink>
+              </Grid>
+              <Grid item>
+                <NextLink href={'/reset-password'}>
+                  <Link variant="body2">
+                    {'Forgot Password? Reset password'}
                   </Link>
                 </NextLink>
               </Grid>

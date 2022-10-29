@@ -13,7 +13,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GradientBackground from '../../components/Backgrounds/GradientBackground';
+import GradientBackground from '../../Components/Backgrounds/GradientBackground';
 // import TeamMemberCard from '../../Components/TeamTiles/TeamMemberCard';
 
 function ContactUs() {
