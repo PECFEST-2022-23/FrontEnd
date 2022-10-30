@@ -109,10 +109,7 @@ const EventDialog = ({ onClose, open, eventId }) => {
   }, [eventId, event]);
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-    >
+    <Dialog open={open} onClose={onClose}>
       <DialogTitle sx={{ textAlign: 'center' }}>
         {eventId ? `Edit Event Details` : `Add a New Event`}
       </DialogTitle>
