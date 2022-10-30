@@ -1,0 +1,34 @@
+.mainHeading {
+  color: #f1a661;
+  text-align: center;
+  margin-top: 90px;
+  margin-bottom: 1px;
+}
+.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 250px;
+  width: 200px;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+.front_face,
+.back_face {
+  height: 80%;
+  width: 100%;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  transform: translateY(0deg);
+  border-radius: 10px;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+.center:hover > .back_face {
+  transform: rotateY(0deg);
+}
+.center:hover > .front_face {
+  transform: rotateY(-180deg);
+}

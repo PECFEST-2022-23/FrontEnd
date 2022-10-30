@@ -1,95 +1,97 @@
 .eventElementHeading {
-    color: #576F72;
-    text-align: center;
-    font-size: 28px !important;
-    font-weight: bold !important;
+  color: #576f72;
+  text-align: center;
+  font-size: 28px !important;
+  font-weight: bold !important;
 }
 
 .eventCard {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 #8E3200, 0 6px 20px 0 #8E3200;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 #8e3200, 0 6px 20px 0 #8e3200;
 }
 
 .borderCardMediaDiv {
-    position: relative;
+  position: relative;
 }
 
 .borderCardMedia {
-    padding: 0;
+  padding: 0;
 }
 
 .imageCardMediaDiv {
-    width: 78%;
-    position: absolute;
-    color: white;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: 42%;
-    transform: translateY(-42%);
+  width: 78%;
+  position: absolute;
+  color: white;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 42%;
+  transform: translateY(-42%);
 }
 
 .imageCardMedia {
-    padding: 0;
-    border-radius: 10px;
+  padding: 0;
+  border-radius: 10px;
 }
 
 .eventContentDiv {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .eventContent {
-    color: #576F72;
+  color: #576f72;
 }
 
 .iconButton {
-    color: #F1A661 !important;
-    margin-right: 2%;
+  color: #f1a661 !important;
+  margin-right: 2%;
 }
 
 .eventTimePlace {
-    font-weight: bold;
-    color: #576F72;
+  font-weight: bold;
+  color: #576f72;
 }
 
 .project-button {
-    background: linear-gradient(45deg, #e65d7a, #D82148, rgb(16, 106, 106), cyan);
+  background: linear-gradient(45deg, #e65d7a, #d82148, rgb(16, 106, 106), cyan);
 }
 
 .eventButton {
-    background: linear-gradient(45deg, #805106, #d48b16, #eead43, #f3ca88);
-    margin-top: 0;
+  background: linear-gradient(45deg, #805106, #d48b16, #eead43, #f3ca88);
+  margin-top: 0;
 }
 
 .flipCard {
-    background-color: transparent;
-    width: 100%;
-    height: 100%;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
-    margin-bottom: 150%;
-  }
-  
-  /* This container is needed to position the front and back side */
-  .flipCardInner {
-    position: relative;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-  }
-  
-  /* Do an horizontal flip when you move the mouse over the flip box container */
-  .flipCard:hover .flipCardInner:hover {
-    transform: rotateY(180deg);
-  }
-  
-  /* Position the front and back side */
-  .flipCardFront, .flipCardBack {
-    position: absolute;
-    -webkit-backface-visibility: hidden; /* Safari */
-    backface-visibility: hidden;
-  }
-  
-  /* Style the back side */
-  .flipCardBack {
-    transform: rotateY(180deg);
-  }
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  margin-bottom: 150%;
+  cursor: pointer;
+}
+
+/* This container is needed to position the front and back side */
+.flipCardInner {
+  position: relative;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flipCard:hover .flipCardInner:hover {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flipCardFront,
+.flipCardBack {
+  position: absolute;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the back side */
+.flipCardBack {
+  transform: rotateY(180deg);
+}

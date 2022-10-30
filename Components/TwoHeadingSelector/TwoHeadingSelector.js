@@ -21,13 +21,27 @@ const TwoHeadingSelector = ({
     if (openTechnical || openCultural) {
       setTimeout(() => {
         if (openTechnical) {
-          router.push(leftRoute);
+          router.push({
+            pathname: leftRoute,
+            query: { filter: leftName.toLowerCase() },
+          });
           return;
         }
-        router.push(rightRoute);
-      }, 700);
+        router.push({
+          pathname: rightRoute,
+          query: { filter: rightName.toLowerCase() },
+        });
+      }, 400);
     }
-  }, [openTechnical, openCultural, leftRoute, rightRoute, router]);
+  }, [
+    openTechnical,
+    openCultural,
+    leftRoute,
+    rightRoute,
+    router,
+    leftName,
+    rightName,
+  ]);
 
   return (
     <div style={{ position: 'fixed' }}>

@@ -6,7 +6,6 @@ import Rellax from 'rellax';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
-
   useEffect(() => {
     var rellax = new Rellax('.rellax');
   }, []);
@@ -68,12 +67,17 @@ export default function Home() {
             className={`${styles.parallaxPecfest} rellax`}
             src="/landing/Pecfest.png"
             alt="Pecfest"
-            data-rellax-speed='3'
+            data-rellax-speed="3"
           />
         </picture>
         <picture>
           <source srcSet="/landing/22.png" />
-          <img className={`${styles.parallax22} rellax`} src="/landing/22.png" alt="22" data-rellax-speed='3' />
+          <img
+            className={`${styles.parallax22} rellax`}
+            src="/landing/22.png"
+            alt="22"
+            data-rellax-speed="3"
+          />
         </picture>
         <picture>
           <source srcSet="/landing/An indian odyssey.png" />

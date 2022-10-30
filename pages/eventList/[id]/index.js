@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
-import GradientBackground from '../../../../Components/Backgrounds/GradientBackground';
-import Event from '../../../../Components/Event/Event';
+import GradientBackground from '../../../Components/Backgrounds/GradientBackground';
+import Event from '../../../Components/Event/Event';
 
-const WorkshopEventDetails = () => {
+const MegashowEventDetails = () => {
   const router = useRouter();
   const { id } = router.query;
   const eventDetails = {
@@ -28,4 +28,4 @@ const WorkshopEventDetails = () => {
   );
 };
 
-export default WorkshopEventDetails;
+export default MegashowEventDetails;
