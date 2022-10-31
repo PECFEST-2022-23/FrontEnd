@@ -16,13 +16,11 @@ const MegaShowEvent = (props) => {
     'cultural',
   ]);
   useEffect(() => {
-    if (!router.isReady) return;
-    if (
-      router?.query.filter &&
-      availableFilters.current.includes(router.query.filter.toLowerCase())
-    )
-      setFilters([router.query.filter]);
-  }, [router.isReady, router?.query.filter, availableFilters]);
+    const filtersFromLocalStorage = localStorage.getItem('filters')?.split(',');
+    console.log(filtersFromLocalStorage);
+    if (filtersFromLocalStorage?.length > 0)
+      setFilters(filtersFromLocalStorage.map((f) => f.toLowerCase()));
+  }, []);
   useEffect(() => {
     setEvents([
       { eventType: 'workshops', id: '1' },
@@ -42,6 +40,7 @@ const MegaShowEvent = (props) => {
       target: { value },
     } = event;
     setFilters(typeof value === 'string' ? value.split(',') : value);
+    localStorage.setItem('filters', event.target.value);
   };
 
   const applyFilters = (event) => {

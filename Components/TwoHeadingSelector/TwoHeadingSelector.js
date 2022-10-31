@@ -21,15 +21,15 @@ const TwoHeadingSelector = ({
     if (openTechnical || openCultural) {
       setTimeout(() => {
         if (openTechnical) {
+          localStorage.setItem('filters', [leftName.toLowerCase()]);
           router.push({
             pathname: leftRoute,
-            query: { filter: leftName.toLowerCase() },
           });
           return;
         }
+        localStorage.setItem('filters', [rightName.toLowerCase()]);
         router.push({
           pathname: rightRoute,
-          query: { filter: rightName.toLowerCase() },
         });
       }, 400);
     }
