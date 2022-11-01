@@ -32,3 +32,11 @@
 .center:hover > .front_face {
   transform: rotateY(-180deg);
 }
+
+.filter {
+  height: 100vh;
+}
+
+.eventCards {
+  height: 100vh;
+}

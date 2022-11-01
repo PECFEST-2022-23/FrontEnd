@@ -49,29 +49,37 @@ const MegaShowEvent = (props) => {
   return (
     <div>
       <h2 className={styles.mainHeading}>EVENT LIST</h2>
-      <div style={{ width: '100%', textAlign: 'center' }}>
-        <Filters
-          filters={filters}
-          availableFilters={availableFilters}
-          filterChangeHandler={filterChangeHandler}
-        />
-      </div>
-      <Grid
-        container
-        columns={11}
-        rowSpacing={6}
-        columnSpacing={4}
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-      >
-        {events.filter(applyFilters).map((event, id) => (
-          <EventListingCard
-            id={event.id}
-            key={id}
-            eventType={event.eventType}
-          />
-        ))}
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={3}>
+          <div style={{ width: '100%', textAlign: 'center' }}>
+            <Filters
+              filters={filters}
+              availableFilters={availableFilters}
+              filterChangeHandler={filterChangeHandler}
+            />
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={9}>
+          <div className={styles.eventCards}>
+            <Grid
+              container
+              columns={12}
+              rowSpacing={6}
+              columnSpacing={4}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              {events.filter(applyFilters).map((event, id) => (
+                <EventListingCard
+                  id={event.id}
+                  key={id}
+                  eventType={event.eventType}
+                />
+              ))}
+            </Grid>
+          </div>
+        </Grid>
       </Grid>
     </div>
   );
