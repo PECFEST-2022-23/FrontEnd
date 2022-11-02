@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+import Head from 'next/head';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,7 +13,6 @@ import styles from './Login.module.css';
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { encrypt } from '../../lib/auth/enctryption';
-import getAuthData from '../../lib/auth/getAuthData';
 
 export default function Login() {
   const router = useRouter();
@@ -59,92 +59,102 @@ export default function Login() {
     );
   else
     return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
+      <div className={styles.main}>
+        <Head>
+          <title>Login</title>
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+        </Head>
+
+        <Container
+          component="main"
+          maxWidth="xs"
+          className={styles.main__frame}
         >
-          <Typography component="h1" variant="h5">
-            Login
-          </Typography>
+          <CssBaseline />
           <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-            id="login_form"
+            sx={{
+              marginTop: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <Typography
+              component="h1"
+              variant="h5"
+              className={`d-flex justify-content-center ${styles.pageheader}`}
             >
-              Sign In
-            </Button>
-
-            <Grid
-              container
-              spacing={0}
-              direction="column"
-              alignItems="center"
-              justifyContent="center"
-              style={{ minHeight: '40px' }}
+              Login
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
+              id="login_form"
             >
-              <Grid item xs={3}>
-                <Button
-                  onClick={() => signIn('google')}
-                  className={styles.google_btn}
-                >
-                  Sign In With Google
-                </Button>
-              </Grid>
-            </Grid>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
 
-            <Grid container>
-              <Grid item>
-                <NextLink href={'/signup'}>
-                  <Link variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </NextLink>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                className={styles.btn}
+              >
+                Login
+              </Button>
+
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={() => signIn('google')}
+                className={styles.google_btn}
+              >
+                Login With Google
+              </Button>
+
+              <Grid container sx={{ marginTop: 2 }}>
+                <Grid item>
+                  <NextLink href={'/signup'}>
+                    <Link variant="body2" className={styles.links}>
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </NextLink>
+                </Grid>
+                <Grid item>
+                  <NextLink href={'/reset-password'}>
+                    <Link variant="body2" className={styles.links}>
+                      {'Forgot Password? Reset password'}
+                    </Link>
+                  </NextLink>
+                </Grid>
               </Grid>
-              <Grid item>
-                <NextLink href={'/reset-password'}>
-                  <Link variant="body2">
-                    {'Forgot Password? Reset password'}
-                  </Link>
-                </NextLink>
-              </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-      </Container>
+        </Container>
+      </div>
     );
 }
