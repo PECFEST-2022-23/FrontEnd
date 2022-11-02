@@ -10,11 +10,16 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ShareIcon from '@mui/icons-material/Share';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import styles from './EventListingCard.module.css';
+import { useRouter } from 'next/router';
 
-function EventListingCard({}) {
+function EventListingCard(props) {
+  const router = useRouter();
   return (
     <Grid item xs={10} sm={6} md={4} lg={3} xl={3}>
-      <div className={styles.flipCard}>
+      <div
+        onClick={() => router.push('/eventList/' + props.id)}
+        className={styles.flipCard}
+      >
         <div className={`${styles.flipCardInner}`}>
           <div className={styles.flipCardFront}>
             <Card className={styles.eventCard}>
@@ -50,12 +55,14 @@ function EventListingCard({}) {
                 />
                 <div className={styles.imageCardMediaDiv}>
                   <CardContent>
-                    <p className={styles.eventElementHeading}>Musical Night</p>
+                    <p className={styles.eventElementHeading}>
+                      Musical Night ({props.eventType})
+                    </p>
 
                     <div className={styles.eventContentDiv}>
                       <p className={styles.eventContent}>
                         A night filled with melodious music, with sensational
-                        and worth listening performances. Don't miss the chance
+                        and worth listening performances. Dont miss the chance
                         to wistness it go and get registered. Share this with
                         your friends to chime them in !
                       </p>

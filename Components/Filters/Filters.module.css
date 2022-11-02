@@ -1,0 +1,11 @@
+.filter {
+  cursor: default;
+  background: #f1a661;
+  border-radius: 0.25em;
+  padding: 0.25em;
+  margin: 0 0.25em;
+  line-height: 2;
+  color: black;
+  font-weight: bold;
+  white-space: nowrap;
+}

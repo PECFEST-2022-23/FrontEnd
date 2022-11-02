@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import GradientBackground from '../../components/Backgrounds/GradientBackground';
+import GradientBackground from '../../Components/Backgrounds/GradientBackground';
 import { Button } from '@mui/material';
 import Image from 'next/image';
 
