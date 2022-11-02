@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import styles from './eventList.module.css';
 import EventListingCard from '../../Components/EventListingCard/EventListingCard';
@@ -48,7 +48,28 @@ const MegaShowEvent = (props) => {
   };
   return (
     <div>
-      <h2 className={styles.mainHeading}>EVENT LIST</h2>
+      <Grid container>
+        <Grid item sm={12} md={3}>
+          <h2 className={styles.mainHeading}>EVENT LIST</h2>
+        </Grid>
+        <Grid item sm={12} md={9}>
+          <div className={styles.search}>
+            <TextField
+              sx={{
+                input: { color: 'white' },
+              }}
+              InputLabelProps={{
+                style: { color: '#f1a661' },
+                underline: { color: 'white' },
+              }}
+              id="filled-primary"
+              label="Search"
+              variant="filled"
+              color="secondary"
+            />
+          </div>
+        </Grid>
+      </Grid>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={3}>
           <div style={{ width: '100%', textAlign: 'center' }}>
