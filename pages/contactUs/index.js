@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './ContactUs.module.css';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -13,68 +10,13 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GradientBackground from '../../components/Backgrounds/GradientBackground';
-// import TeamMemberCard from '../../Components/TeamTiles/TeamMemberCard';
 
 function ContactUs() {
-  const initialState = {
-    name: '',
-    message: '',
-    query: '',
-    email: '',
-  };
-  const [queryobject, setqueryobject] = useState(initialState);
-  const [validQueryType, setValidQueryType] = useState(true);
-  const queries = [
-    {
-      value: 'General Feedback',
-      label: 'General Feedback',
-    },
-    {
-      value: 'Registration Query',
-      label: 'Registration Query',
-    },
-    {
-      value: 'Competition Query',
-      label: 'Competition Query',
-    },
-    {
-      value: 'Website Bug',
-      label: 'Website Bug',
-    },
-    {
-      value: 'Other',
-      label: 'Other',
-    },
-  ];
-
-  const handleChange = (e) => {
-    setqueryobject({ ...queryobject, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (queryobject.query === '') {
-      setValidQueryType(false);
-      return;
-    } else {
-      setValidQueryType(true);
-    }
-  };
-
   return (
-    <GradientBackground>
+    <div className={styles.background}>
       <section className={styles.contact}>
-        <Container
-          className={`d-flex flex-column overflow-hidden ${styles.main_container}`}
-        >
-          <Box className={`d-flex flex-column flex-grow-1`}>
-            <Grid
-              className={`d-flex justify-content-center ${styles.pageheader}`}
-            >
-              ContactUs
-            </Grid>
-          </Box>
+        <Container className={styles.main_container}>
+          <Grid className={styles.pageheader}>ContactUs</Grid>
           <Box className={styles.container}>
             <Grid container spacing={1} className={styles.contactInfo}>
               <Grid container item className={styles.box}>
@@ -100,9 +42,11 @@ function ContactUs() {
                 </div>
                 <div className={styles.text}>
                   <h3>Reach out via email at</h3>
-                  <p></p>
+                  <p>pecfest2022.webmaster@gmail.com</p>
                 </div>
               </Grid>
+            </Grid>
+            <Grid container spacing={1} className={styles.contactInfo}>
               <Grid container item className={styles.box}>
                 <div className={styles.icon}>
                   <a
@@ -160,78 +104,10 @@ function ContactUs() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid className={styles.contactForm}>
-              <h2>Send Message</h2>
-              <Box
-                component="form"
-                onSubmit={handleSubmit}
-                noValidate
-                sx={{ mt: 1 }}
-              >
-                <Grid item xs={12} sm={6} className={styles.inputBox}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="name"
-                    label="Full Name"
-                    name="name"
-                    value={queryobject.name}
-                    onChange={handleChange}
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} className={styles.inputBox}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    value={queryobject.email}
-                    onChange={handleChange}
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} className={styles.inputBox}>
-                  <TextField
-                    fullWidth
-                    id="query"
-                    select
-                    label="Select Query Type"
-                    name="query"
-                    value={queryobject.query}
-                    onChange={handleChange}
-                  >
-                    {queries.map((query) => (
-                      <MenuItem key={query.value} value={query.value}>
-                        {query.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid item xs={12} sm={6} className={styles.inputBox}>
-                  <TextField
-                    fullWidth
-                    id="message"
-                    label="Type your message"
-                    name="message"
-                    value={queryobject.message}
-                    onChange={handleChange}
-                    multiline
-                    rows={2}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} className={styles.inputButtonBox}>
-                  <Button variant="contained" type="submit">
-                    Submit
-                  </Button>
-                </Grid>
-              </Box>
-            </Grid>
           </Box>
         </Container>
       </section>
-    </GradientBackground>
+    </div>
   );
 }
 

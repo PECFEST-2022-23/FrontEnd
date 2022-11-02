@@ -4,25 +4,75 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import TeamMemberCard from '../../Components/TeamTiles/TeamMemberCard';
+import committee from './CommitteeDetails.json';
 
 function Team() {
+  // comite = [
+  //   "Alumni & Industry Relations",
+  //   "Creative",
+  //   "Event Coord (Cultural)",
+  //   "Event Coord (Technical)",
+  //   "Finance",
+  //   "Hospitality & Logistics",
+  //   "Infrastructure",
+  //   "Marketing",
+  //   "Mega Shows",
+  //   "Printing, Publishing and Stationary",
+  //   "Public Relations & Media",
+  //   "Publicity",
+  //   "Security & Discipline"
+
+  // ]
+
   return (
-    <div className={`vw-100 vh-100 d-flex`}>
-      <Container
-        fluid
-        className={`d-flex flex-column overflow-hidden ${styles.main_container}`}
-      >
-        <div className={`d-flex flex-column flex-grow-1`}>
-          <div className={`d-flex justify-content-center ${styles.pageheader}`}>
-            TEAM
-          </div>
-          <Box
-            sx={{ flexGrow: 1 }}
-            className="d-flex flex-row justify-content-center"
-          >
+    <div className={styles.background}>
+      <Container fluid className={styles.main_container}>
+        <div>
+          <div className={styles.pageheader}>Conveners</div>
+          <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={1}>
               <Grid container item spacing={2}>
                 <TeamMemberCard />
+              </Grid>
+            </Grid>
+          </Box>
+        </div>
+        <div>
+          <div className={styles.pageheader}>Secretaries</div>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container item spacing={2} className={styles.third}>
+              {committee.secretary.map((item) => (
+                <TeamMemberCard
+                  image={item.Photo}
+                  key={item.val}
+                  name={item.Name}
+                  committee={item.Committee}
+                  insta={item.Instagram}
+                  linkedin={item.Linkedin}
+                  contact={item.Contact}
+                  github="NA"
+                />
+              ))}
+            </Grid>
+          </Box>
+        </div>
+        <div>
+          <div className={styles.pageheader}>Heads</div>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={1}>
+              <Grid container item spacing={2} className={styles.third}>
+                {committee.head.map((item) => (
+                  <TeamMemberCard
+                    image={item.Photo}
+                    key={item.val}
+                    name={item.Name}
+                    committee={item.Committee}
+                    insta={item.Instagram}
+                    linkedin={item.Linkedin}
+                    contact={item.Contact}
+                    github="NA"
+                  />
+                ))}
               </Grid>
             </Grid>
           </Box>

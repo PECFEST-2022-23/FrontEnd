@@ -1,5 +1,13 @@
+.background {
+    background-image: url('contact us 2@2x-100.jpg');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
 .main_container {
-    margin-top: 2.5rem;
+    padding-top: 2.5rem;
     overflow-x: hidden;
   }
   
@@ -11,7 +19,7 @@
     letter-spacing: 5px;
     text-shadow: 5px 5px 5px #000;
     text-align: center;
-    /* margin: 20px auto; */
+    margin-top: 1em;
     /* padding: 10px 10px; */
   }
   
@@ -26,25 +34,24 @@
 .contact {
     position: relative;
     min-height: 100vh;
-    padding: 0 100px 50px 100px;
+    padding: 0 3% 6% 3%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.content{
-    max-width: 800px;
-    text-align: center;
-}
-
 
 .container {
-    /* width: 100%; */
+    width: 100%;
     display: flex;
+    margin-top: 10%;
+    padding: 3% 2%;
     justify-content: center;
     /* align-items: center; */
     margin-top: 30px;
+    background-color: rgba(236, 236, 236, 0.5);
+    border-radius: 10px;
 }
 
 .contactInfo {
@@ -62,7 +69,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    border: 1px solid #FEC007;
+    border: 1px solid black;
     font-size: 2em;
 }
 
@@ -73,18 +80,19 @@
 .text {
     margin-left: 20px;
     font-size: 16px;
-    color: blue;
+    color: black;
     font-weight: 300;
 }
 
 .container .contactInfo .box .text h3{
     font-weight: 500;
-    color: #8a8a8a !important;
+    color: black !important;
     margin: 0;
 }
 
 .container .contactInfo .box .text p{
     transition: all 0.3s;
+    font-weight: 400;
     overflow-wrap: anywhere;
     margin: 0;
 }
@@ -97,6 +105,7 @@
     display: flex;
     flex-direction: column;
     margin-top: auto;
+    font-weight: 500;
 }
 
 .social {
@@ -146,44 +155,3 @@
     background-position: 40% 0%;
     background-repeat: no-repeat;
 }
-
-
-
-/* Contact Form */
-.contactForm{
-    width: 40%;
-    background: grey;
-    padding: 1em 2em;
-    border-radius: 15px;
-}
-
-.contactForm h2 {
-    font-size: 30px;
-    color: #333;
-    font-weight: 500;
-}
-
-.inputBox {
-    position: relative;
-    margin: 10px 0;
-}
-
-@media (max-width: 876px) {
-    .contact {
-        padding: 50px;
-    }
-    
-    .container {
-        flex-direction: column;
-    }
-
-    .container .contactInfo {
-        margin-bottom: 40px;
-    }
-
-    .container .contactInfo,
-    .contactForm {
-        width: 100%;
-    }
-}
-    

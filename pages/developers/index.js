@@ -4,25 +4,67 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import TeamMemberCard from '../../Components/TeamTiles/TeamMemberCard';
+import developers from './DeveloperDetails.json';
 
 function Developers() {
   return (
-    <div className={`vw-100 vh-100 d-flex`}>
-      <Container
-        fluid
-        className={`d-flex flex-column overflow-hidden ${styles.main_container}`}
-      >
-        <div className={`d-flex flex-column flex-grow-1`}>
-          <div className={`d-flex justify-content-center ${styles.pageheader}`}>
-            DEVELOPERS
-          </div>
-          <Box
-            sx={{ flexGrow: 1 }}
-            className="d-flex flex-row justify-content-center"
-          >
+    <div className={styles.background}>
+      <Container fluid className={styles.main_container}>
+        <div>
+          <div className={styles.pageheader}>Frontend Developers</div>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container item spacing={2} className={styles.third}>
+              {developers.frontend.map((item) => (
+                <TeamMemberCard
+                  image={item.Photo}
+                  key={item.val}
+                  name={item.Name}
+                  committee={item.Designation}
+                  insta={item.Insta}
+                  linkedin={item.Linkedin}
+                  contact={item.Contact}
+                  github="NA"
+                />
+              ))}
+            </Grid>
+          </Box>
+        </div>
+        <div>
+          <div className={styles.pageheader}>Backend Developers</div>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container item spacing={2} className={styles.third}>
+              {developers.backend.map((item) => (
+                <TeamMemberCard
+                  image={item.Photo}
+                  key={item.val}
+                  name={item.Name}
+                  committee={item.Designation}
+                  insta={item.Insta}
+                  linkedin={item.Linkedin}
+                  contact={item.Contact}
+                  github="NA"
+                />
+              ))}
+            </Grid>
+          </Box>
+        </div>
+        <div>
+          <div className={styles.pageheader}>UI/UX Designers</div>
+          <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={1}>
-              <Grid container item spacing={2}>
-                <TeamMemberCard />
+              <Grid container item spacing={2} className={styles.third}>
+                {developers.ui.map((item) => (
+                  <TeamMemberCard
+                    image={item.Photo}
+                    key={item.val}
+                    name={item.Name}
+                    committee={item.Designation}
+                    insta={item.Insta}
+                    linkedin={item.Linkedin}
+                    contact={item.Contact}
+                    github="NA"
+                  />
+                ))}
               </Grid>
             </Grid>
           </Box>

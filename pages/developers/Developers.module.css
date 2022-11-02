@@ -1,5 +1,13 @@
+.background {
+  background-image: url('sponsors 2@2x-100.jpg');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
 .main_container {
-    margin-top: 3.5em;
+    padding-top: 3.5em;
     overflow-x: hidden;
   }
   
@@ -21,6 +29,11 @@
     font-size: 28px;
   }
 
+}
+
+.third {
+  display: flex;
+  justify-content: center;
 }
 
 

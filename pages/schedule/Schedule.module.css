@@ -1,5 +1,13 @@
+.background {
+  background-image: url('schedule 2@2x-100.jpg');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
 .main_container {
-    margin-top: 2.5rem;
+    padding-top: 2.5em;
     overflow-x: hidden;
   }
   
