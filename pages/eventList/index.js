@@ -1,0 +1,109 @@
+import { Grid, TextField } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
+import styles from './eventList.module.css';
+import EventListingCard from '../../Components/EventListingCard/EventListingCard';
+import { useRouter } from 'next/router';
+import Filters from '../../Components/Filters/Filter';
+
+const MegaShowEvent = (props) => {
+  const [events, setEvents] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const router = useRouter();
+  const availableFilters = useRef([
+    'megashows',
+    'workshops',
+    'technical',
+    'cultural',
+  ]);
+  useEffect(() => {
+    const filtersFromLocalStorage = localStorage.getItem('filters')?.split(',');
+    console.log(filtersFromLocalStorage);
+    if (filtersFromLocalStorage?.length > 0)
+      setFilters(filtersFromLocalStorage.map((f) => f.toLowerCase()));
+  }, []);
+  useEffect(() => {
+    setEvents([
+      { eventType: 'workshops', id: '1' },
+      { eventType: 'megashows', id: '2' },
+      { eventType: 'megashows', id: '3' },
+      { eventType: 'cultural', id: '4' },
+      { eventType: 'cultural', id: '5' },
+      { eventType: 'cultural', id: '6' },
+      { eventType: 'technical', id: '7' },
+      { eventType: 'technical', id: '8' },
+      { eventType: 'technical', id: '9' },
+      { eventType: 'technical', id: '10' },
+    ]);
+  }, []);
+  const filterChangeHandler = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setFilters(typeof value === 'string' ? value.split(',') : value);
+    localStorage.setItem('filters', event.target.value);
+  };
+
+  const applyFilters = (event) => {
+    return filters.includes(event.eventType.toLowerCase());
+  };
+  return (
+    <div>
+      <Grid container>
+        <Grid item sm={12} md={3}>
+          <h2 className={styles.mainHeading}>EVENT LIST</h2>
+        </Grid>
+        <Grid item sm={12} md={9}>
+          <div className={styles.search}>
+            <TextField
+              sx={{
+                input: { color: 'white' },
+              }}
+              InputLabelProps={{
+                style: { color: '#f1a661' },
+                underline: { color: 'white' },
+              }}
+              id="filled-primary"
+              label="Search"
+              variant="filled"
+              color="secondary"
+            />
+          </div>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={3}>
+          <div style={{ width: '100%', textAlign: 'center' }}>
+            <Filters
+              filters={filters}
+              availableFilters={availableFilters}
+              filterChangeHandler={filterChangeHandler}
+            />
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={9}>
+          <div className={styles.eventCards}>
+            <Grid
+              container
+              columns={12}
+              rowSpacing={6}
+              columnSpacing={4}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              {events.filter(applyFilters).map((event, id) => (
+                <EventListingCard
+                  id={event.id}
+                  key={id}
+                  eventType={event.eventType}
+                />
+              ))}
+            </Grid>
+          </div>
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
+
+export default MegaShowEvent;
