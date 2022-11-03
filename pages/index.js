@@ -93,19 +93,33 @@ export default function Home() {
       </section>
       <section className={styles.about}>
         <div className={styles.aboutBlur}>
-          <div className={styles.aboutHeader}>ABOUT</div>
+          <div className={styles.aboutHeader}>{'ABOUT'}</div>
           <div className={styles.aboutDescription}>
-            PECFEST is a three-day annual techno-cultural fest that combines
-            technology and culture to show the synergy between the two. A
-            confluence of art, talent, and attractions, it aims to inculcate
-            passion and industriousness through events organized at an
-            avant-garde level. This fest is known for setting an unparalleled
-            benchmark.
+            {
+              'PECFEST is a three-day annual techno-cultural fest that combines technology and culture to show the synergy between the two. A confluence of art, talent, and attractions, it aims to inculcate passion and industriousness through events organized at an avant-garde level. This fest is known for setting an unparalleled benchmark.'
+            }
           </div>
         </div>
       </section>
-      <section className={styles.about2}></section>
-      <section className={styles.about3}></section>
+      <section className={styles.festTheme}>
+        <div className={styles.festThemeBlur}>
+          <div className={styles.festThemeHeader}>
+            {'PECFEST - An Indian Odyssey'}
+          </div>
+          <div className={styles.festThemeDescription}>
+            {
+              "The seventh-largest country is home to more cultures than one can count, each with its own style of art, cuisine, and fashion. Making it nearly impossible to experience the entirety of India's cultural richness in a single lifetime. To emphasise and celebrate this great diversity, we present our theme, An Indian Odyssey!"
+            }
+          </div>
+        </div>
+      </section>
+      <section className={styles.festPhotos}>
+        <div className={styles.festPhotosHeader}>
+          {
+            "Raising the bar of stellar events, PECFEST'22 brings you an array of roof raisers"
+          }
+        </div>
+      </section>
       <section className={styles.about4}></section>
       <section className={styles.about5}></section>
     </>
