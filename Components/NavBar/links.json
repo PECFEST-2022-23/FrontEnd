@@ -1,5 +1,4 @@
-[
-  {
+[{
     "name": "Events",
     "link": "events"
   },
@@ -20,20 +19,19 @@
     "link": "sponsors"
   },
   {
-    "name": "About PECFEST",
-    "children": [
-        {
-            "name": "The PECFEST Team",
-            "link": "team"
-        },
-        {
-            "name": "Developers",
-            "link": "developers"
-        },
-        {
-            "name": "Contact Us",
-            "link": "contact"
-        }
+    "name": "About",
+    "children": [{
+        "name": "The PECFEST Team",
+        "link": "team"
+      },
+      {
+        "name": "Developers",
+        "link": "developers"
+      },
+      {
+        "name": "Contact Us",
+        "link": "contact"
+      }
     ]
   }
 ]
