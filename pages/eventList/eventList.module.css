@@ -1,15 +1,42 @@
-.mainHeading {
-  color: #f1a661;
+.background {
+  background-image: url("../../public/website\ designs/Landing 6.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.pageheader {
+  color: white !important;
+  font-family: "Audiowide", cursive;
+  font-size: 45px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-shadow: 5px 5px 5px #000;
   text-align: center;
-  margin-top: 69px;
-  margin-bottom: 30px;
+  /* margin: 20px auto; */
+  /* padding: 10px 10px; */
+}
+
+.mainHeading {
+  
+
+  color: white !important;
+  font-family: "Audiowide", cursive;
+  font-size: 45px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-shadow: 5px 5px 5px #000;
+  text-align: center;
 }
 
 .search {
   color: #f1a661;
   text-align: center;
-  margin-top: 69px;
+  margin-top: 0px;
   margin-bottom: 30px;
+  width: 100% !important;
 }
 
 .center {
@@ -47,4 +74,9 @@
 
 .eventCards {
   height: 100vh;
+}
+
+.third {
+  display: flex;
+  justify-content: center;
 }
