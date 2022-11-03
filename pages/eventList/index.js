@@ -2,6 +2,7 @@ import { Grid, TextField } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import styles from './eventList.module.css';
 import EventListingCard from '../../Components/EventListingCard/EventListingCard';
+import Box from '@mui/material/Box';
 import { useRouter } from 'next/router';
 import Filters from '../../Components/Filters/Filter';
 
@@ -47,14 +48,17 @@ const MegaShowEvent = (props) => {
     return filters.includes(event.eventType.toLowerCase());
   };
   return (
-    <div>
+    <div className={styles.background}>
       <Grid container>
-        <Grid item sm={12} md={3}>
+        <Grid item sm={12} mt={4} mb={2}  justifyContent="center">
           <h2 className={styles.mainHeading}>EVENT LIST</h2>
         </Grid>
-        <Grid item sm={12} md={9}>
+      </Grid>
+      <Grid container>
+        <Grid item xs={12} md={3}>
           <div className={styles.search}>
             <TextField
+              style={{width: "80%"}}
               sx={{
                 input: { color: 'white' },
               }}
@@ -68,11 +72,7 @@ const MegaShowEvent = (props) => {
               color="secondary"
             />
           </div>
-        </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={3}>
-          <div style={{ width: '100%', textAlign: 'center' }}>
+          <div style={{ textAlign: 'center' }}>
             <Filters
               filters={filters}
               availableFilters={availableFilters}
@@ -80,13 +80,13 @@ const MegaShowEvent = (props) => {
             />
           </div>
         </Grid>
-        <Grid item xs={12} sm={9}>
+        <Grid item xs={12} md={8} mr={1}>
           <div className={styles.eventCards}>
             <Grid
               container
               columns={12}
-              rowSpacing={6}
-              columnSpacing={4}
+              //rowSpacing={6}
+              columnSpacing={2}
               direction="row"
               justifyContent="center"
               alignItems="center"

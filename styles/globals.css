@@ -41,7 +41,7 @@ a {
   margin-top: -2px;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   html {
     color-scheme: dark;
   }
