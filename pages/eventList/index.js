@@ -50,7 +50,7 @@ const MegaShowEvent = (props) => {
   return (
     <div className={styles.background}>
       <Grid container>
-        <Grid item sm={12} mt={4} mb={2}  justifyContent="center">
+        <Grid item sm={12} mt={4} mb={2} justifyContent="center">
           <h2 className={styles.mainHeading}>EVENT LIST</h2>
         </Grid>
       </Grid>
@@ -58,7 +58,7 @@ const MegaShowEvent = (props) => {
         <Grid item xs={12} md={3}>
           <div className={styles.search}>
             <TextField
-              style={{width: "80%"}}
+              style={{ width: '80%' }}
               sx={{
                 input: { color: 'white' },
               }}

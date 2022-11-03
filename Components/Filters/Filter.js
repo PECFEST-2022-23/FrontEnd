@@ -24,12 +24,36 @@ const Filters = (props) => {
   };
   return (
     <>
-      <Chip label="Clickable" style={{marginTop: 10, marginRight: 5}} color={'primary'} onClick={() => {}} />
-      <Chip label="Clickable" style={{marginTop: 10, marginRight: 5}} color={'primary'} onClick={() => {}} />
-      <Chip label="Clickable" style={{marginTop: 10, marginRight: 5}} color={'primary'} onClick={() => {}} />
-      <Chip label="Clickable" style={{marginTop: 10, marginRight: 5}} color={'primary'} onClick={() => {}} />
-      <Chip label="Clickable" style={{marginTop: 10, marginRight: 5}} color={'primary'} onClick={() => {}} />
-
+      <Chip
+        label="Clickable"
+        style={{ marginTop: 10, marginRight: 5 }}
+        color={'primary'}
+        onClick={() => {}}
+      />
+      <Chip
+        label="Clickable"
+        style={{ marginTop: 10, marginRight: 5 }}
+        color={'primary'}
+        onClick={() => {}}
+      />
+      <Chip
+        label="Clickable"
+        style={{ marginTop: 10, marginRight: 5 }}
+        color={'primary'}
+        onClick={() => {}}
+      />
+      <Chip
+        label="Clickable"
+        style={{ marginTop: 10, marginRight: 5 }}
+        color={'primary'}
+        onClick={() => {}}
+      />
+      <Chip
+        label="Clickable"
+        style={{ marginTop: 10, marginRight: 5 }}
+        color={'primary'}
+        onClick={() => {}}
+      />
     </>
   );
 };
