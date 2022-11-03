@@ -13,6 +13,7 @@ import styles from './Login.module.css';
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { encrypt } from '../../lib/auth/enctryption';
+import onLoginSuccess from '../../lib/auth/onLoginSuccess';
 
 export default function Login() {
   const router = useRouter();
@@ -46,7 +47,7 @@ export default function Login() {
         token = res.token;
       localStorage.setItem('user', encrypt(JSON.stringify(user)));
       localStorage.setItem('token', encrypt(JSON.stringify(token)));
-      router.push('/');
+      onLoginSuccess({ router });
     }
   };
 
