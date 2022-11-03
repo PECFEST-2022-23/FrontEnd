@@ -70,44 +70,72 @@
   z-index: 3;
 }
 
-.about {
+.about,
+.festTheme,
+.festPhotos {
+  position: relative;
   height: 91vh;
   width: 100%;
-  background-image: url('/website designs/Landing 2.jpg');
   background-size: cover;
-  padding: 4rem 6rem 0 6rem;
+  padding: 0;
+}
+
+.about {
+  background-image: url('/website designs/Landing 2.jpg');
 }
 
 .aboutBlur {
   backdrop-filter: blur(10px);
+  width: 85%;
   border-radius: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .aboutHeader {
   font-size: 3rem;
   font-weight: 500;
-  padding: 2rem 0 1rem 0;
+  margin: 2rem 0 1rem 0;
   text-align: center;
 }
 
 .aboutDescription {
   font-size: 1.8rem;
-  padding: 3rem 2rem 3rem 2rem;
+  margin: 3rem 2rem 3rem 2rem;
   text-align: center;
 }
 
-.about2 {
-  height: 91vh;
-  width: 100%;
+.festTheme {
   background-image: url('/website designs/Landing 3.jpg');
-  background-size: cover;
 }
 
-.about3 {
-  height: 100vh;
-  width: 100%;
+.festThemeBlur {
+  backdrop-filter: blur(10px);
+  width: 85%;
+  border-radius: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.festThemeHeader {
+  font-size: 3rem;
+  font-weight: 500;
+  margin: 2rem 0 1rem 0;
+  text-align: center;
+}
+
+.festThemeDescription {
+  font-size: 1.8rem;
+  margin: 3rem 2rem 3rem 2rem;
+  text-align: center;
+}
+
+.festPhotos {
   background-image: url('/website designs/Landing 4.jpg');
-  background-size: cover;
 }
 
 .about4 {
@@ -151,13 +179,6 @@
     bottom: 5%;
   }
 
-  .about {
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-  }
-
   .aboutHeader {
     font-size: 2.5rem;
   }
@@ -167,6 +188,26 @@
   }
 
   .aboutBlur {
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .festThemeHeader {
+    font-size: 2.5rem;
+  }
+
+  .festThemeDescription {
+    font-size: 1.2rem;
+  }
+
+  .festThemeBlur {
+    height: 100%;
+    width: 100%;
     backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
