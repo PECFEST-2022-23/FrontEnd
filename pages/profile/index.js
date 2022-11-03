@@ -64,7 +64,13 @@ export default function Profile() {
         <Typography component="h1" variant="h5">
           Profile
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit}
+          sx={{ mt: 1 }}
+          id="profile_form"
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField

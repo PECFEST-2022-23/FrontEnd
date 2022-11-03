@@ -39,7 +39,7 @@ const EventDialog = ({ onClose, open, eventId }) => {
     eventPoster: '',
     eventDescription: '',
   };
-
+  
   const [event, setEvent] = useState(eventObj);
   const [dateError, setDateError] = useState(false);
 
