@@ -22,7 +22,7 @@ export default function Login() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const res = await fetch(
-      process.env.NEXT_PUBLIC_BACKEND_API + '/auth/login/',
+      process.env.NEXT_PUBLIC_BACKEND_API + 'auth/login/',
       {
         method: 'POST',
         headers: {

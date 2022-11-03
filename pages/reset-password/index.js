@@ -18,7 +18,7 @@ export default function ResetPassword() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const res = await fetch(
-      process.env.NEXT_PUBLIC_BACKEND_API + '/auth/reset-pass',
+      process.env.NEXT_PUBLIC_BACKEND_API + 'auth/reset-pass',
       {
         method: 'POST',
         body: JSON.stringify({
