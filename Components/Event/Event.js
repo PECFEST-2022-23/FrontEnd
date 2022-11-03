@@ -10,9 +10,16 @@ import CardHeader from '@mui/material/CardHeader';
 import RoomIcon from '@mui/icons-material/Room';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import EventIcon from '@mui/icons-material/Event';
+import { useRouter } from 'next/router';
 import classes from './Event.module.css';
 
 const Event = (props) => {
+  const router = useRouter();
+
+  const {
+    query: { eventDetails },
+  } = router;
+
   return (
     <div style={{ paddingTop: '50px', margin: '0 30px' }}>
       <Grid container spacing={2} direction="row-reverse">

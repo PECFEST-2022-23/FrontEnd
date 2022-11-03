@@ -16,12 +16,38 @@ const MegaShowEvent = (props) => {
     'technical',
     'cultural',
   ]);
+
   useEffect(() => {
+    fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events')
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              'Error ' + response.status + ': ' + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errmess = new Error(error.message);
+          throw errmess;
+        }
+      )
+      .then((response) => response.json())
+      .then((evts) => setEvents(evts))
+      .catch((error) => console.log(error.message));
+  }, []);
+
+  /*useEffect(() => {
     const filtersFromLocalStorage = localStorage.getItem('filters')?.split(',');
     console.log(filtersFromLocalStorage);
     if (filtersFromLocalStorage?.length > 0)
       setFilters(filtersFromLocalStorage.map((f) => f.toLowerCase()));
   }, []);
+
   useEffect(() => {
     setEvents([
       { eventType: 'workshops', id: '1' },
@@ -35,8 +61,8 @@ const MegaShowEvent = (props) => {
       { eventType: 'technical', id: '9' },
       { eventType: 'technical', id: '10' },
     ]);
-  }, []);
-  const filterChangeHandler = (event) => {
+  }, []);*/
+  /*const filterChangeHandler = (event) => {
     const {
       target: { value },
     } = event;
@@ -45,12 +71,13 @@ const MegaShowEvent = (props) => {
   };
 
   const applyFilters = (event) => {
-    return filters.includes(event.eventType.toLowerCase());
-  };
+    return filters.includes(event.type.toLowerCase());
+  };*/
+
   return (
     <div className={styles.background}>
       <Grid container>
-        <Grid item sm={12} mt={4} mb={2}  justifyContent="center">
+        <Grid item xs={10} mt={4} mb={2} justifyContent="center">
           <h2 className={styles.mainHeading}>EVENT LIST</h2>
         </Grid>
       </Grid>
@@ -58,7 +85,7 @@ const MegaShowEvent = (props) => {
         <Grid item xs={12} md={3}>
           <div className={styles.search}>
             <TextField
-              style={{width: "80%"}}
+              style={{ width: '80%' }}
               sx={{
                 input: { color: 'white' },
               }}
@@ -74,9 +101,9 @@ const MegaShowEvent = (props) => {
           </div>
           <div style={{ textAlign: 'center' }}>
             <Filters
-              filters={filters}
+            /*filters={filters}
               availableFilters={availableFilters}
-              filterChangeHandler={filterChangeHandler}
+              filterChangeHandler={filterChangeHandler}*/
             />
           </div>
         </Grid>
@@ -85,17 +112,24 @@ const MegaShowEvent = (props) => {
             <Grid
               container
               columns={12}
-              //rowSpacing={6}
               columnSpacing={2}
               direction="row"
               justifyContent="center"
               alignItems="center"
             >
-              {events.filter(applyFilters).map((event, id) => (
+              {/* {events.filter(applyFilters).map((event, id) => (
                 <EventListingCard
                   id={event.id}
                   key={id}
-                  eventType={event.eventType}
+                  eventType={event.type}
+                />
+              ))} */}
+              {events.map((event, id) => (
+                <EventListingCard
+                  id={event.id}
+                  key={id}
+                  eventType={event.type}
+                  eventDetails={event}
                 />
               ))}
             </Grid>
