@@ -16,41 +16,35 @@ const MegaShowEvent = (props) => {
     'technical',
     'cultural',
   ]);
-  useEffect(() => {
-    const filtersFromLocalStorage = localStorage.getItem('filters')?.split(',');
-    console.log(filtersFromLocalStorage);
-    if (filtersFromLocalStorage?.length > 0)
-      setFilters(filtersFromLocalStorage.map((f) => f.toLowerCase()));
-  }, []);
-  useEffect(() => {
-    setEvents([
-      { eventType: 'workshops', id: '1' },
-      { eventType: 'megashows', id: '2' },
-      { eventType: 'megashows', id: '3' },
-      { eventType: 'cultural', id: '4' },
-      { eventType: 'cultural', id: '5' },
-      { eventType: 'cultural', id: '6' },
-      { eventType: 'technical', id: '7' },
-      { eventType: 'technical', id: '8' },
-      { eventType: 'technical', id: '9' },
-      { eventType: 'technical', id: '10' },
-    ]);
-  }, []);
-  const filterChangeHandler = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setFilters(typeof value === 'string' ? value.split(',') : value);
-    localStorage.setItem('filters', event.target.value);
-  };
 
-  const applyFilters = (event) => {
-    return filters.includes(event.eventType.toLowerCase());
-  };
+  useEffect(() => {
+    fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events')
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              'Error ' + response.status + ': ' + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errmess = new Error(error.message);
+          throw errmess;
+        }
+      )
+      .then((response) => response.json())
+      .then((evts) => setEvents(evts))
+      .catch((error) => console.log(error.message));
+  }, []);
+
   return (
     <div className={styles.background}>
       <Grid container>
-        <Grid item sm={12} mt={4} mb={2} justifyContent="center">
+        <Grid item xs={10} mt={4} mb={2} justifyContent="center">
           <h2 className={styles.mainHeading}>EVENT LIST</h2>
         </Grid>
       </Grid>
@@ -74,9 +68,6 @@ const MegaShowEvent = (props) => {
           </div>
           <div style={{ textAlign: 'center' }}>
             <Filters
-              filters={filters}
-              availableFilters={availableFilters}
-              filterChangeHandler={filterChangeHandler}
             />
           </div>
         </Grid>
@@ -85,17 +76,17 @@ const MegaShowEvent = (props) => {
             <Grid
               container
               columns={12}
-              //rowSpacing={6}
               columnSpacing={2}
               direction="row"
               justifyContent="center"
               alignItems="center"
             >
-              {events.filter(applyFilters).map((event, id) => (
+              {events.map((event, id) => (
                 <EventListingCard
                   id={event.id}
                   key={id}
-                  eventType={event.eventType}
+                  eventType={event.type}
+                  eventDetails={event}
                 />
               ))}
             </Grid>

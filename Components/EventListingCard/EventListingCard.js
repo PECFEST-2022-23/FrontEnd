@@ -38,23 +38,19 @@ function EventListingCard(props) {
   return (
     <Grid item xs={10} sm={6} md={6} lg={4} xl={4}>
       <div
-        onClick={() => router.push('/eventList/' + props.id)}
+        onClick={() =>
+          router.push({
+            pathname: '/eventList/' + props.id,
+            query: {
+              eventDetails: props.eventDetails,
+            },
+          })
+        }
         className={styles.flipCard}
       >
         <div className={`${styles.flipCardInner}`}>
           <div className={styles.flipCardFront}>
             <Card className={styles.eventCard}>
-              {/* <div className={styles.borderCardMediaDiv}>
-            <div className={styles.imageCardMediaDiv}>
-                  <CardMedia
-                    component="img"
-                    height="250"
-                    image="https://image.shutterstock.com/image-vector/urban-techno-music-event-background-600w-47546335.jpg"
-                    alt="green iguana"
-                    className={styles.imageCardMedia}
-                  />
-                </div>
-              </div> */}
               <div className={styles.borderCardMediaDiv}>
                 <CardMedia>
                   <Image src={require('./border-frame-design.png')} />
@@ -79,7 +75,9 @@ function EventListingCard(props) {
                 </CardMedia>
                 <div className={styles.imageCardMediaDiv}>
                   <CardContent>
-                    <p className={styles.eventElementHeading}>Musical Night</p>
+                    <p className={styles.eventElementHeading}>
+                      {props.eventDetails.name}
+                    </p>
                     <div style={{ textAlign: 'center' }}>
                       <Button variant="contained" size="small">
                         ({props.eventType})
@@ -87,8 +85,14 @@ function EventListingCard(props) {
                     </div>
                     <div className={styles.eventContentDiv}>
                       <p className={styles.eventContent}>
-                        A night filled with melodious music, with sensational
-                        and ....
+                        {props.eventDetails.description ? (
+                          props.eventDetails.description
+                        ) : (
+                          <>
+                            A night filled with melodious music, with
+                            sensational and ....
+                          </>
+                        )}
                       </p>
                     </div>
                     <div className={styles.icons}>
@@ -100,25 +104,27 @@ function EventListingCard(props) {
                         <ExitToAppIcon />
                       </a>
                       <Tooltip
-                        style={{ color: 'white' }}
-                        title="2nd Nov 22, 5.30 PM"
+                        title={new Intl.DateTimeFormat('en-US', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        }).format(
+                          new Date(Date.parse(props.eventDetails.datetime))
+                        )}
                       >
                         <CalendarMonthIcon />
                       </Tooltip>
-                      <Tooltip title="2nd Nov 22, 5.30 PM">
-                        <CalendarMonthIcon />
-                      </Tooltip>
-                      <Tooltip title="College Auditorium  ">
+                      <Tooltip
+                        title={
+                          props.eventDetails.venue
+                            ? props.eventDetails.venue
+                            : 'College Auditoriam'
+                        }
+                      >
                         <LocationOnIcon />
                       </Tooltip>
-                      <a
-                        style={{ color: 'white' }}
-                        href={'https://www.google.com'}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <ShareIcon />
-                      </a>
                       <a
                         href={'https://www.google.com'}
                         target="_blank"
