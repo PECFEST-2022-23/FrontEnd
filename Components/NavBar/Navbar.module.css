@@ -21,23 +21,29 @@
   height: 75px;
 }
 
+.appbar button {
+  font-size: 0.90rem;
+}
+
 .navbar_logo {
   min-width: 0 !important;
   min-height: 0 !important;
-  width: 10rem !important;
-  height: 10rem !important;
+  width: 8rem !important;
+  height: 8rem !important;
   top: 10% !important;
   background-color: black;
   border-radius: 1rem;
   z-index: 2 !important;
   cursor: pointer;
+  transition: ease-out 0.25s;
 }
 
 .navbar_logo_shrunk {
   min-width: 0 !important;
   min-height: 0 !important;
-  width: 30% !important;
-  height: 30% !important;
+  width: 4.5rem !important;
+  height: 4.5rem !important;
+  transition: ease-in 0.25s;
 }
 
 .toolbar {
@@ -63,8 +69,24 @@
   justify-content: center;
 }
 
-.navbar_drawer > span {
+.navbar_drawer>span {
   max-width: 50% !important;
+}
+
+.navbar-about-menu {
+  background-color: black !important;
+}
+
+.enter_btn {
+  background-color: #f07b3f;
+}
+
+.dropdown_btn:hover {
+  color: #f07b3f;
+}
+
+.enter_btn_mobile {
+  display: none;
 }
 
 @media only screen and (max-width: 600px) {
@@ -73,14 +95,42 @@
   }
 
   .navbar_logo {
-    max-width: 35% !important;
-    max-height: 35% !important;
-    margin-left: 25% !important;
+    width: 70px !important;
+    height: 70px !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    top: 0 !important;
+    background-color: none;
+    border-radius: none;
+    z-index: 2 !important;
+    cursor: pointer;
+    transition: none;
   }
 
   .navbar_logo_shrunk {
-    max-height: 70px !important;
-    max-width: auto !important;
-    margin-left: 27.5% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    width: 70px !important;
+    height: 70px !important;
+    transition: none;
+  }
+
+  .enter_btn_mobile {
+    display: flex;
+    background-color: #f07b3f;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 800px) {
+  .appbar button {
+    font-size: 0.75rem !important;
+  }
+
+  .navbar_logo {
+    display: none !important;
+  }
+
+  .navbar_logo_shrunk {
+    display: none !important;
   }
 }

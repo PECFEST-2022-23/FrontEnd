@@ -13,7 +13,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
+import Menu, { MenuProps } from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
@@ -29,6 +32,19 @@ const Navbar = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [open, setOpen] = useState(true);
+
+  // For Dropdown
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [dropDownOpen, setDropDownOpen] = useState(false);
+
+  const MouseOver = (event) => {
+    setAnchorEl(event.currentTarget);
+    setDropDownOpen(true);
+  };
+  const MouseOut = () => {
+    setAnchorEl(null);
+    setDropDownOpen(false);
+  };
 
   const handleClick = () => {
     setOpen(!open);
@@ -124,7 +140,7 @@ const Navbar = (props) => {
         )}
       </List>
       <Divider />
-      <Button>Register / Log In</Button>
+      <Button>Enter</Button>
       <Divider />
       <ListItem>
         <Link href={`/ambassador`}>
@@ -177,19 +193,48 @@ const Navbar = (props) => {
           >
             {navItemsTwo.map((item) =>
               item.children ? (
-                <Button key={item.name} sx={{ color: '#fff' }}>
-                  {item.name}
-                </Button>
+                <div>
+                  <Button
+                    key={item.name}
+                    sx={{ color: '#fff' }}
+                    disableElevation
+                    onClick={MouseOver}
+                    endIcon={<KeyboardArrowDownIcon />}
+                    disableRipple
+                    className={styles.dropdown_btn}
+                  >
+                    {item.name}
+                  </Button>
+                  <Menu
+                    id="navbar-about-menu"
+                    anchorEl={anchorEl}
+                    open={dropDownOpen}
+                    onClose={MouseOut}
+                  >
+                    {item.children.map((child) => (
+                      <MenuItem
+                        key={child.name}
+                        onClick={MouseOut}
+                        disableRipple
+                      >
+                        <Link href={child.link}>{child.name}</Link>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </div>
               ) : (
                 <Button key={item.name} sx={{ color: '#fff' }}>
                   <Link href={`/${item.link}`}>{item.name}</Link>
                 </Button>
               )
             )}
-            <Button>
-              <Link href={`/login`}>Register / Log In</Link>
+            <Button className={styles.enter_btn} variant="filled">
+              <Link href={`/login`}>Log In</Link>
             </Button>
           </Box>
+          <Button className={styles.enter_btn_mobile} variant="filled">
+            <Link href={`/login`}>Log In</Link>
+          </Button>
         </Toolbar>
       </AppBar>
       {/* For mobile */}
@@ -212,9 +257,6 @@ const Navbar = (props) => {
         >
           {drawer}
         </Drawer>
-        <Button>
-          <Link href={`/login`}>Register / Log In</Link>
-        </Button>
       </Box>
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
