@@ -26,7 +26,7 @@ const TwoHeadingSelector = ({
             pathname: leftRoute,
             query: {
               typeOfEvent: leftName.toUpperCase(),
-            }
+            },
           });
           return;
         }
@@ -35,7 +35,7 @@ const TwoHeadingSelector = ({
           pathname: rightRoute,
           query: {
             typeOfEvent: rightName.toUpperCase(),
-          }
+          },
         });
       }, 400);
     }
