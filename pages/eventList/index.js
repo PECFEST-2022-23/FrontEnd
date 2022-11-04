@@ -166,64 +166,66 @@ const MegaShowEvent = (props) => {
       </Grid>
       <Container fluid className={styles.main_container} maxWidth={false}>
         <Grid container>
-        <Grid item xs={12} md={3}>
-          <div className={styles.search}>
-            <TextField
-              style={{ width: '90%' }}
-              sx={{
-                input: { color: 'white' },
-              }}
-              InputLabelProps={{
-                style: { color: 'white' },
-                underline: { color: 'white' },
-              }}
-              id="filled-primary"
-              label="Search Here ..."
-              variant="filled"
-              onChange={inputHandler}
-              // color="secondary"
-            />
-          </div>
-          <div style={{ textAlign: 'center', marginBottom: 40 }}>
-            {allFilters.map((filter, id) => (
-              <Filters
-                filterValue={filter}
-                onSelectFilters={selectFilters}
-                onDeSelectFilters={deselectFilters}
-                color={'primary'}
+          <Grid item xs={12} md={3}>
+            <div className={styles.search}>
+              <TextField
+                style={{ width: '90%' }}
+                sx={{
+                  input: { color: 'white' },
+                }}
+                InputLabelProps={{
+                  style: { color: 'white' },
+                  underline: { color: 'white' },
+                }}
+                id="filled-primary"
+                label="Search Here ..."
+                variant="filled"
+                onChange={inputHandler}
+                // color="secondary"
               />
-            ))}
-            {allSubFilters.map((filter, id) => (
-              <Filters
-                filterValue={filter}
-                onSelectFilters={selectSubFilters}
-                onDeSelectFilters={deselectSubFilters}
-                color={'primary'}
-              />
-            ))}
-          </div>
-        </Grid>
-        <Grid item xs={12} md={8} mr={1}>
-          <div className={styles.eventCards}>
-            <Grid
-              container
-              columns={12}
-              columnSpacing={2}
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
-              {events.filter(searchFilterFunction).map((event, id) => (
-                <EventListingCard
-                  id={event.id}
-                  key={id}
-                  eventType={event.type}
-                  eventDetails={event}
+            </div>
+            <div style={{ textAlign: 'center', marginBottom: 40 }}>
+              {allFilters.map((filter, id) => (
+                <Filters
+                  key={filter.val}
+                  filterValue={filter}
+                  onSelectFilters={selectFilters}
+                  onDeSelectFilters={deselectFilters}
+                  color={'primary'}
                 />
               ))}
-            </Grid>
-          </div>
-        </Grid>
+              {allSubFilters.map((filter, id) => (
+                <Filters
+                  key={filter.val}
+                  filterValue={filter}
+                  onSelectFilters={selectSubFilters}
+                  onDeSelectFilters={deselectSubFilters}
+                  color={'primary'}
+                />
+              ))}
+            </div>
+          </Grid>
+          <Grid item xs={12} md={8} mr={1}>
+            <div className={styles.eventCards}>
+              <Grid
+                container
+                columns={12}
+                columnSpacing={2}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {events.filter(searchFilterFunction).map((event, id) => (
+                  <EventListingCard
+                    id={event.id}
+                    key={id}
+                    eventType={event.type}
+                    eventDetails={event}
+                  />
+                ))}
+              </Grid>
+            </div>
+          </Grid>
         </Grid>
       </Container>
     </div>

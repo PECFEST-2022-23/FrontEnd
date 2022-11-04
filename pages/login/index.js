@@ -90,7 +90,7 @@ export default function Login() {
             <Typography
               component="h1"
               variant="h5"
-              className={`d-flex justify-content-center ${styles.pageheader}`}
+              className={styles.pageheader}
             >
               Login
             </Typography>

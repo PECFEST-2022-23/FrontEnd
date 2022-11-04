@@ -24,9 +24,6 @@ function TeamMemberCard(props) {
               layout="fill"
               className={styles.front_face}
             />
-            {/* <div className={`${styles.contents} ${styles.front}`}>
-              <span>{props.committee}</span>
-            </div> */}
           </div>
           <div className={styles.back_face}>
             <div className={`${styles.contents} ${styles.back}`}>
