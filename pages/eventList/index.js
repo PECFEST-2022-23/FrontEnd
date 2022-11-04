@@ -7,18 +7,23 @@ import { useRouter } from 'next/router';
 import Filters from '../../Components/Filters/Filter';
 
 const MegaShowEvent = (props) => {
-  const [events, setEvents] = useState([]);
-  const [filters, setFilters] = useState([]);
+
   const router = useRouter();
-  const availableFilters = useRef([
-    'megashows',
-    'workshops',
-    'technical',
-    'cultural',
-  ]);
+
+  const {
+    query: { typeOfEvent },
+  } = router;
+
+  const [events, setEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState([]); 
+  const [allFilters, setAllFilters] = useState([]);
+  const [allSubFilters, setAllSubFilters] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const [subFilters, setSubFilters] = useState([]);
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events')
+
+      fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events')
       .then(
         (response) => {
           if (response.ok) {
@@ -37,9 +42,106 @@ const MegaShowEvent = (props) => {
         }
       )
       .then((response) => response.json())
-      .then((evts) => setEvents(evts))
+      .then((evts) => {
+        setAllEvents(evts);
+        setEvents(evts);
+        const filtersAvailable = [];
+        const subFiltersAvailable = [];
+        evts.forEach((evt) => {
+          filtersAvailable.push(evt.type);
+          subFiltersAvailable.push(evt.subtype);
+        })
+
+        setAllFilters(filtersAvailable);
+        setAllSubFilters(subFiltersAvailable);
+
+        selectFilters(typeOfEvent);
+
+        return filtersAvailable;
+      })
       .catch((error) => console.log(error.message));
   }, []);
+
+  const filterPass = (event) => {
+    return filters.includes(event.type.toUpperCase()) || subFilters.includes(event.subtype.toUpperCase());
+  };
+
+  const selectFilters = (filterVal) => {
+    let selectedFilters = filters;
+    selectedFilters.push(filterVal);
+    setFilters(selectedFilters);
+
+    console.log(filters);
+    console.log(subFilters);
+
+    let filteredEvents = [];
+
+    allEvents.forEach((evt) => {
+      console.log(filterPass(evt))
+      if(filterPass(evt))
+        filteredEvents.push(evt);
+    })
+
+    setEvents(filteredEvents);
+  }
+
+  const deselectFilters = (filterVal) => {
+    let selectedFilters = filters;
+    selectedFilters.splice(selectedFilters.indexOf(filterVal), 1);
+    setFilters(selectedFilters);
+
+    console.log(filters);
+    console.log(subFilters);
+
+    let filteredEvents = [];
+
+    allEvents.forEach((evt) => {
+      console.log(filterPass(evt))
+      if(filterPass(evt))
+        filteredEvents.push(evt);
+    })
+
+    setEvents(filteredEvents);
+  }
+
+  const selectSubFilters = (filterVal) => {
+    let selectedFilters = subFilters;
+    selectedFilters.push(filterVal);
+    setSubFilters(selectedFilters);
+
+    console.log(filters);
+    console.log(subFilters);
+
+    let filteredEvents = [];
+
+    allEvents.forEach((evt) => {
+      console.log(filterPass(evt))
+      if(filterPass(evt))
+        filteredEvents.push(evt);
+    })
+
+    setEvents(filteredEvents);
+  }
+
+  const deselectSubFilters = (filterVal) => {
+    let selectedFilters = subFilters;
+    selectedFilters.splice(selectedFilters.indexOf(filterVal), 1);
+    setSubFilters(selectedFilters);
+
+    console.log(filters);
+    console.log(subFilters);
+
+    let filteredEvents = [];
+
+    allEvents.forEach((evt) => {
+      console.log(filterPass(evt))
+      if(filterPass(evt))
+        filteredEvents.push(evt);
+    })
+
+    setEvents(filteredEvents);
+
+  }
 
   return (
     <div className={styles.background}>
@@ -67,8 +169,22 @@ const MegaShowEvent = (props) => {
             />
           </div>
           <div style={{ textAlign: 'center' }}>
-            <Filters
-            />
+            {allFilters.map((filter, id) => (
+              <Filters 
+                filterValue={filter}
+                onSelectFilters={selectFilters}
+                onDeSelectFilters={deselectFilters}
+                color={"primary"}
+              />
+            ))}
+            {allSubFilters.map((filter, id) => (
+              <Filters 
+                filterValue={filter}
+                onSelectFilters={selectSubFilters}
+                onDeSelectFilters={deselectSubFilters}
+                color={"primary"}
+              />
+            ))}
           </div>
         </Grid>
         <Grid item xs={12} md={8} mr={1}>
