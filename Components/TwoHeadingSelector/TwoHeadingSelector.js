@@ -24,12 +24,18 @@ const TwoHeadingSelector = ({
           localStorage.setItem('filters', [leftName.toLowerCase()]);
           router.push({
             pathname: leftRoute,
+            query: {
+              typeOfEvent: leftName.toUpperCase(),
+            }
           });
           return;
         }
         localStorage.setItem('filters', [rightName.toLowerCase()]);
         router.push({
           pathname: rightRoute,
+          query: {
+            typeOfEvent: rightName.toUpperCase(),
+          }
         });
       }, 400);
     }
