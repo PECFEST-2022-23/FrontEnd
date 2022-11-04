@@ -1,4 +1,4 @@
-import { Grid, TextField } from '@mui/material';
+import { Grid, TextField, Container } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import styles from './eventList.module.css';
 import EventListingCard from '../../Components/EventListingCard/EventListingCard';
@@ -51,8 +51,8 @@ const MegaShowEvent = (props) => {
           subFiltersAvailable.push(evt.subtype);
         });
 
-        setAllFilters(filtersAvailable);
-        setAllSubFilters(subFiltersAvailable);
+        setAllFilters([...new Set(filtersAvailable)]);
+        setAllSubFilters([...new Set(subFiltersAvailable)]);
 
         selectFilters(typeOfEvent);
 
@@ -160,71 +160,74 @@ const MegaShowEvent = (props) => {
   return (
     <div className={styles.background}>
       <Grid container>
-        <Grid item xs={10} mt={4} mb={2} justifyContent="center">
-          <h2 className={styles.mainHeading}>EVENT LIST</h2>
+        <Grid item xs={12} mt={4} mb={2} justifyContent="center">
+          <h2 className={styles.mainHeading}>EVENTS</h2>
         </Grid>
       </Grid>
-      <Grid container>
-        <Grid item xs={12} md={3}>
-          <div className={styles.search}>
-            <TextField
-              style={{ width: '80%' }}
-              sx={{
-                input: { color: 'white' },
-              }}
-              InputLabelProps={{
-                style: { color: '#f1a661' },
-                underline: { color: 'white' },
-              }}
-              id="filled-primary"
-              label="Search"
-              variant="filled"
-              onChange={inputHandler}
-              //value={searchValue}
-              color="secondary"
-            />
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            {allFilters.map((filter, id) => (
-              <Filters
-                filterValue={filter}
-                onSelectFilters={selectFilters}
-                onDeSelectFilters={deselectFilters}
-                color={'primary'}
+      <Container fluid className={styles.main_container} maxWidth={false}>
+        <Grid container>
+          <Grid item xs={12} md={3}>
+            <div className={styles.search}>
+              <TextField
+                style={{ width: '90%' }}
+                sx={{
+                  input: { color: 'white' },
+                }}
+                InputLabelProps={{
+                  style: { color: 'white' },
+                  underline: { color: 'white' },
+                }}
+                id="filled-primary"
+                label="Search Here ..."
+                variant="filled"
+                onChange={inputHandler}
+                // color="secondary"
               />
-            ))}
-            {allSubFilters.map((filter, id) => (
-              <Filters
-                filterValue={filter}
-                onSelectFilters={selectSubFilters}
-                onDeSelectFilters={deselectSubFilters}
-                color={'primary'}
-              />
-            ))}
-          </div>
-        </Grid>
-        <Grid item xs={12} md={8} mr={1}>
-          <div className={styles.eventCards}>
-            <Grid
-              container
-              columns={12}
-              columnSpacing={2}
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
-              {events.filter(searchFilterFunction).map((event, id) => (
-                <EventListingCard
-                  id={event.id}
-                  key={id}
-                  eventType={event.type}
-                  eventDetails={event}
+            </div>
+            <div style={{ textAlign: 'center', marginBottom: 40 }}>
+              {allFilters.map((filter, id) => (
+                <Filters
+                  key={filter.val}
+                  filterValue={filter}
+                  onSelectFilters={selectFilters}
+                  onDeSelectFilters={deselectFilters}
+                  color={'primary'}
                 />
               ))}
-            </Grid>
-          </div>
+              {allSubFilters.map((filter, id) => (
+                <Filters
+                  key={filter.val}
+                  filterValue={filter}
+                  onSelectFilters={selectSubFilters}
+                  onDeSelectFilters={deselectSubFilters}
+                  color={'primary'}
+                />
+              ))}
+            </div>
+          </Grid>
+          <Grid item xs={12} md={8} mr={1}>
+            <div className={styles.eventCards}>
+              <Grid
+                container
+                columns={12}
+                columnSpacing={2}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {events.filter(searchFilterFunction).map((event, id) => (
+                  <EventListingCard
+                    id={event.id}
+                    key={id}
+                    eventType={event.type}
+                    eventDetails={event}
+                  />
+                ))}
+              </Grid>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </div>
   );
 };

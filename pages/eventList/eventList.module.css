@@ -1,5 +1,5 @@
 .background {
-  background-image: url("../../public/website\ designs/Landing 6.jpg");
+  background-image: url("../../public/website\ designs/Event desc.jpg");
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -9,7 +9,8 @@
 
 .main_container {
   padding-top: 0.5em;
-  overflow-x: hidden;
+  overflow-x: hidden; 
+  width: 100%;
 }
 
 .pageheader {
@@ -26,14 +27,13 @@
 
 .mainHeading {
   
-
   color: white !important;
   font-family: "Audiowide", cursive;
   font-size: 45px;
   font-weight: 700;
   letter-spacing: 5px;
   text-shadow: 5px 5px 5px #000;
-  text-align: center;
+  text-align: center !important;
 }
 
 .search {

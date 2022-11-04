@@ -12,7 +12,7 @@ import Container from '@mui/material/Container';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import styles from './Signup.module.css';
-import redirectToLogin from '../../lib/auth/redirectToLogin';
+import getCookieData from '../../lib/auth/getCookieData';
 
 export default function SignUp() {
   const router = useRouter();
@@ -35,15 +35,7 @@ export default function SignUp() {
         }),
       }
     ).then((res) => res.json());
-    toast(res.message, {
-      position: 'top-right',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-    });
+    toast(res.message);
 
     router.push('/login');
   };
@@ -140,4 +132,20 @@ export default function SignUp() {
       </Container>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { user } = getCookieData(context);
+  console.log(user);
+  if (user !== null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 }
