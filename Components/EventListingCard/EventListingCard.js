@@ -61,7 +61,7 @@ function EventListingCard(props) {
                 <div className={styles.imageCardMediaDiv}>
                   <CardMedia
                     component="img"
-                    height={"220"}
+                    height={'220'}
                     image="https://image.shutterstock.com/image-vector/urban-techno-music-event-background-600w-47546335.jpg"
                     alt="green iguana"
                     className={styles.imageCardMedia}
