@@ -11,6 +11,7 @@ import createEmotionCache from '../src/createEmotionCache';
 import Navbar from '../Components/NavBar';
 import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { Router } from 'next/router';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -22,7 +23,25 @@ export default function MyApp(props) {
     pageProps,
     session,
   } = props;
-
+  const [loading, setLoading] = React.useState(false);
+  React.useEffect(() => {
+    const start = () => {
+      console.log('start');
+      setLoading(true);
+    };
+    const end = () => {
+      console.log('finished');
+      setLoading(false);
+    };
+    Router.events.on('routeChangeStart', start);
+    Router.events.on('routeChangeComplete', end);
+    Router.events.on('routeChangeError', end);
+    return () => {
+      Router.events.off('routeChangeStart', start);
+      Router.events.off('routeChangeComplete', end);
+      Router.events.off('routeChangeError', end);
+    };
+  }, []);
   return (
     <SessionProvider session={session}>
       <CacheProvider value={emotionCache}>
@@ -34,8 +53,7 @@ export default function MyApp(props) {
           <CssBaseline />
 
           <Navbar />
-
-          <Component {...pageProps} />
+          {loading ? <h1>Loading...</h1> : <Component {...pageProps} />}
           <ToastContainer
             position="top-right"
             autoClose={8000}

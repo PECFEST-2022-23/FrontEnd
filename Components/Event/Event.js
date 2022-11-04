@@ -15,40 +15,18 @@ import classes from './Event.module.css';
 
 const Event = (props) => {
   return (
-    <div style={{ paddingTop: '50px', margin: '0 20px' }}>
-      <Grid container spacing={1} direction="row-reverse">
-        <Grid
-          item
-          xs={12}
-          sm={9}
-          md={6}
-          style={{ margin: 'auto', marginTop: '10px' }}
-        >
-          <Grid item xs={12} sm={12} md={12} className={classes.imageGridItem}>
-            <Image
-              priority
-              layout="fill"
-              alt="Cultural Image"
-              src={
-                props.eventDetails?.image_url ||
-                'https://image.shutterstock.com/image-vector/urban-techno-music-event-background-600w-47546335.jpg'
-              }
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={12} className={classes.chipsGridItem}>
-            <Chip
-              label={props.eventDetails.type?.toUpperCase()}
-              color="info"
-              variant="filled"
-              className={classes.chip}
-            />
-            <Chip
-              label={props.eventDetails.subtype?.toUpperCase()}
-              color="info"
-              variant="filled"
-              className={classes.chip}
-            />
-          </Grid>
+    <div style={{ paddingTop: '50px', margin: '0 30px' }}>
+      <Grid container spacing={2} direction="row-reverse">
+        <Grid item xs={11} sm={9} md={5} className={classes.imageGridItem}>
+          <Image
+            priority
+            layout="fill"
+            alt="Cultural Image"
+            src={
+              props.eventDetails?.image_url ||
+              'https://image.shutterstock.com/image-vector/urban-techno-music-event-background-600w-47546335.jpg'
+            }
+          />
         </Grid>
         <Grid
           item
@@ -70,6 +48,22 @@ const Event = (props) => {
               }
               subheader={
                 <span style={{ color: 'rgb(102, 255, 255)' }}>
+                  <div>
+                    <Chip
+                      size="small"
+                      label={props.eventDetails?.type?.toUpperCase()}
+                      color="info"
+                      variant="filled"
+                      className={classes.chip}
+                    />
+                    <Chip
+                      size="small"
+                      label={props.eventDetails?.subtype?.toUpperCase()}
+                      color="info"
+                      variant="filled"
+                      className={classes.chip}
+                    />
+                  </div>
                   <br />
                   <EventIcon
                     style={{ verticalAlign: '-5px', color: 'white' }}
@@ -94,24 +88,34 @@ const Event = (props) => {
             />
             <CardActions style={{ overflow: 'auto' }}>
               <a href={props.eventDetails?.rulebookUrl}>
-                <Button variant="contained" size="small">
+                <Button
+                  variant="contained"
+                  style={{ border: '1px solid white' }}
+                  onClick={() => console.log('clicked')}
+                  size="small"
+                >
                   Rulebook
                 </Button>
               </a>
               <a href="#">
-                <Button variant="contained" size="small">
+                <Button
+                  variant="contained"
+                  style={{ border: '1px solid white' }}
+                  onClick={() => console.log('clicked')}
+                  size="small"
+                >
                   Register
                 </Button>
               </a>
               <div style={{ right: '3%', position: 'absolute' }}>
                 <Chip
                   label={
-                    'Team Size: ' +
-                    (props.eventDetails.type == 'INDIVIDUAL'
+                    'Team size: ' +
+                    (props.eventDetails?.type == 'INDIVIDUAL'
                       ? '1'
-                      : props.eventDetails.min_team_size +
+                      : props.eventDetails?.min_team_size +
                         ' - ' +
-                        props.eventDetails.max_team_size)
+                        props.eventDetails?.max_team_size)
                   }
                   color="info"
                   variant="filled"
