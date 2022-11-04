@@ -187,6 +187,7 @@ const MegaShowEvent = (props) => {
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
               {allFilters.map((filter, id) => (
                 <Filters
+                  key={filter.val}
                   filterValue={filter}
                   onSelectFilters={selectFilters}
                   onDeSelectFilters={deselectFilters}
@@ -195,6 +196,7 @@ const MegaShowEvent = (props) => {
               ))}
               {allSubFilters.map((filter, id) => (
                 <Filters
+                  key={filter.val}
                   filterValue={filter}
                   onSelectFilters={selectSubFilters}
                   onDeSelectFilters={deselectSubFilters}
