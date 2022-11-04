@@ -20,6 +20,7 @@ const MegaShowEvent = (props) => {
   const [allSubFilters, setAllSubFilters] = useState([]);
   const [filters, setFilters] = useState([]);
   const [subFilters, setSubFilters] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
 
@@ -140,7 +141,23 @@ const MegaShowEvent = (props) => {
     })
 
     setEvents(filteredEvents);
+  }
 
+  const inputHandler = (e) => {
+    var upperCase = e.target.value.toUpperCase();
+    setSearchQuery(upperCase);
+  };
+
+  const searchFilterFunction = (el) => {
+    //if no input the return the original
+    if (props.input === '') {
+        return el;
+    }
+    //return the item which contains the user input
+    else {
+        let corpus = `${el.name} ${el.description}`;
+        return corpus.toUpperCase().includes(searchQuery)
+    }
   }
 
   return (
@@ -165,6 +182,8 @@ const MegaShowEvent = (props) => {
               id="filled-primary"
               label="Search"
               variant="filled"
+              onChange={inputHandler}
+              //value={searchValue}
               color="secondary"
             />
           </div>
@@ -197,7 +216,7 @@ const MegaShowEvent = (props) => {
               justifyContent="center"
               alignItems="center"
             >
-              {events.map((event, id) => (
+              {events.filter(searchFilterFunction).map((event, id) => (
                 <EventListingCard
                   id={event.id}
                   key={id}

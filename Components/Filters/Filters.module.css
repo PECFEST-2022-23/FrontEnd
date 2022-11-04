@@ -9,3 +9,18 @@
   font-weight: bold;
   white-space: nowrap;
 }
+
+.activeTagStyle {
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-right: 5px;
+  background-color: rgb(74, 72, 72);
+}
+
+.inactiveTagStyle {
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-right: 5px;
+}
