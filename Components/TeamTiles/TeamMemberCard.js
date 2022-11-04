@@ -1,67 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import Grid from '@mui/material/Grid';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import CallIcon from '@mui/icons-material/Call';
-import Image from 'next/image';
 import styles from './TeamMemberCard.module.css';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import puneet from './puneet.jpeg';
 
 function TeamMemberCard(props) {
-  // const lineColors = ['red', 'green', 'blue', 'yellow'];
-  // const color = lineColors[index % 4];
   return (
-    <Grid item xs={12} md={3} sm={6}>
-      <div className={styles.container}>
-        <div className={`${styles.center}`}>
-          <div className={styles.front_face}>
-            <Image
-              src={props.image}
-              alt={props.Name}
-              layout="fill"
-              className={styles.front_face}
-            />
-          </div>
-          <div className={styles.back_face}>
-            <div className={`${styles.contents} ${styles.back}`}>
-              <h2>{props.name}</h2>
-              <span>{props.committee}</span>
-              <div className={styles.icons}>
-                {props.insta !== 'NA' && (
-                  <a href={props.insta} target="_blank" rel="noreferrer">
-                    <InstagramIcon className={styles.fab} />
-                  </a>
-                )}
-                {props.linkedin !== 'NA' && (
-                  <a href={props.linkedin} target="_blank" rel="noreferrer">
-                    <LinkedInIcon className={styles.fab} />
-                  </a>
-                )}
-                {props.github !== 'NA' && (
-                  <a href={props.github} target="_blank" rel="noreferrer">
-                    <GitHubIcon className={styles.fab} />
-                  </a>
-                )}
-                {props.contact !== 'NA' && (
-                  <a
-                    href={`tel:${props.contact}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <Tooltip title={props.contact}>
-                      <CallIcon className={styles.fab} />
-                    </Tooltip>
-                  </a>
-                )}
-              </div>
+    <div className={styles.wrapper}>
+      <div href="" className={styles.card}>
+        <picture>
+          <source srcSet={props.image} />
+          <img
+            src={props.image}
+            className={styles.card__image}
+            alt="Display Picture"
+          />
+        </picture>
+        <div className={styles.card__overlay}>
+          <div className={styles.card__header}>
+            <svg
+              className={styles.card__arc}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path />
+            </svg>
+            <picture>
+              <source srcSet={props.image} />
+              <img
+                className={styles.card__thumb}
+                src={props.image}
+                alt="Display Image circle"
+              />
+            </picture>
+            <div className={styles.card__header__text}>
+              <h3 className={styles.card__title}>{props.name}</h3>
             </div>
+          </div>
+          <div className={styles.card__tagline}>{props.committee}</div>
+          <div className={styles.icons}>
+            {props.insta !== 'NA' && (
+              <a href={props.insta} target="_blank" rel="noreferrer">
+                <InstagramIcon className={styles.fab} />
+              </a>
+            )}
+            {props.linkedin !== 'NA' && (
+              <a href={props.linkedin} target="_blank" rel="noreferrer">
+                <LinkedInIcon className={styles.fab} />
+              </a>
+            )}
+            {props.github !== 'NA' && (
+              <a href={props.github} target="_blank" rel="noreferrer">
+                <GitHubIcon className={styles.fab} />
+              </a>
+            )}
+            {props.contact !== 'NA' && (
+              <a href={`tel:${props.contact}`} target="_blank" rel="noreferrer">
+                <Tooltip title={props.contact}>
+                  <CallIcon className={styles.fab} />
+                </Tooltip>
+              </a>
+            )}
           </div>
         </div>
       </div>
-    </Grid>
+    </div>
   );
 }
 
