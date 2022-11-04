@@ -3,7 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['i.picsum.photos', 'instagram.fixc1-4.fna.fbcdn.net'],
+    domains: [
+      'i.picsum.photos',
+      'instagram.fixc1-4.fna.fbcdn.net',
+      'image.shutterstock.com',
+    ],
     // remotePatterns: [
     //   {
     //     protocol: 'https',

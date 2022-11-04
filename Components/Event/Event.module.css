@@ -1,7 +1,7 @@
 .imageGridItem {
   position: relative;
-  height: 80vh;
-  margin: 12px auto;
+  height: 70vh;
+  margin: 10px 20px;
   background: white;
   border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
   color: white;
@@ -33,4 +33,14 @@
     black calc(100% - 48px),
     transparent 100%
   );
+}
+
+.chipsGridItem {
+  margin-top: 35px;
+}
+
+.chip {
+  margin: 0 5px;
+  background-color: #f07b3f;
+  font-size: 0.9rem;
 }
