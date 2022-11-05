@@ -21,16 +21,16 @@ function EventListingCard(props) {
   );
 
   const processDescriptionMob = (desc) => {
-    let contentLengthMob = 300;
+    const contentLengthMob = 300;
 
-    let trimmedContent = desc.substring(0, contentLengthMob);
+    const trimmedContent = desc.substring(0, contentLengthMob);
     setDescription(trimmedContent);
   };
 
   const processDescriptionPC = (desc) => {
-    let contentLengthPC = 100;
+    const contentLengthPC = 100;
 
-    let trimmedContent = desc.substring(0, contentLengthPC);
+    const trimmedContent = desc.substring(0, contentLengthPC);
     setDescription(trimmedContent);
   };
 
@@ -53,7 +53,10 @@ function EventListingCard(props) {
             <Card className={styles.eventCard}>
               <div className={styles.borderCardMediaDiv}>
                 <CardMedia>
-                  <Image src={require('./border-frame-design.png')} />
+                  <Image
+                    src={require('./border-frame-design.png')}
+                    alt="borderFrame"
+                  />
                 </CardMedia>
                 <div className={styles.imageCardMediaDiv}>
                   <CardMedia
@@ -71,7 +74,10 @@ function EventListingCard(props) {
             <Card className={styles.eventCard}>
               <div className={styles.borderCardMediaDiv}>
                 <CardMedia>
-                  <Image src={require('./border-frame-design.png')} />
+                  <Image
+                    src={require('./border-frame-design.png')}
+                    alt="border frame design"
+                  />
                 </CardMedia>
                 <div className={styles.imageCardMediaDiv}>
                   <CardContent>

@@ -12,12 +12,14 @@ import Container from '@mui/material/Container';
 import styles from './Login.module.css';
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { encrypt } from '../../lib/auth/enctryption';
-import onLoginSuccess from '../../lib/auth/onLoginSuccess';
+import { encrypt, decrypt } from '../../lib/auth/enctryption';
+import Cookies from 'universal-cookie';
+import getCookieData from '../../lib/auth/getCookieData';
 
 export default function Login() {
   const router = useRouter();
   const { data: session } = useSession();
+  const cookies = new Cookies();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,9 +47,11 @@ export default function Login() {
       toast.success('Login successful.');
       const user = res.user,
         token = res.token;
-      localStorage.setItem('user', encrypt(JSON.stringify(user)));
-      localStorage.setItem('token', encrypt(JSON.stringify(token)));
-      onLoginSuccess({ router });
+      cookies.set('user', encrypt(JSON.stringify(user)));
+      cookies.set('token', encrypt(JSON.stringify(token)));
+      const redirectPath = decrypt(cookies.get('redirectPath')) || '/';
+      cookies.remove('redirectPath');
+      router.push(redirectPath);
     }
   };
 
@@ -86,7 +90,7 @@ export default function Login() {
             <Typography
               component="h1"
               variant="h5"
-              className={`d-flex justify-content-center ${styles.pageheader}`}
+              className={styles.pageheader}
             >
               Login
             </Typography>
@@ -158,4 +162,20 @@ export default function Login() {
         </Container>
       </div>
     );
+}
+
+export async function getServerSideProps(context) {
+  const { user } = getCookieData(context);
+  console.log(user);
+  if (user !== null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 }
