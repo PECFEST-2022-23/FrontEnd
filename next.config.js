@@ -7,6 +7,7 @@ const nextConfig = {
       'i.picsum.photos',
       'instagram.fixc1-4.fna.fbcdn.net',
       'image.shutterstock.com',
+      'api.pecfest.co.in',
     ],
     // remotePatterns: [
     //   {

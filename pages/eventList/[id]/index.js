@@ -1,4 +1,3 @@
-import GradientBackground from '../../../Components/Backgrounds/GradientBackground';
 import Event from '../../../Components/Event/Event';
 import classes from './event.module.css';
 

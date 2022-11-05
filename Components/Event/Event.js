@@ -5,12 +5,10 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Box, shadows, textAlign } from '@mui/system';
 import CardHeader from '@mui/material/CardHeader';
 import RoomIcon from '@mui/icons-material/Room';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import EventIcon from '@mui/icons-material/Event';
-import { useRouter } from 'next/router';
 import classes from './Event.module.css';
 
 const Event = (props) => {
@@ -48,34 +46,47 @@ const Event = (props) => {
               }
               subheader={
                 <span style={{ color: 'rgb(102, 255, 255)' }}>
-                  <div>
-                    <Chip
-                      size="small"
-                      label={props.eventDetails?.type?.toUpperCase()}
-                      color="info"
-                      variant="filled"
-                      className={classes.chip}
-                    />
-                    <Chip
-                      size="small"
-                      label={props.eventDetails?.subtype?.toUpperCase()}
-                      color="info"
-                      variant="filled"
-                      className={classes.chip}
-                    />
-                  </div>
+                  <Chip
+                    size="small"
+                    label={props.eventDetails?.type?.toUpperCase()}
+                    color="info"
+                    variant="filled"
+                    className={classes.chip}
+                  />
+                  <Chip
+                    size="small"
+                    label={props.eventDetails?.category?.toUpperCase()}
+                    color="info"
+                    variant="filled"
+                    className={classes.chip}
+                  />
+                  <Chip
+                    size="small"
+                    label={props.eventDetails?.subcategory?.toUpperCase()}
+                    color="info"
+                    variant="filled"
+                    className={classes.chip}
+                  />
                   <br />
                   <EventIcon
                     style={{ verticalAlign: '-5px', color: 'white' }}
                   />{' '}
-                  {new Date(props.eventDetails?.datetime)
+                  {new Date(props.eventDetails?.startdatetime)
                     .toUTCString()
-                    .slice(0, 16)}{' '}
+                    .slice(0, 16)}
+                  {' - '}
+                  {new Date(props.eventDetails?.enddatetime)
+                    .toUTCString()
+                    .slice(0, 16)}
                   <br />
                   <AccessTimeIcon
                     style={{ verticalAlign: '-5px', color: 'white' }}
                   />{' '}
-                  {new Date(props.eventDetails?.datetime)
+                  {new Date(props.eventDetails?.startdatetime)
+                    .toUTCString()
+                    .slice(-12)}
+                  {' - '}
+                  {new Date(props.eventDetails?.enddatetime)
                     .toUTCString()
                     .slice(-12)}
                   <br />
@@ -87,26 +98,23 @@ const Event = (props) => {
               }
             />
             <CardActions style={{ overflow: 'auto' }}>
-              <a href={props.eventDetails?.rulebookUrl}>
-                <Button
-                  variant="contained"
-                  style={{ border: '1px solid white' }}
-                  onClick={() => console.log('clicked')}
-                  size="small"
-                >
-                  Rulebook
-                </Button>
-              </a>
-              <a href="#">
-                <Button
-                  variant="contained"
-                  style={{ border: '1px solid white' }}
-                  onClick={() => console.log('clicked')}
-                  size="small"
-                >
-                  Register
-                </Button>
-              </a>
+              <Button
+                variant="contained"
+                style={{ border: '1px solid white' }}
+                size="small"
+                target="_blank"
+                href={props.eventDetails.rulebook_url}
+              >
+                Rulebook
+              </Button>
+              <Button
+                variant="contained"
+                style={{ border: '1px solid white' }}
+                onClick={() => console.log('clicked')}
+                size="small"
+              >
+                Register
+              </Button>
               <div style={{ right: '3%', position: 'absolute' }}>
                 <Chip
                   label={
