@@ -48,7 +48,7 @@ const MegaShowEvent = (props) => {
         const subFiltersAvailable = [];
         evts.forEach((evt) => {
           filtersAvailable.push(evt.type);
-          subFiltersAvailable.push(evt.subtype);
+          subFiltersAvailable.push(evt.subcategory);
         });
 
         setAllFilters([...new Set(filtersAvailable)]);
@@ -64,7 +64,7 @@ const MegaShowEvent = (props) => {
   const filterPass = (event) => {
     return (
       filters.includes(event.type.toUpperCase()) ||
-      subFilters.includes(event.subtype.toUpperCase())
+      subFilters.includes(event.subcategory.toUpperCase())
     );
   };
 
@@ -84,6 +84,7 @@ const MegaShowEvent = (props) => {
     });
 
     setEvents(filteredEvents);
+    localStorage.setItem('events', JSON.stringify(filteredEvents));
   };
 
   const deselectFilters = (filterVal) => {
@@ -102,6 +103,7 @@ const MegaShowEvent = (props) => {
     });
 
     setEvents(filteredEvents);
+    localStorage.setItem('events', JSON.stringify(filteredEvents));
   };
 
   const selectSubFilters = (filterVal) => {
@@ -120,6 +122,7 @@ const MegaShowEvent = (props) => {
     });
 
     setEvents(filteredEvents);
+    localStorage.setItem('events', JSON.stringify(filteredEvents));
   };
 
   const deselectSubFilters = (filterVal) => {
@@ -138,6 +141,7 @@ const MegaShowEvent = (props) => {
     });
 
     setEvents(filteredEvents);
+    localStorage.setItem('events', JSON.stringify(filteredEvents));
   };
 
   const inputHandler = (e) => {
@@ -187,7 +191,7 @@ const MegaShowEvent = (props) => {
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
               {allFilters.map((filter, id) => (
                 <Filters
-                  key={filter.val}
+                  // key={filter.val}
                   filterValue={filter}
                   onSelectFilters={selectFilters}
                   onDeSelectFilters={deselectFilters}
@@ -196,7 +200,7 @@ const MegaShowEvent = (props) => {
               ))}
               {allSubFilters.map((filter, id) => (
                 <Filters
-                  key={filter.val}
+                  // key={filter.val}
                   filterValue={filter}
                   onSelectFilters={selectSubFilters}
                   onDeSelectFilters={deselectSubFilters}
