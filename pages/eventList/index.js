@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import Filters from '../../Components/Filters/Filter';
 
 const MegaShowEvent = (props) => {
-
   const router = useRouter();
 
   const {
@@ -15,16 +14,15 @@ const MegaShowEvent = (props) => {
   } = router;
 
   const [events, setEvents] = useState([]);
-  const [allEvents, setAllEvents] = useState([]); 
+  const [allEvents, setAllEvents] = useState([]);
   const [allFilters, setAllFilters] = useState([]);
   const [allSubFilters, setAllSubFilters] = useState([]);
   const [filters, setFilters] = useState([]);
   const [subFilters, setSubFilters] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-
-      fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events')
+    fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events')
       .then(
         (response) => {
           if (response.ok) {
@@ -51,7 +49,7 @@ const MegaShowEvent = (props) => {
         evts.forEach((evt) => {
           filtersAvailable.push(evt.type);
           subFiltersAvailable.push(evt.subtype);
-        })
+        });
 
         setAllFilters([...new Set(filtersAvailable)]);
         setAllSubFilters([...new Set(subFiltersAvailable)]);
@@ -64,7 +62,10 @@ const MegaShowEvent = (props) => {
   }, []);
 
   const filterPass = (event) => {
-    return filters.includes(event.type.toUpperCase()) || subFilters.includes(event.subtype.toUpperCase());
+    return (
+      filters.includes(event.type.toUpperCase()) ||
+      subFilters.includes(event.subtype.toUpperCase())
+    );
   };
 
   const selectFilters = (filterVal) => {
@@ -78,13 +79,13 @@ const MegaShowEvent = (props) => {
     let filteredEvents = [];
 
     allEvents.forEach((evt) => {
-      console.log(filterPass(evt))
-      if(filterPass(evt))
-        filteredEvents.push(evt);
-    })
+      console.log(filterPass(evt));
+      if (filterPass(evt)) filteredEvents.push(evt);
+    });
 
     setEvents(filteredEvents);
-  }
+    localStorage.setItem('events', JSON.stringify(filteredEvents));
+  };
 
   const deselectFilters = (filterVal) => {
     let selectedFilters = filters;
@@ -97,13 +98,13 @@ const MegaShowEvent = (props) => {
     let filteredEvents = [];
 
     allEvents.forEach((evt) => {
-      console.log(filterPass(evt))
-      if(filterPass(evt))
-        filteredEvents.push(evt);
-    })
+      console.log(filterPass(evt));
+      if (filterPass(evt)) filteredEvents.push(evt);
+    });
 
     setEvents(filteredEvents);
-  }
+    localStorage.setItem('events', JSON.stringify(filteredEvents));
+  };
 
   const selectSubFilters = (filterVal) => {
     let selectedFilters = subFilters;
@@ -116,13 +117,13 @@ const MegaShowEvent = (props) => {
     let filteredEvents = [];
 
     allEvents.forEach((evt) => {
-      console.log(filterPass(evt))
-      if(filterPass(evt))
-        filteredEvents.push(evt);
-    })
+      console.log(filterPass(evt));
+      if (filterPass(evt)) filteredEvents.push(evt);
+    });
 
     setEvents(filteredEvents);
-  }
+    localStorage.setItem('events', JSON.stringify(filteredEvents));
+  };
 
   const deselectSubFilters = (filterVal) => {
     let selectedFilters = subFilters;
@@ -135,13 +136,13 @@ const MegaShowEvent = (props) => {
     let filteredEvents = [];
 
     allEvents.forEach((evt) => {
-      console.log(filterPass(evt))
-      if(filterPass(evt))
-        filteredEvents.push(evt);
-    })
+      console.log(filterPass(evt));
+      if (filterPass(evt)) filteredEvents.push(evt);
+    });
 
     setEvents(filteredEvents);
-  }
+    localStorage.setItem('events', JSON.stringify(filteredEvents));
+  };
 
   const inputHandler = (e) => {
     var upperCase = e.target.value.toUpperCase();
@@ -151,14 +152,14 @@ const MegaShowEvent = (props) => {
   const searchFilterFunction = (el) => {
     //if no input the return the original
     if (props.input === '') {
-        return el;
+      return el;
     }
     //return the item which contains the user input
     else {
-        let corpus = `${el.name} ${el.description}`;
-        return corpus.toUpperCase().includes(searchQuery)
+      let corpus = `${el.name} ${el.description}`;
+      return corpus.toUpperCase().includes(searchQuery);
     }
-  }
+  };
 
   return (
     <div className={styles.background}>
@@ -169,64 +170,64 @@ const MegaShowEvent = (props) => {
       </Grid>
       <Container fluid className={styles.main_container} maxWidth={false}>
         <Grid container>
-        <Grid item xs={12} md={3}>
-          <div className={styles.search}>
-            <TextField
-              style={{ width: '90%' }}
-              sx={{
-                input: { color: 'white' },
-              }}
-              InputLabelProps={{
-                style: { color: 'white' },
-                underline: { color: 'white' },
-              }}
-              id="filled-primary"
-              label="Search Here ..."
-              variant="filled"
-              onChange={inputHandler}
-              // color="secondary"
-            />
-          </div>
-          <div style={{ textAlign: 'center', marginBottom: 40 }}>
-            {allFilters.map((filter, id) => (
-              <Filters 
-                filterValue={filter}
-                onSelectFilters={selectFilters}
-                onDeSelectFilters={deselectFilters}
-                color={"primary"}
+          <Grid item xs={12} md={3}>
+            <div className={styles.search}>
+              <TextField
+                style={{ width: '90%' }}
+                sx={{
+                  input: { color: 'white' },
+                }}
+                InputLabelProps={{
+                  style: { color: 'white' },
+                  underline: { color: 'white' },
+                }}
+                id="filled-primary"
+                label="Search Here ..."
+                variant="filled"
+                onChange={inputHandler}
+                // color="secondary"
               />
-            ))}
-            {allSubFilters.map((filter, id) => (
-              <Filters 
-                filterValue={filter}
-                onSelectFilters={selectSubFilters}
-                onDeSelectFilters={deselectSubFilters}
-                color={"primary"}
-              />
-            ))}
-          </div>
-        </Grid>
-        <Grid item xs={12} md={8} mr={1}>
-          <div className={styles.eventCards}>
-            <Grid
-              container
-              columns={12}
-              columnSpacing={2}
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
-              {events.filter(searchFilterFunction).map((event, id) => (
-                <EventListingCard
-                  id={event.id}
-                  key={id}
-                  eventType={event.type}
-                  eventDetails={event}
+            </div>
+            <div style={{ textAlign: 'center', marginBottom: 40 }}>
+              {allFilters.map((filter, id) => (
+                <Filters
+                  filterValue={filter}
+                  onSelectFilters={selectFilters}
+                  onDeSelectFilters={deselectFilters}
+                  color={'primary'}
                 />
               ))}
-            </Grid>
-          </div>
-        </Grid>
+              {allSubFilters.map((filter, id) => (
+                <Filters
+                  filterValue={filter}
+                  onSelectFilters={selectSubFilters}
+                  onDeSelectFilters={deselectSubFilters}
+                  color={'primary'}
+                />
+              ))}
+            </div>
+          </Grid>
+          <Grid item xs={12} md={8} mr={1}>
+            <div className={styles.eventCards}>
+              <Grid
+                container
+                columns={12}
+                columnSpacing={2}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {events.filter(searchFilterFunction).map((event, id) => (
+                  <EventListingCard
+                    id={event.id}
+                    key={id}
+                    eventType={event.type}
+                    eventDetails={event}
+                  />
+                ))}
+              </Grid>
+            </div>
+          </Grid>
         </Grid>
       </Container>
     </div>
@@ -234,3 +235,12 @@ const MegaShowEvent = (props) => {
 };
 
 export default MegaShowEvent;
+
+{
+  /*<EventListingCard
+                  id={event.id}
+                  key={id}
+                  eventType={event.type}
+                  eventDetails={event}
+                />*/
+}

@@ -38,14 +38,14 @@ function EventListingCard(props) {
   return (
     <Grid item xs={10} sm={6} md={6} lg={4} xl={4}>
       <div
-        onClick={() =>
-          router.push({
-            pathname: '/eventList/' + props.id,
-            query: {
-              eventDetails: props.eventDetails,
-            },
-          })
-        }
+        // onClick={() =>
+        //   router.push({
+        //     pathname: '/eventList/' + props.id,
+        //     query: {
+        //       eventDetails: props.eventDetails,
+        //     },
+        //   })
+        // }
         className={styles.flipCard}
       >
         <div className={`${styles.flipCardInner}`}>
@@ -58,7 +58,7 @@ function EventListingCard(props) {
                 <div className={styles.imageCardMediaDiv}>
                   <CardMedia
                     component="img"
-                    height={"220"}
+                    height={'220'}
                     image="https://image.shutterstock.com/image-vector/urban-techno-music-event-background-600w-47546335.jpg"
                     alt="green iguana"
                     className={styles.imageCardMedia}
