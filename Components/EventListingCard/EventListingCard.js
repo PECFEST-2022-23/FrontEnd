@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Modal } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,13 +10,22 @@ import { Button } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ShareIcon from '@mui/icons-material/Share';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import ShareComponent from '../Share';
 import { Info } from '@mui/icons-material';
 import borderFrame from './border-frame-design.png';
 import styles from './EventListingCard.module.css';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
+
 function EventListingCard(props) {
+
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+
+  const shareModalHandler = () => {
+    setShareModalOpen(!shareModalOpen)
+  }
+
   const router = useRouter();
   return (
     <Grid item xs={10} sm={6} md={6} lg={4} xl={4}>
@@ -101,9 +110,6 @@ function EventListingCard(props) {
                 onClick={() =>
                   router.push({
                     pathname: '/eventList/' + props.id,
-                    query: {
-                      eventDetails: props.eventDetails,
-                    },
                   })
                 }
                 size="large"
@@ -116,7 +122,7 @@ function EventListingCard(props) {
               <Button
                 variant="contained"
                 className={styles.eventButton}
-                onClick={() => openInNewTab('https://www.google.com')}
+                onClick={() => setShareModalOpen(!shareModalOpen)}
                 size="large"
                 startIcon={<ShareIcon />}
               >
@@ -126,6 +132,12 @@ function EventListingCard(props) {
           </Grid>
         </div>
       </div>
+      <ShareComponent
+        open={shareModalOpen}
+        handleClose={shareModalHandler}
+        eventId={props.id}
+        eventName={props.eventDetails.name}
+      />
     </Grid>
   );
 }
