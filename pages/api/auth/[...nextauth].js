@@ -3,7 +3,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import { encrypt } from '../../../lib/auth/enctryption';
 import Cookies from 'universal-cookie';
 
-const nextAuthOptions = () => {
+const nextAuthOptions = (req, res) => {
   const cookies = new Cookies();
 
   return {
@@ -14,13 +14,17 @@ const nextAuthOptions = () => {
       }),
     ],
     callbacks: {
-      async signIn({ profile }) {
-        const user = {
-          email: profile.email,
-          first_name: profile.given_name,
-          last_name: profile.family_name,
+      async session({ session }) {
+        session.user.first_name = session.user.name.split(' ')[0];
+        session.user.last_name = session.user.name
+          .split(' ')
+          .slice(1)
+          .join(' ');
+        const userObj = {
+          email: session.user.email,
+          first_name: session.user.given_name,
+          last_name: session.user.family_name,
         };
-        console.log(JSON.stringify(user));
         const backendRes = await fetch(
           process.env.NEXT_PUBLIC_BACKEND_API + 'auth/oauth/',
           {
@@ -28,19 +32,13 @@ const nextAuthOptions = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(user),
+            body: JSON.stringify(userObj),
           }
-        ).then((backendRes) => backendRes.json());
-        console.log(backendRes);
-        if (backendRes.user_status === 1) {
-          return false;
-        } else {
-          const user = backendRes.user,
-            token = backendRes.token;
-          cookies.set('user', encrypt(JSON.stringify(user)));
-          cookies.set('token', encrypt(JSON.stringify(token)));
-          return true;
-        }
+        ).then((backendRes) => {
+          return backendRes.json();
+        });
+        session.token = backendRes.token;
+        return session;
       },
 
       async redirect({ baseUrl }) {
@@ -51,4 +49,4 @@ const nextAuthOptions = () => {
   };
 };
 
-export default (req, res) => NextAuth(req, res, nextAuthOptions());
+export default (req, res) => NextAuth(req, res, nextAuthOptions(req, res));
