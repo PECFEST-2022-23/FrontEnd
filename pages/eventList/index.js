@@ -185,7 +185,6 @@ const MegaShowEvent = (props) => {
                 label="Search Here ..."
                 variant="filled"
                 onChange={inputHandler}
-                // color="secondary"
               />
             </div>
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
