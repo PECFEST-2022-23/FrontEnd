@@ -41,7 +41,7 @@ a {
   margin-top: -2px;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   html {
     color-scheme: dark;
   }
@@ -50,4 +50,4 @@ a {
     color: white;
     background: black;
   }
-}
+} */

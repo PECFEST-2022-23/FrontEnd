@@ -67,8 +67,7 @@ const MegaShowEvent = (props) => {
             />
           </div>
           <div style={{ textAlign: 'center' }}>
-            <Filters
-            />
+            <Filters />
           </div>
         </Grid>
         <Grid item xs={12} md={8} mr={1}>

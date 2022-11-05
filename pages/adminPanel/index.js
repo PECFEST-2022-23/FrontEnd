@@ -20,6 +20,7 @@ import {
 } from '@mui/material';
 import { DropzoneArea } from 'mui-file-dropzone';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
@@ -40,46 +41,68 @@ const EventDialog = ({ onClose, open, eventId }) => {
     eventDescription: '',
   };
 
+  const [eventName, setEventName] = useState();
+  const [eventStart, setEventStart] = useState();
+  const [eventEnd, setEventEnd] = useState();
+  const [eventVenue, setEventVenue] = useState();
+  const [minTeamSize, setMinTeamSize] = useState();
+  const [maxTeamSize, setMaxTeamSize] = useState();
+  const [rulesLink, setRulesLink] = useState();
+  const [eventPoser, setEventPoster] = useState();
+  const [eventDescription, setEventDescription] = useState();
+
   const [event, setEvent] = useState(eventObj);
   const [dateError, setDateError] = useState(false);
 
   const handleEventChange = (e, type) => {
     if ('$d' in e) {
       if (type == 0) {
-        if (e['$d'] > event.eventEnd) {
+        if (e['$d'] > eventEnd) {
           setDateError(true);
         } else {
           setDateError(false);
         }
         if (!dateError) {
-          setEvent({
-            ...event,
-            eventStart: e['$d'],
-          });
+          setEventStart(e['$d']);
         }
       } else {
-        if (e['$d'] < event.eventStart) {
+        if (e['$d'] < eventStart) {
           setDateError(true);
         } else {
           setDateError(false);
         }
         if (!dateError) {
-          setEvent({
-            ...event,
-            eventEnd: e['$d'],
-          });
+          setEventEnd(e['$d']);
         }
       }
     } else if ('target' in e) {
-      setEvent({
-        ...event,
-        [e.target.name]: e.target.value,
-      });
+      const target_name = e.target.name;
+      const target_value = e.target.value;
+      
+      switch (target_name) {
+        case "eventName":
+          setEventName(target_value);
+          break;
+        case "eventVenue":
+          setEventVenue(target_value);
+          break;
+        case "minTeamSize":
+          setMinTeamSize(target_value);
+          break;
+        case "maxTeamSize":
+          setMaxTeamSize(target_value);
+          break;
+        case "rulesLink":
+          setRulesLink(target_value);
+          break;
+        case "eventDescription":
+          setEventDescription(target_value);
+          break;
+        default:
+          break;
+      }
     } else {
-      setEvent({
-        ...event,
-        eventPoster: e[0],
-      });
+      setEventPoster(e[0]);
     }
   };
 
@@ -100,18 +123,22 @@ const EventDialog = ({ onClose, open, eventId }) => {
         // tinker with date formats
         const startDateTimeObj = new Date(SampleData.eventStart * 1000);
         const endDateTimeObj = new Date(SampleData.eventEnd * 1000);
-        setEvent({
-          ...SampleData,
-          eventStart: startDateTimeObj,
-          eventEnd: endDateTimeObj,
-        });
+        setEventName(SampleData.eventName);
+        setEventStart(startDateTimeObj);
+        setEventEnd(endDateTimeObj);
+        setEventVenue(SampleData.eventVenue);
+        setMinTeamSize(SampleData.minTeamSize);
+        setMaxTeamSize(SampleData.maxTeamSize);
+        setRulesLink(SampleData.rulesLink);
+        setEventDescription(SampleData.eventDescription);
       })();
   }, [eventId, event]);
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle sx={{ textAlign: 'center' }}>
+      <DialogTitle sx={{ display: "flex", justifyContent: "space-evenly" }}>
         {eventId ? `Edit Event Details` : `Add a New Event`}
+        {eventId && (<Button><DeleteOutlineIcon /></Button>)}
       </DialogTitle>
       <DialogContent>
         <Box
@@ -132,14 +159,14 @@ const EventDialog = ({ onClose, open, eventId }) => {
                 label="Event Name"
                 autoFocus
                 onChange={(e) => handleEventChange(e)}
-                value={event.eventName}
+                value={eventName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateTimePicker
                   label="Event Start Date and Time"
-                  value={event.eventStart}
+                  value={eventStart}
                   onChange={(e) => handleEventChange(e, 0)}
                   renderInput={(params) => (
                     <TextField
@@ -161,7 +188,7 @@ const EventDialog = ({ onClose, open, eventId }) => {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateTimePicker
                   label="Event End Date and Time"
-                  value={event.eventEnd}
+                  value={eventEnd}
                   onChange={(e) => handleEventChange(e, 1)}
                   renderInput={(params) => (
                     <TextField name="eventEnd" fullWidth {...params} />
@@ -181,7 +208,7 @@ const EventDialog = ({ onClose, open, eventId }) => {
                 onChange={(e) => handleEventChange(e)}
                 label="Event Venue"
                 name="eventVenue"
-                value={event.eventVenue}
+                value={eventVenue}
               />
             </Grid>
             <Grid item xs={6} sm={3}>
@@ -192,7 +219,7 @@ const EventDialog = ({ onClose, open, eventId }) => {
                 label="Min Team Size"
                 onChange={(e) => handleEventChange(e)}
                 name="minTeamSize"
-                value={event.minTeamSize}
+                value={minTeamSize}
               />
             </Grid>
             <Grid item xs={6} sm={3}>
@@ -203,7 +230,7 @@ const EventDialog = ({ onClose, open, eventId }) => {
                 label="Max Team Size"
                 onChange={(e) => handleEventChange(e)}
                 name="maxTeamSize"
-                value={event.maxTeamSize}
+                value={maxTeamSize}
               />
             </Grid>
             <Grid item xs={12} sm={12}>
@@ -213,7 +240,7 @@ const EventDialog = ({ onClose, open, eventId }) => {
                 onChange={(e) => handleEventChange(e)}
                 label="Link to the Rulebook"
                 name="rulesLink"
-                value={event.rulesLink}
+                value={rulesLink}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -237,7 +264,7 @@ const EventDialog = ({ onClose, open, eventId }) => {
                 required
                 onChange={(e) => handleEventChange(e)}
                 name="eventDescription"
-                value={event.eventDescription}
+                value={eventDescription}
               />
             </Grid>
             <Grid item xs={12} sm={12}>
@@ -270,9 +297,6 @@ const EventCard = ({ id, openDialog }) => {
       <CardActions sx={{ justifyContent: 'center' }}>
         <Button variant="contained" size="small" onClick={openDialog}>
           Edit Information
-        </Button>
-        <Button variant="outlined" size="small">
-          Delete Event
         </Button>
       </CardActions>
     </Card>
@@ -337,14 +361,14 @@ const AdminPanel = () => {
         fullWidth
       >
         {[1, 2, 3, 4, 5, 6].map((event, idx) => (
-          <>
-            <EventCard openDialog={handleEditEventOpen} key={idx} id={idx} />
+          <div key = {idx}>
+            <EventCard openDialog={handleEditEventOpen} id={idx} />
             <EventDialog
               open={eventEditDialogOpen}
               onClose={handleEditEventClose}
               eventId={idx}
             />
-          </>
+          </div>
         ))}
       </Grid>
     </Container>
