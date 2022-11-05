@@ -5,27 +5,18 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import GradientBackground from '../../Components/Backgrounds/GradientBackground';
-import { Button } from '@mui/material';
-import Image from 'next/image';
+import ScheduleGrid from '../../Components/ScheduleGrid/scheduleGrid';
 
-function Schedule() {
+function Schedule(props) {
   const [alignment, setAlignment] = useState('ongoing');
-
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
   return (
-    <section className={`${styles.schedule} ${styles.background}`}>
-      <Container
-        className={`d-flex flex-column overflow-hidden ${styles.main_container}`}
-      >
-        <Box className={`d-flex flex-column flex-grow-1`}>
-          <Grid
-            className={`d-flex justify-content-center ${styles.pageheader}`}
-          >
-            Schedule
-          </Grid>
+    <div className={styles.background}>
+      <Container className={styles.main_container}>
+        <Box>
+          <Grid className={styles.pageheader}>Schedule</Grid>
         </Box>
         <Box className={styles.tabs}>
           <ToggleButtonGroup
@@ -56,35 +47,89 @@ function Schedule() {
             </Grid>
           </Grid>
         </Box>
-        {alignment == 'ongoing' || alignment == 'upcoming' ? (
+        {alignment == 'past' ? (
           <Box className={styles.eventlist}>
-            <Grid container className={styles.event}>
-              <Grid container item md={3} className={styles.eventobject}>
-                Gaaneyan Guneyan ch ki rkheya
-              </Grid>
-              <Grid container item md={2} className={styles.eventobject}>
-                26 november
-              </Grid>
-              <Grid container item md={2} className={styles.eventobject}>
-                3:00 pm
-              </Grid>
-              <Grid container item md={3} className={styles.eventobject}>
-                L-27
-              </Grid>
-              <Grid container item md={2} className={styles.eventobject}>
-                <Button>Register</Button>
-              </Grid>
-            </Grid>
+            {props.past.map((evt) => {
+              return (
+                <ScheduleGrid
+                  key={evt.name}
+                  id={evt.id}
+                  name={evt.name}
+                  date={evt.startdatetime}
+                  venue={evt.venue}
+                />
+              );
+            })}
           </Box>
         ) : (
           <Box className={styles.eventlist}></Box>
         )}
-        <Box className={styles.scheduleimage}>
-          <Image src="" alt="Puneet" width={1200} height={700}></Image>
-        </Box>
+        {alignment == 'ongoing' ? (
+          <Box className={styles.eventlist}>
+            {props.ongoing.map((evt) => {
+              return (
+                <ScheduleGrid
+                  key={evt.name}
+                  id={evt.id}
+                  name={evt.name}
+                  date={evt.startdatetime}
+                  venue={evt.venue}
+                />
+              );
+            })}
+          </Box>
+        ) : (
+          <Box className={styles.eventlist}></Box>
+        )}
+        {alignment == 'upcoming' ? (
+          <Box className={styles.eventlist}>
+            {props.upcoming.map((evt) => {
+              return (
+                <ScheduleGrid
+                  key={evt.name}
+                  id={evt.id}
+                  name={evt.name}
+                  date={evt.startdatetime}
+                  venue={evt.venue}
+                />
+              );
+            })}
+          </Box>
+        ) : (
+          <Box className={styles.eventlist}></Box>
+        )}
       </Container>
-    </section>
+    </div>
   );
+}
+export async function getStaticProps() {
+  const events = await fetch(
+    process.env.NEXT_PUBLIC_BACKEND_API + 'events/'
+  ).then((res) => res.json());
+  const pastEvents = events.filter((evt) => {
+    const enddate = new Date(evt.enddatetime);
+    const presentdate = new Date(Date.now());
+    return enddate < presentdate ? evt : null;
+  });
+  const upcomingEvents = events.filter((evt) => {
+    const startdate = new Date(evt.startdatetime);
+    const presentdate = new Date(Date.now());
+    return startdate > presentdate ? evt : null;
+  });
+  const ongoingEvents = events.filter((evt) => {
+    const startdate = new Date(evt.startdatetime);
+    const enddate = new Date(evt.enddatetime);
+    const presentdate = new Date(Date.now());
+    return startdate < presentdate && presentdate < enddate ? evt : null;
+  });
+  return {
+    props: {
+      past: pastEvents,
+      ongoing: ongoingEvents,
+      upcoming: upcomingEvents,
+    },
+    revalidate: 100,
+  };
 }
 
 export default Schedule;
