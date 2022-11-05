@@ -101,9 +101,6 @@ function EventListingCard(props) {
                 onClick={() =>
                   router.push({
                     pathname: '/eventList/' + props.id,
-                    query: {
-                      eventDetails: props.eventDetails,
-                    },
                   })
                 }
                 size="large"
