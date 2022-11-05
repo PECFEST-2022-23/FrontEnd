@@ -1,0 +1,11 @@
+{
+    "eventName": "General Quiz",
+    "eventStart": "1669462200",
+    "eventEnd": "1669473000",
+    "eventVenue": "Auditorium",
+    "minTeamSize": "1",
+    "maxTeamSize": "3",
+    "rulesLink": "https://mui.com/material-ui/react-card/#main-content",
+    "eventPoster": "",
+    "eventDescription": "This is a general Quiz. This Quiz is very general."
+}
