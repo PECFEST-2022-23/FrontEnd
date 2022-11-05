@@ -46,27 +46,36 @@ const Event = (props) => {
               }
               subheader={
                 <span style={{ color: 'rgb(102, 255, 255)' }}>
-                  <Chip
-                    size="small"
-                    label={props.eventDetails?.type?.toUpperCase()}
-                    color="info"
-                    variant="filled"
-                    className={classes.chip}
-                  />
-                  <Chip
-                    size="small"
-                    label={props.eventDetails?.category?.toUpperCase()}
-                    color="info"
-                    variant="filled"
-                    className={classes.chip}
-                  />
-                  <Chip
-                    size="small"
-                    label={props.eventDetails?.subcategory?.toUpperCase()}
-                    color="info"
-                    variant="filled"
-                    className={classes.chip}
-                  />
+                  <div>
+                    <Chip
+                      size="small"
+                      label={props.eventDetails?.type?.toUpperCase()}
+                      color="info"
+                      variant="filled"
+                      className={classes.chip}
+                    />
+                    <Chip
+                      size="small"
+                      label={props.eventDetails?.category?.toUpperCase()}
+                      color="info"
+                      variant="filled"
+                      className={classes.chip}
+                    />
+                    <Chip
+                      size="small"
+                      label={props.eventDetails?.subcategory?.toUpperCase()}
+                      color="info"
+                      variant="filled"
+                      className={classes.chip}
+                    />
+                    <Chip
+                      size="small"
+                      label={props.eventDetails?.club?.toUpperCase()}
+                      color="info"
+                      variant="filled"
+                      className={classes.chip}
+                    />
+                  </div>
                   <br />
                   <EventIcon
                     style={{ verticalAlign: '-5px', color: 'white' }}
