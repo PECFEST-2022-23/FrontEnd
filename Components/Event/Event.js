@@ -42,7 +42,7 @@ const Event = (props) => {
           <Card raised className={classes.Card}>
             <CardHeader
               title={
-                <span style={{ fontWeight: 'bold', fontSize: '40px' }}>
+                <span style={{ fontWeight: 'bold', fontSize: '35px' }}>
                   {props.eventDetails?.name.toUpperCase()}
                 </span>
               }
@@ -80,7 +80,7 @@ const Event = (props) => {
                     .slice(-12)}
                   <br />
                   <RoomIcon
-                    style={{ color: 'red', verticalAlign: '-5px' }}
+                    style={{ color: 'white', verticalAlign: '-5px' }}
                   />{' '}
                   {props.eventDetails?.venue}
                 </span>
