@@ -16,7 +16,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <div className={styles.landing}>
       <section className={styles.parallax}>
         <div className={styles.parallaxBackground}>
           <picture>
@@ -122,6 +122,6 @@ export default function Home() {
       </section>
       <section className={styles.about4}></section>
       <section className={styles.about5}></section>
-    </>
+    </div>
   );
 }

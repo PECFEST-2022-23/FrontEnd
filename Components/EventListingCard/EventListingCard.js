@@ -17,14 +17,12 @@ import styles from './EventListingCard.module.css';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-
 function EventListingCard(props) {
-
   const [shareModalOpen, setShareModalOpen] = useState(false);
 
   const shareModalHandler = () => {
-    setShareModalOpen(!shareModalOpen)
-  }
+    setShareModalOpen(!shareModalOpen);
+  };
 
   const router = useRouter();
   return (
