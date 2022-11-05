@@ -1,0 +1,7 @@
+.loader_container {
+    height: 100vh;
+    background-image: url("../../public/loader/loading-page-blue.gif");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

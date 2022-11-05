@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
 import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from '@mui/material/styles';
@@ -9,6 +10,7 @@ import { CacheProvider } from '@emotion/react';
 import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import Navbar from '../Components/NavBar';
+import Loader from '../Components/Loader';
 import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { Router } from 'next/router';
@@ -23,47 +25,58 @@ export default function MyApp(props) {
     pageProps,
     session,
   } = props;
-  const [loading, setLoading] = React.useState(false);
+
+  const router = useRouter();
+  const [isLoading, setIsLoading] = React.useState(false);
+
   React.useEffect(() => {
-    const start = () => {
-      console.log('start');
-      setLoading(true);
+    const handleRouteChangeStart = (url, { shallow }) => {
+      setIsLoading(true);
     };
-    const end = () => {
-      console.log('finished');
-      setLoading(false);
+    const handleRouteChangeComplete = (url, { shallow }) => {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
     };
-    Router.events.on('routeChangeStart', start);
-    Router.events.on('routeChangeComplete', end);
-    Router.events.on('routeChangeError', end);
+    router.events.on('routeChangeStart', handleRouteChangeStart);
+    router.events.on('routeChangeComplete', handleRouteChangeComplete);
+
     return () => {
-      Router.events.off('routeChangeStart', start);
-      Router.events.off('routeChangeComplete', end);
-      Router.events.off('routeChangeError', end);
+      router.events.on('routeChangeStart', handleRouteChangeStart);
+      router.events.on('routeChangeComplete', handleRouteChangeComplete);
     };
-  }, []);
+  });
+
   return (
     <SessionProvider session={session}>
       <CacheProvider value={emotionCache}>
         <Head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
+
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <>
+              <CssBaseline />
 
-          <Navbar />
-          {loading ? <h1>Loading...</h1> : <Component {...pageProps} />}
-          <ToastContainer
-            position="top-right"
-            autoClose={8000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            draggable={false}
-            pauseOnVisibilityChange
-            closeOnClick
-            pauseOnHover
-          />
+              <Navbar />
+
+              <Component {...pageProps} />
+              <ToastContainer
+                position="top-right"
+                autoClose={8000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                draggable={false}
+                pauseOnVisibilityChange
+                closeOnClick
+                pauseOnHover
+              />
+            </>
+          )}
         </ThemeProvider>
       </CacheProvider>
     </SessionProvider>
