@@ -80,24 +80,20 @@ const Event = (props) => {
                   <EventIcon
                     style={{ verticalAlign: '-5px', color: 'white' }}
                   />{' '}
-                  {new Date(props.eventDetails?.startdatetime)
-                    .toUTCString()
-                    .slice(0, 16)}
+                  {new Date(props.eventDetails?.startdatetime).toDateString()}
                   {' - '}
-                  {new Date(props.eventDetails?.enddatetime)
-                    .toUTCString()
-                    .slice(0, 16)}
+                  {new Date(props.eventDetails?.enddatetime).toDateString()}
                   <br />
                   <AccessTimeIcon
                     style={{ verticalAlign: '-5px', color: 'white' }}
                   />{' '}
-                  {new Date(props.eventDetails?.startdatetime)
-                    .toUTCString()
-                    .slice(-12)}
+                  {new Date(
+                    props.eventDetails?.startdatetime
+                  ).toLocaleTimeString()}
                   {' - '}
-                  {new Date(props.eventDetails?.enddatetime)
-                    .toUTCString()
-                    .slice(-12)}
+                  {new Date(
+                    props.eventDetails?.enddatetime
+                  ).toLocaleTimeString()}
                   <br />
                   <RoomIcon
                     style={{ color: 'white', verticalAlign: '-5px' }}
