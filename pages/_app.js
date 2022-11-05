@@ -13,7 +13,6 @@ import Navbar from '../Components/NavBar';
 import Loader from '../Components/Loader';
 import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { Router } from 'next/router';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
