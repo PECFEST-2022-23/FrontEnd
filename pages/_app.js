@@ -33,9 +33,7 @@ export default function MyApp(props) {
       setIsLoading(true);
     };
     const handleRouteChangeComplete = (url, { shallow }) => {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 2000);
+      setIsLoading(false);
     };
     router.events.on('routeChangeStart', handleRouteChangeStart);
     router.events.on('routeChangeComplete', handleRouteChangeComplete);

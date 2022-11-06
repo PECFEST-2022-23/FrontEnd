@@ -1,6 +1,6 @@
 import styles from './Navbar.module.css';
 import pecfest from '../../public/PECFEST_Logo_Small.png';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Collapse from '@mui/material/Collapse';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -23,6 +23,12 @@ import Image from 'next/image';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import NavData from './links.json';
 import Link from 'next/link';
+import { decrypt } from '../../lib/auth/enctryption';
+import Cookies from 'universal-cookie';
+import logout from '../../lib/auth/logout';
+import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
+import getCookieData from '../../lib/auth/getCookieData';
 
 const drawerWidth = 240;
 const navItemsOne = NavData.slice(0, NavData.length / 2);
@@ -32,18 +38,46 @@ const Navbar = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [open, setOpen] = useState(true);
-
+  const router = useRouter();
   // For Dropdown
   const [anchorEl, setAnchorEl] = useState(null);
   const [dropDownOpen, setDropDownOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
 
-  const MouseOver = (event) => {
+  const [user, setUser] = useState(null);
+  const { data: session } = useSession();
+
+  const cookies = new Cookies();
+  useEffect(() => {
+    const { data } = getCookieData(session);
+    console.log(data);
+    // const user = JSON.parse(decrypt(cookies.get('user')));
+    // setUser(() => user);
+    if(data)  setUser(() => data.user);
+  }, []);
+
+  const handleAboutClick = (event) => {
     setAnchorEl(event.currentTarget);
     setDropDownOpen(true);
   };
-  const MouseOut = () => {
+  const handleAboutClose = () => {
     setAnchorEl(null);
     setDropDownOpen(false);
+  };
+
+  const handleProfileClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    setProfileOpen(true);
+  };
+
+  const handleProfileClose = () => {
+    setAnchorEl(null);
+    setProfileOpen(false);
+  };
+
+  const handleLogout = () => {
+    handleProfileClose();
+    logout(router, session);
   };
 
   const handleClick = () => {
@@ -74,7 +108,7 @@ const Navbar = (props) => {
       <List>
         {navItemsOne.map((item) =>
           item.children ? (
-            <>
+            <div key={item.name}>
               <ListItemButton onClick={handleClick}>
                 <ListItemText primary={item.name} />
                 {open ? <ExpandLess /> : <ExpandMore />}
@@ -95,7 +129,7 @@ const Navbar = (props) => {
                   </List>
                 ))}
               </Collapse>
-            </>
+            </div>
           ) : (
             <ListItem key={item.name} disablePadding>
               <Link href={`/${item.link}`}>
@@ -111,7 +145,7 @@ const Navbar = (props) => {
       <List>
         {navItemsTwo.map((item) =>
           item.children ? (
-            <>
+            <div key={item.name}>
               <ListItemButton onClick={handleClick}>
                 <ListItemText primary={item.name} />
                 {open ? <ExpandLess /> : <ExpandMore />}
@@ -127,7 +161,7 @@ const Navbar = (props) => {
                   </List>
                 ))}
               </Collapse>
-            </>
+            </div>
           ) : (
             <ListItem key={item.name} disablePadding>
               <Link href={`/${item.link}`}>
@@ -140,7 +174,7 @@ const Navbar = (props) => {
         )}
       </List>
       <Divider />
-      <Button>Enter</Button>
+      {/* <Button>Enter</Button> */}
       <Divider />
       <ListItem>
         <Link href={`/ambassador`}>
@@ -193,14 +227,14 @@ const Navbar = (props) => {
           >
             {navItemsTwo.map((item) =>
               item.children ? (
-                <div>
+                <div key={item.name} className={styles.dropdown_div}>
                   <Button
                     key={item.name}
                     sx={{ color: '#fff' }}
                     disableElevation
-                    onClick={MouseOver}
-                    endIcon={<KeyboardArrowDownIcon />}
+                    onClick={handleAboutClick}
                     disableRipple
+                    endIcon={<KeyboardArrowDownIcon />}
                     className={styles.dropdown_btn}
                   >
                     {item.name}
@@ -209,12 +243,12 @@ const Navbar = (props) => {
                     id="navbar-about-menu"
                     anchorEl={anchorEl}
                     open={dropDownOpen}
-                    onClose={MouseOut}
+                    onClose={handleAboutClose}
                   >
                     {item.children.map((child) => (
                       <MenuItem
                         key={child.name}
-                        onClick={MouseOut}
+                        onClick={handleAboutClose}
                         disableRipple
                       >
                         <Link href={child.link}>{child.name}</Link>
@@ -228,13 +262,65 @@ const Navbar = (props) => {
                 </Button>
               )
             )}
-            <Button className={styles.enter_btn} variant="filled">
+            {user ? (
+              <div>
+                <Button
+                  className={styles.enter_btn}
+                  variant="filled"
+                  disableRipple
+                  onClick={handleProfileClick}
+                >
+                  {user.first_name}
+                </Button>
+                <Menu
+                  id="navbar-about-menu"
+                  anchorEl={anchorEl}
+                  open={profileOpen}
+                  onClose={handleProfileClose}
+                >
+                  <MenuItem onClick={handleProfileClose} disableRipple>
+                    <Link href={`/profile`}>Profile</Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout} disableRipple>
+                    Log Out
+                  </MenuItem>
+                </Menu>
+              </div>
+            ) : (
+              <Button className={styles.enter_btn} variant="filled">
+                <Link href={`/login`}>Log In</Link>
+              </Button>
+            )}
+          </Box>
+          {user ? (
+            <div>
+              <Button
+                className={styles.enter_btn_mobile}
+                variant="filled"
+                disableRipple
+                onClick={handleProfileClick}
+              >
+                {user.first_name}
+              </Button>
+              <Menu
+                id="navbar-about-menu"
+                anchorEl={anchorEl}
+                open={profileOpen}
+                onClose={handleProfileClose}
+              >
+                <MenuItem onClick={handleProfileClose} disableRipple>
+                  <Link href={`/profile`}>Profile</Link>
+                </MenuItem>
+                <MenuItem onClick={handleLogout} disableRipple>
+                  Log Out
+                </MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <Button className={styles.enter_btn_mobile} variant="filled">
               <Link href={`/login`}>Log In</Link>
             </Button>
-          </Box>
-          <Button className={styles.enter_btn_mobile} variant="filled">
-            <Link href={`/login`}>Log In</Link>
-          </Button>
+          )}
         </Toolbar>
       </AppBar>
       {/* For mobile */}
