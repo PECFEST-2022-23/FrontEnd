@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Grid } from '@mui/material';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import { Button } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ShareIcon from '@mui/icons-material/Share';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import ShareComponent from '../Share';
 import { Info } from '@mui/icons-material';
-import borderFrame from './border-frame-design.png';
 import styles from './EventListingCard.module.css';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 function EventListingCard(props) {
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+
+  const shareModalHandler = () => {
+    setShareModalOpen(!shareModalOpen);
+  };
+
   const router = useRouter();
   return (
     <Grid item xs={10} sm={6} md={6} lg={4} xl={4}>
@@ -38,7 +41,7 @@ function EventListingCard(props) {
                 }
                 component="img"
                 height={'220'}
-                image="https://image.shutterstock.com/image-vector/urban-techno-music-event-background-600w-47546335.jpg"
+                image={props.eventDetails.image_url}
                 alt="green iguana"
                 className={styles.imageCardMedia}
               />
@@ -113,7 +116,7 @@ function EventListingCard(props) {
               <Button
                 variant="contained"
                 className={styles.eventButton}
-                onClick={() => openInNewTab('https://www.google.com')}
+                onClick={() => setShareModalOpen(!shareModalOpen)}
                 size="large"
                 startIcon={<ShareIcon />}
               >
@@ -123,13 +126,14 @@ function EventListingCard(props) {
           </Grid>
         </div>
       </div>
+      <ShareComponent
+        open={shareModalOpen}
+        handleClose={shareModalHandler}
+        eventId={props.id}
+        eventName={props.eventDetails.name}
+      />
     </Grid>
   );
 }
-
-const openInNewTab = (url) => {
-  const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
-  if (newWindow) newWindow.opener = null;
-};
 
 export default EventListingCard;
