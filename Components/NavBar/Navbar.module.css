@@ -81,8 +81,14 @@
   background-color: #f07b3f;
 }
 
+.dropdown_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .dropdown_btn:hover {
-  color: #f07b3f;
+  color: #f07b3f !important;
 }
 
 .enter_btn_mobile {
