@@ -10,8 +10,26 @@ import RoomIcon from '@mui/icons-material/Room';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import EventIcon from '@mui/icons-material/Event';
 import classes from './Event.module.css';
+import { useRouter } from 'next/router';
+import { useSession, signIn, signOut } from 'next-auth/react';
+import Cookies from 'universal-cookie';
+import getServerCookieData from '../../lib/auth/getServerCookieData';
+import getCookieData from '../../lib/auth/getCookieData';
+import { useEffect } from 'react';
 
 const Event = (props) => {
+  const router = useRouter();
+  const { data: session } = useSession();
+  const cookies = new Cookies();
+  useEffect(() => {
+    const { data } = getCookieData(session);
+    console.log(data);
+    // const user = JSON.parse(decrypt(cookies.get('user')));
+    // setUser(() => user);
+  }, [session]);
+
+  console.log(props);
+
   return (
     <div style={{ paddingTop: '50px', margin: '0 30px' }}>
       <Grid container spacing={2} direction="row-reverse">
@@ -70,7 +88,7 @@ const Event = (props) => {
                     />
                     <Chip
                       size="small"
-                      label={props.eventDetails?.club?.toUpperCase()}
+                      label={props.eventDetails?.club_name?.toUpperCase()}
                       color="info"
                       variant="filled"
                       className={classes.chip}
