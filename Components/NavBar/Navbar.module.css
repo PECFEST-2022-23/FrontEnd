@@ -94,6 +94,10 @@
     display: none;
   }
 
+  .toolbar > span {
+    max-width: 60% !important;
+  }
+
   .navbar_logo {
     width: 70px !important;
     height: 70px !important;
@@ -122,15 +126,17 @@
 }
 
 @media only screen and (min-width: 600px) and (max-width: 800px) {
-  .appbar button {
-    font-size: 0.75rem !important;
-  }
-
   .navbar_logo {
-    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 
   .navbar_logo_shrunk {
-    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  .appbar button {
+    font-size: 0.75rem !important;
   }
 }

@@ -12,12 +12,14 @@ import Container from '@mui/material/Container';
 import styles from './Login.module.css';
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { encrypt } from '../../lib/auth/enctryption';
-import onLoginSuccess from '../../lib/auth/onLoginSuccess';
+import { encrypt, decrypt } from '../../lib/auth/enctryption';
+import Cookies from 'universal-cookie';
+import getServerCookieData from '../../lib/auth/getServerCookieData';
 
 export default function Login() {
   const router = useRouter();
   const { data: session } = useSession();
+  const cookies = new Cookies();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,16 +47,18 @@ export default function Login() {
       toast.success('Login successful.');
       const user = res.user,
         token = res.token;
-      localStorage.setItem('user', encrypt(JSON.stringify(user)));
-      localStorage.setItem('token', encrypt(JSON.stringify(token)));
-      onLoginSuccess({ router });
+      const data = { user: user, token: token };
+      cookies.set('session-token', JSON.stringify(data));
+      const redirectPath = cookies.get('redirectPath') || '/';
+      cookies.remove('redirectPath');
+      router.push(redirectPath);
     }
   };
 
   if (session)
     return (
       <div>
-        <p>Welcome {JSON.stringify(session.user)}</p>{' '}
+        <p>Welcome {JSON.stringify(session)}</p>{' '}
         <Button onClick={() => signOut()}>Logout</Button>
       </div>
     );
@@ -86,7 +90,7 @@ export default function Login() {
             <Typography
               component="h1"
               variant="h5"
-              className={`d-flex justify-content-center ${styles.pageheader}`}
+              className={styles.pageheader}
             >
               Login
             </Typography>
@@ -158,4 +162,20 @@ export default function Login() {
         </Container>
       </div>
     );
+}
+
+export async function getServerSideProps(context) {
+  const { data } = getServerCookieData(context);
+  console.log(data);
+  if (data != null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 }

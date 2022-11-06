@@ -1,55 +1,54 @@
 import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
-import { toast } from 'react-toastify';
+import { encrypt } from '../../../lib/auth/enctryption';
+import Cookies from 'universal-cookie';
 
-export default NextAuth({
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-  ],
-  callbacks: {
-    async signIn({ profile }) {
-      const user = {
-        email: profile.email,
-        first_name: profile.given_name,
-        last_name: profile.family_name,
-      };
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_BACKEND_API + '/auth/register/',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: data.get('email'),
-            password: data.get('password'),
-            first_name: data.get('firstName'),
-            last_name: data.get('lastName'),
-          }),
-        }
-      ).then((res) => res.json());
-      if (res.user_status === 1) {
-        toast.error(res.message);
-        return false;
-      } else {
-        const user = res.user,
-          token = res.token;
-        localStorage.setItem('user', encrypt(JSON.stringify(user)));
-        localStorage.setItem('token', encrypt(JSON.stringify(token)));
-        return true;
-      }
-    },
+const nextAuthOptions = (req, res) => {
+  const cookies = new Cookies(req.headers.cookie);
 
-    async redirect({ url, baseUrl }) {
-      return baseUrl;
-      // Allows relative callback URLs
-      if (url.startsWith('/')) return `${baseUrl}${url}`;
-      // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url;
-      return baseUrl;
+  return {
+    providers: [
+      GoogleProvider({
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      }),
+    ],
+    callbacks: {
+      async session({ session }) {
+        session.user.first_name = session.user.name.split(' ')[0];
+        session.user.last_name = session.user.name
+          .split(' ')
+          .slice(1)
+          .join(' ');
+        const userObj = {
+          email: session.user.email,
+          first_name: session.user.given_name,
+          last_name: session.user.family_name,
+        };
+        const backendRes = await fetch(
+          process.env.NEXT_PUBLIC_BACKEND_API + 'auth/oauth/',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userObj),
+          }
+        ).then((backendRes) => {
+          return backendRes.json();
+        });
+        session.token = backendRes.token;
+        return session;
+      },
+
+      async redirect({ baseUrl }) {
+        const url = baseUrl;
+        const redirectPath = cookies.get('redirectPath') || '/';
+        console.log(redirectPath);
+        return baseUrl + redirectPath;
+      },
     },
-  },
-});
+  };
+};
+
+export default (req, res) => NextAuth(req, res, nextAuthOptions(req, res));
