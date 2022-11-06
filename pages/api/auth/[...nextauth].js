@@ -22,8 +22,8 @@ const nextAuthOptions = (req, res) => {
           .join(' ');
         const userObj = {
           email: session.user.email,
-          first_name: session.user.given_name,
-          last_name: session.user.family_name,
+          first_name: session.user.first_name,
+          last_name: session.user.last_name,
         };
         const backendRes = await fetch(
           process.env.NEXT_PUBLIC_BACKEND_API + 'auth/oauth/',
@@ -42,9 +42,7 @@ const nextAuthOptions = (req, res) => {
       },
 
       async redirect({ baseUrl }) {
-        const url = baseUrl;
         const redirectPath = cookies.get('redirectPath') || '/';
-        console.log(redirectPath);
         return baseUrl + redirectPath;
       },
     },

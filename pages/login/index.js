@@ -166,7 +166,6 @@ export default function Login() {
 
 export async function getServerSideProps(context) {
   const { data } = getServerCookieData(context);
-  console.log(data);
   if (data != null) {
     return {
       redirect: {
