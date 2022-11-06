@@ -22,53 +22,37 @@ const MegaShowEvent = (props) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events')
-      .then(
-        (response) => {
-          if (response.ok) {
-            return response;
-          } else {
-            var error = new Error(
-              'Error ' + response.status + ': ' + response.statusText
-            );
-            error.response = response;
-            throw error;
-          }
-        },
-        (error) => {
-          var errmess = new Error(error.message);
-          throw errmess;
-        }
-      )
-      .then((response) => response.json())
-      .then((evts) => {
-        setAllEvents(evts);
-        setEvents(evts);
-        const filtersAvailable = [];
-        const subFiltersAvailable = [];
-        evts.forEach((evt) => {
-          filtersAvailable.push(evt.type);
-          subFiltersAvailable.push(evt.subcategory);
-        });
 
-        setAllFilters([...new Set(filtersAvailable)]);
-        setAllSubFilters([...new Set(subFiltersAvailable)]);
+    if(!props.error && props.evts && props.evts.length) {
+      setAllEvents(props.evts);
+      setEvents(props.evts);
+      const filtersAvailable = [];
+      const subFiltersAvailable = [];
+      props.evts.forEach((evt) => {
+        filtersAvailable.push(evt.category);
+        filtersAvailable.push(evt.type);
+        subFiltersAvailable.push(evt.subcategory);
+      });
 
-        selectFilters(typeOfEvent);
+      setAllFilters([...new Set(filtersAvailable)]);
+      setAllSubFilters([...new Set(subFiltersAvailable)]);
 
-        return filtersAvailable;
-      })
-      .catch((error) => console.log(error.message));
+      selectFilters(typeOfEvent);
+    }
   }, []);
 
   const filterPass = (event) => {
+    console.log(event.type)
     return (
-      filters.includes(event.type.toUpperCase()) ||
-      subFilters.includes(event.subcategory.toUpperCase())
+      filters.includes(event.category.toUpperCase()) ||
+      subFilters.includes(event.subcategory.toUpperCase() ||
+      filters.includes(event.type.toUpperCase()) )
     );
   };
 
   const selectFilters = (filterVal) => {
+
+    if(filterVal == undefined) return;
     let selectedFilters = filters;
     selectedFilters.push(filterVal);
     setFilters(selectedFilters);
@@ -76,18 +60,27 @@ const MegaShowEvent = (props) => {
     console.log(filters);
     console.log(subFilters);
 
-    let filteredEvents = [];
+    if(filters.length || subFilters.length){
+      let filteredEvents = [];
+      console.log(filteredEvents.length)
+      props.evts.forEach((evt) => {
+        console.log(filterPass(evt));
+        if (filterPass(evt)){
+          console.log('* Yo')
+          filteredEvents.push(evt);
+        } 
+      });
 
-    allEvents.forEach((evt) => {
-      console.log(filterPass(evt));
-      if (filterPass(evt)) filteredEvents.push(evt);
-    });
-
-    setEvents(filteredEvents);
-    localStorage.setItem('events', JSON.stringify(filteredEvents));
+      setEvents(filteredEvents);
+    }
+    else {
+      setEvents(allEvents);
+    }
+    
   };
 
   const deselectFilters = (filterVal) => {
+    if(filterVal == undefined) return;
     let selectedFilters = filters;
     selectedFilters.splice(selectedFilters.indexOf(filterVal), 1);
     setFilters(selectedFilters);
@@ -95,18 +88,24 @@ const MegaShowEvent = (props) => {
     console.log(filters);
     console.log(subFilters);
 
-    let filteredEvents = [];
+    if(filters.length || subFilters.length){
+      let filteredEvents = [];
 
-    allEvents.forEach((evt) => {
-      console.log(filterPass(evt));
-      if (filterPass(evt)) filteredEvents.push(evt);
-    });
+      props.evts.forEach((evt) => {
+        console.log(filterPass(evt));
+        if (filterPass(evt)) filteredEvents.push(evt);
+      });
 
-    setEvents(filteredEvents);
-    localStorage.setItem('events', JSON.stringify(filteredEvents));
+      setEvents(filteredEvents);
+    }
+    else {
+      setEvents(allEvents);
+    }
+
   };
 
   const selectSubFilters = (filterVal) => {
+    if(filterVal == undefined) return;
     let selectedFilters = subFilters;
     selectedFilters.push(filterVal);
     setSubFilters(selectedFilters);
@@ -114,18 +113,24 @@ const MegaShowEvent = (props) => {
     console.log(filters);
     console.log(subFilters);
 
-    let filteredEvents = [];
+    if(filters.length || subFilters.length){
+      let filteredEvents = [];
 
-    allEvents.forEach((evt) => {
-      console.log(filterPass(evt));
-      if (filterPass(evt)) filteredEvents.push(evt);
-    });
+      props.evts.forEach((evt) => {
+        console.log(filterPass(evt));
+        if (filterPass(evt)) filteredEvents.push(evt);
+      });
 
-    setEvents(filteredEvents);
-    localStorage.setItem('events', JSON.stringify(filteredEvents));
+      setEvents(filteredEvents);
+    }
+    else {
+      setEvents(allEvents);
+    }
+
   };
 
   const deselectSubFilters = (filterVal) => {
+    if(filterVal == undefined) return;
     let selectedFilters = subFilters;
     selectedFilters.splice(selectedFilters.indexOf(filterVal), 1);
     setSubFilters(selectedFilters);
@@ -133,15 +138,20 @@ const MegaShowEvent = (props) => {
     console.log(filters);
     console.log(subFilters);
 
-    let filteredEvents = [];
+    if(filters.length || subFilters.length){
+      let filteredEvents = [];
 
-    allEvents.forEach((evt) => {
-      console.log(filterPass(evt));
-      if (filterPass(evt)) filteredEvents.push(evt);
-    });
+      props.evts.forEach((evt) => {
+        console.log(filterPass(evt));
+        if (filterPass(evt)) filteredEvents.push(evt);
+      });
 
-    setEvents(filteredEvents);
-    localStorage.setItem('events', JSON.stringify(filteredEvents));
+      setEvents(filteredEvents);
+    }
+    else {
+      setEvents(allEvents);
+    }
+
   };
 
   const inputHandler = (e) => {
@@ -165,7 +175,7 @@ const MegaShowEvent = (props) => {
     <div className={styles.background}>
       <Grid container>
         <Grid item xs={12} mt={4} mb={2} justifyContent="center">
-          <h2 className={styles.mainHeading}>EVENTS</h2>
+          <h2 className={styles.mainHeading}>EVENTS AND COMPETITIONS</h2>
         </Grid>
       </Grid>
       <Container fluid className={styles.main_container} maxWidth={false}>
@@ -206,7 +216,7 @@ const MegaShowEvent = (props) => {
                   color={'primary'}
                 />
               ))}
-            </div>
+          </div>
           </Grid>
           <Grid item xs={12} md={8} mr={1}>
             <div className={styles.eventCards}>
@@ -234,5 +244,29 @@ const MegaShowEvent = (props) => {
     </div>
   );
 };
+
+export async function getStaticProps(context) {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_BACKEND_API + 'events'
+  );
+  if (!res || res.status != 200) {
+    return {
+      props: {
+        status: res.status,
+        error: true
+      },
+      revalidate: 100,
+    };
+  }
+  const events = await res.json();
+  return {
+    props: {
+      evts: events,
+      status: res.status,
+      error: false
+    },
+    revalidate: 100,
+  };
+}
 
 export default MegaShowEvent;
