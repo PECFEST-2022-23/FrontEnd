@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+.landing {
+  color: #f5f5f5;
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
+  font-family: Ubuntu, sans-serif;
+}
+
 .parallax {
   position: relative;
   height: 100vh;
@@ -72,12 +85,14 @@
 
 .about,
 .festTheme,
-.festPhotos {
+.festPhotos,
+.festMegashows {
   position: relative;
   height: 91vh;
   width: 100%;
   background-size: cover;
   padding: 0;
+  overflow: hidden;
 }
 
 .about {
@@ -85,8 +100,9 @@
 }
 
 .aboutBlur {
-  backdrop-filter: blur(10px);
-  width: 85%;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
+  width: 80%;
   border-radius: 2rem;
   position: absolute;
   top: 50%;
@@ -107,13 +123,170 @@
   text-align: center;
 }
 
-.festTheme {
+.festPhotos {
   background-image: url('/website designs/Landing 3.jpg');
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.festThemePics {
+  position: relative;
+  width: 60%;
+  height: 100%;
+  min-width: 750px;
+}
+
+.festFlex {
+  position: relative;
+  height: 100%;
+  width: 40%;
+  min-width: 400px;
+}
+
+.festFlex div {
+  position: absolute;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px);
+  background-color: rgb(255, 0, 93, 0.2);
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 700;
+  line-height: 45px;
+  transition: all .3s ease-in-out;
+  transform: translate(-50%, -50%);
+}
+
+.festFlex div:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.festFlex div:nth-child(1) {
+  font-size: 40px;
+  padding: 32px 0px 0px 5px;
+  top: 25%;
+  left: 40%;
+}
+
+.festFlex div:nth-child(1) span {
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.festFlex div:nth-child(2) {
+  font-size: 40px;
+  padding: 32px 0px 0px 5px;
+  top: 50%;
+  left: 70%;
+}
+
+.festFlex div:nth-child(2) span {
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.festFlex div:nth-child(3) {
+  font-size: 25px;
+  padding: 28px 0px 0px 5px;
+  top: 75%;
+  left: 40%;
+}
+
+.festThemePics img {
+  height: 25vw;
+  width: 18vw;
+  object-fit: cover;
+  position: absolute;
+  transition: 1s;
+  opacity: 0.8;
+}
+
+.festThemePics1 {
+  top: 50%;
+  left: 25%;
+  transform-origin: bottom right;
+  transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+.festThemePics1:hover {
+  animation: front1 0.3s linear forwards;
+}
+
+@keyframes front1 {
+  from {
+    z-index: 0;
+    transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+    opacity: 0.8;
+  }
+
+  to {
+    z-index: 4;
+    transform: translate(-50%, -50%) rotate(-15deg) scale(1.05);
+    opacity: 1;
+  }
+}
+
+.festThemePics2 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.festThemePics2:hover {
+  animation: front2 0.3s linear forwards;
+}
+
+@keyframes front2 {
+  from {
+    z-index: 0;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+
+  to {
+    z-index: 4;
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+  }
+}
+
+.festThemePics3 {
+  top: 50%;
+  left: 75%;
+  transform-origin: bottom left;
+  transform: translate(-50%, -50%) rotate(15deg);
+}
+
+.festThemePics3:hover {
+  animation: front3 0.3s linear forwards;
+}
+
+@keyframes front3 {
+  from {
+    z-index: 0;
+    transform: translate(-50%, -50%) rotate(15deg) scale(1);
+    opacity: 0.8;
+  }
+
+  to {
+    z-index: 4;
+    transform: translate(-50%, -50%) rotate(15deg) scale(1.05);
+    opacity: 1;
+  }
+}
+
+.festTheme {
+  background-image: url('/website designs/Landing 4.jpg');
 }
 
 .festThemeBlur {
-  backdrop-filter: blur(10px);
-  width: 85%;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
+  width: 80%;
   border-radius: 2rem;
   position: absolute;
   top: 50%;
@@ -134,16 +307,14 @@
   text-align: center;
 }
 
-.festPhotos {
-  background-image: url('/website designs/Landing 4.jpg');
-}
-
-.about4 {
+.festMegashows {
   height: 100vh;
   width: 100%;
   background-image: url('/website designs/Landing 5.jpg');
   background-size: cover;
 }
+
+.festMegashowsHeader {}
 
 .about5 {
   height: 100vh;
@@ -179,6 +350,10 @@
     bottom: 5%;
   }
 
+  .about {
+    background-image: url('/mobile designs/landing 1 mobile.jpg');
+  }
+
   .aboutHeader {
     font-size: 2.5rem;
   }
@@ -188,8 +363,8 @@
   }
 
   .aboutBlur {
-    height: 100%;
-    width: 100%;
+    height: 80%;
+    width: 95%;
     backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
@@ -197,8 +372,68 @@
     flex-direction: column;
   }
 
+  .festPhotos {
+    background-image: url('/mobile designs/landing 2 mobile.jpg');
+  }
+
+  .festThemePics {
+    width: 100%;
+    height: 50%;
+  }
+
+  .festThemePics img {
+    height: 200px;
+    width: 120px;
+  }
+
+  .festFlex {
+    width: 100%;
+    height: 50%;
+  }
+
+  .festThemePics1 {
+    top: 50%;
+    left: 38%;
+    transform-origin: bottom right;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+
+  .festThemePics2 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .festThemePics3 {
+    top: 50%;
+    left: 62%;
+    transform-origin: bottom left;
+    transform: translate(-50%, -50%) rotate(15deg);
+  }
+
+  .festFlex div:nth-child(1) {
+    top: 20%;
+    left: 23%;
+  }
+
+  .festFlex div:nth-child(2) {
+    top: 60%;
+    left: 50%;
+  }
+
+  .festFlex div:nth-child(3) {
+    top: 20%;
+    left: 77%;
+  }
+
+  .festTheme {
+    background-image: url('/mobile designs/landing 3 mobile.jpg');
+  }
+
   .festThemeHeader {
     font-size: 2.5rem;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
   }
 
   .festThemeDescription {
@@ -206,12 +441,16 @@
   }
 
   .festThemeBlur {
-    height: 100%;
-    width: 100%;
+    height: 80%;
+    width: 95%;
     backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     text-align: center;
     flex-direction: column;
+  }
+
+  .festMegashows {
+    background-image: url('/mobile designs/landing 4 mobile.jpg');
   }
 }

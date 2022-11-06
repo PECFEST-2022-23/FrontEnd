@@ -36,6 +36,18 @@
   text-align: center !important;
 }
 
+.error {
+  
+  color: white !important;
+  font-family: "Audiowide", cursive;
+  font-size: 60px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-shadow: 5px 5px 5px #000;
+  text-align: center !important;
+  margin: auto
+}
+
 .search {
   color: #f1a661;
   text-align: center;

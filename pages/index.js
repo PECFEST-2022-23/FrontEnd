@@ -16,7 +16,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <div className={styles.landing}>
       <section className={styles.parallax}>
         <div className={styles.parallaxBackground}>
           <picture>
@@ -101,6 +101,43 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <section className={styles.festPhotos}>
+        <div className={styles.festThemePics}>
+          <picture>
+            <source srcSet="/FestPics/festTheme1.jpg" />
+            <img
+              className={styles.festThemePics1}
+              alt="festTheme1"
+              src="/FestPics/festTheme1.jpg"
+            />
+          </picture>
+          <picture>
+            <source srcSet="/FestPics/festTheme2.jpg" />
+            <img
+              className={styles.festThemePics2}
+              alt="festTheme2"
+              src="/FestPics/festTheme2.jpg"
+            />
+          </picture>
+          <picture>
+            <source srcSet="/FestPics/festTheme3.jpg" />
+            <img
+              className={styles.festThemePics3}
+              alt="festTheme3"
+              src="/FestPics/festTheme3.jpg"
+            />
+          </picture>
+        </div>
+        <div className={styles.festFlex}>
+          <div>
+            75K+ <span>Footfall</span>
+          </div>
+          <div>
+            100+ <span>Events</span>
+          </div>
+          <div>Stunning Star Night</div>
+        </div>
+      </section>
       <section className={styles.festTheme}>
         <div className={styles.festThemeBlur}>
           <div className={styles.festThemeHeader}>
@@ -113,15 +150,16 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className={styles.festPhotos}>
-        <div className={styles.festPhotosHeader}>
-          {
-            "Raising the bar of stellar events, PECFEST'22 brings you an array of roof raisers"
-          }
+      <section className={styles.festMegashows}>
+        <div className={styles.festThemeBlur}>
+          <div className={styles.festMegashowsHeader}>
+            {
+              "Raising the bar of stellar events, PECFEST'22 brings you an array of roof raisers"
+            }
+          </div>
         </div>
       </section>
-      <section className={styles.about4}></section>
-      <section className={styles.about5}></section>
-    </>
+      {/* <section className={styles.about5}></section> */}
+    </div>
   );
 }
