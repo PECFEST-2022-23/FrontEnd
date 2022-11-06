@@ -2,7 +2,6 @@ import { Grid, TextField, Container } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import styles from './eventList.module.css';
 import EventListingCard from '../../Components/EventListingCard/EventListingCard';
-import Box from '@mui/material/Box';
 import { useRouter } from 'next/router';
 import Filters from '../../Components/Filters/Filter';
 
@@ -22,126 +21,109 @@ const MegaShowEvent = (props) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events')
-      .then(
-        (response) => {
-          if (response.ok) {
-            return response;
-          } else {
-            var error = new Error(
-              'Error ' + response.status + ': ' + response.statusText
-            );
-            error.response = response;
-            throw error;
-          }
-        },
-        (error) => {
-          var errmess = new Error(error.message);
-          throw errmess;
-        }
-      )
-      .then((response) => response.json())
-      .then((evts) => {
-        setAllEvents(evts);
-        setEvents(evts);
-        const filtersAvailable = [];
-        const subFiltersAvailable = [];
-        evts.forEach((evt) => {
-          filtersAvailable.push(evt.type);
-          subFiltersAvailable.push(evt.subcategory);
-        });
+    if (!props.error && props.evts && props.evts.length) {
+      setAllEvents(props.evts);
+      setEvents(props.evts);
+      const filtersAvailable = [];
+      const subFiltersAvailable = [];
+      props.evts.forEach((evt) => {
+        filtersAvailable.push(evt.category);
+        filtersAvailable.push(evt.type);
+        subFiltersAvailable.push(evt.subcategory);
+      });
 
-        setAllFilters([...new Set(filtersAvailable)]);
-        setAllSubFilters([...new Set(subFiltersAvailable)]);
+      setAllFilters([...new Set(filtersAvailable)]);
+      setAllSubFilters([...new Set(subFiltersAvailable)]);
 
-        selectFilters(typeOfEvent);
-
-        return filtersAvailable;
-      })
-      .catch((error) => console.log(error.message));
+      selectFilters(typeOfEvent);
+    }
   }, []);
 
   const filterPass = (event) => {
     return (
-      filters.includes(event.type.toUpperCase()) ||
-      subFilters.includes(event.subcategory.toUpperCase())
+      filters.includes(event.category.toUpperCase()) ||
+      subFilters.includes(
+        event.subcategory.toUpperCase() ||
+          filters.includes(event.type.toUpperCase())
+      )
     );
   };
 
   const selectFilters = (filterVal) => {
-    let selectedFilters = filters;
+    if (filterVal == undefined) return;
+    const selectedFilters = filters;
     selectedFilters.push(filterVal);
     setFilters(selectedFilters);
 
-    console.log(filters);
-    console.log(subFilters);
+    if (filters.length || subFilters.length) {
+      const filteredEvents = [];
+      props.evts.forEach((evt) => {
+        if (filterPass(evt)) {
+          filteredEvents.push(evt);
+        }
+      });
 
-    let filteredEvents = [];
-
-    allEvents.forEach((evt) => {
-      console.log(filterPass(evt));
-      if (filterPass(evt)) filteredEvents.push(evt);
-    });
-
-    setEvents(filteredEvents);
-    localStorage.setItem('events', JSON.stringify(filteredEvents));
+      setEvents(filteredEvents);
+    } else {
+      setEvents(allEvents);
+    }
   };
 
   const deselectFilters = (filterVal) => {
-    let selectedFilters = filters;
+    if (filterVal == undefined) return;
+    const selectedFilters = filters;
     selectedFilters.splice(selectedFilters.indexOf(filterVal), 1);
     setFilters(selectedFilters);
 
-    console.log(filters);
-    console.log(subFilters);
+    if (filters.length || subFilters.length) {
+      const filteredEvents = [];
 
-    let filteredEvents = [];
+      props.evts.forEach((evt) => {
+        if (filterPass(evt)) filteredEvents.push(evt);
+      });
 
-    allEvents.forEach((evt) => {
-      console.log(filterPass(evt));
-      if (filterPass(evt)) filteredEvents.push(evt);
-    });
-
-    setEvents(filteredEvents);
-    localStorage.setItem('events', JSON.stringify(filteredEvents));
+      setEvents(filteredEvents);
+    } else {
+      setEvents(allEvents);
+    }
   };
 
   const selectSubFilters = (filterVal) => {
-    let selectedFilters = subFilters;
+    if (filterVal == undefined) return;
+    const selectedFilters = subFilters;
     selectedFilters.push(filterVal);
     setSubFilters(selectedFilters);
 
-    console.log(filters);
-    console.log(subFilters);
+    if (filters.length || subFilters.length) {
+      const filteredEvents = [];
 
-    let filteredEvents = [];
+      props.evts.forEach((evt) => {
+        if (filterPass(evt)) filteredEvents.push(evt);
+      });
 
-    allEvents.forEach((evt) => {
-      console.log(filterPass(evt));
-      if (filterPass(evt)) filteredEvents.push(evt);
-    });
-
-    setEvents(filteredEvents);
-    localStorage.setItem('events', JSON.stringify(filteredEvents));
+      setEvents(filteredEvents);
+    } else {
+      setEvents(allEvents);
+    }
   };
 
   const deselectSubFilters = (filterVal) => {
-    let selectedFilters = subFilters;
+    if (filterVal == undefined) return;
+    const selectedFilters = subFilters;
     selectedFilters.splice(selectedFilters.indexOf(filterVal), 1);
     setSubFilters(selectedFilters);
 
-    console.log(filters);
-    console.log(subFilters);
+    if (filters.length || subFilters.length) {
+      const filteredEvents = [];
 
-    let filteredEvents = [];
+      props.evts.forEach((evt) => {
+        if (filterPass(evt)) filteredEvents.push(evt);
+      });
 
-    allEvents.forEach((evt) => {
-      console.log(filterPass(evt));
-      if (filterPass(evt)) filteredEvents.push(evt);
-    });
-
-    setEvents(filteredEvents);
-    localStorage.setItem('events', JSON.stringify(filteredEvents));
+      setEvents(filteredEvents);
+    } else {
+      setEvents(allEvents);
+    }
   };
 
   const inputHandler = (e) => {
@@ -156,11 +138,62 @@ const MegaShowEvent = (props) => {
     }
     //return the item which contains the user input
     else {
-      let corpus = `${el.name} ${el.description}`;
+      const corpus = `${el.name} ${el.description}`;
       return corpus.toUpperCase().includes(searchQuery);
     }
   };
 
+  if (props.error) {
+    const statusCode = props.status ? props.status : '500';
+
+    return (
+      <div className={styles.background}>
+        <Grid container>
+          <Grid item xs={12} mt={4} mb={2} justifyContent="center">
+            <h2 className={styles.mainHeading}>EVENTS</h2>
+          </Grid>
+        </Grid>
+        <Container fluid className={styles.main_container} maxWidth={false}>
+          <Grid container>
+            <Grid item xs={12} md={3}>
+              <div className={styles.search}>
+                <TextField
+                  style={{ width: '90%' }}
+                  sx={{
+                    input: { color: 'white' },
+                  }}
+                  InputLabelProps={{
+                    style: { color: 'white' },
+                    underline: { color: 'white' },
+                  }}
+                  id="filled-primary"
+                  label="Search Here ..."
+                  variant="filled"
+                  onChange={inputHandler}
+                />
+              </div>
+            </Grid>
+            <Grid item xs={12} md={8} mr={1}>
+              <div className={styles.eventCards}>
+                <Grid
+                  container
+                  columns={12}
+                  columnSpacing={2}
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <h2 className={styles.mainHeading}>
+                    {'Server Error :- ' + statusCode}
+                  </h2>
+                </Grid>
+              </div>
+            </Grid>
+          </Grid>
+        </Container>
+      </div>
+    );
+  }
   return (
     <div className={styles.background}>
       <Grid container>
@@ -190,7 +223,7 @@ const MegaShowEvent = (props) => {
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
               {allFilters.map((filter, id) => (
                 <Filters
-                  // key={filter.val}
+                  key={filter}
                   filterValue={filter}
                   onSelectFilters={selectFilters}
                   onDeSelectFilters={deselectFilters}
@@ -199,7 +232,7 @@ const MegaShowEvent = (props) => {
               ))}
               {allSubFilters.map((filter, id) => (
                 <Filters
-                  // key={filter.val}
+                  key={filter}
                   filterValue={filter}
                   onSelectFilters={selectSubFilters}
                   onDeSelectFilters={deselectSubFilters}
@@ -234,5 +267,27 @@ const MegaShowEvent = (props) => {
     </div>
   );
 };
+
+export async function getStaticProps(context) {
+  const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events');
+  if (!res || res.status != 200) {
+    return {
+      props: {
+        status: res.status,
+        error: true,
+      },
+      revalidate: 100,
+    };
+  }
+  const events = await res.json();
+  return {
+    props: {
+      evts: events,
+      status: res.status,
+      error: false,
+    },
+    revalidate: 100,
+  };
+}
 
 export default MegaShowEvent;

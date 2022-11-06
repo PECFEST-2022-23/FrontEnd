@@ -12,7 +12,7 @@ import Container from '@mui/material/Container';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import styles from './Signup.module.css';
-import getCookieData from '../../lib/auth/getCookieData';
+import getServerCookieData from '../../lib/auth/getServerCookieData';
 
 export default function SignUp() {
   const router = useRouter();
@@ -135,9 +135,8 @@ export default function SignUp() {
 }
 
 export async function getServerSideProps(context) {
-  const { user } = getCookieData(context);
-  console.log(user);
-  if (user !== null) {
+  const { data } = getServerCookieData(context);
+  if (data != null) {
     return {
       redirect: {
         permanent: false,

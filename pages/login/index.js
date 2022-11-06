@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { encrypt, decrypt } from '../../lib/auth/enctryption';
 import Cookies from 'universal-cookie';
-import getCookieData from '../../lib/auth/getCookieData';
+import getServerCookieData from '../../lib/auth/getServerCookieData';
 
 export default function Login() {
   const router = useRouter();
@@ -47,9 +47,9 @@ export default function Login() {
       toast.success('Login successful.');
       const user = res.user,
         token = res.token;
-      cookies.set('user', encrypt(JSON.stringify(user)));
-      cookies.set('token', encrypt(JSON.stringify(token)));
-      const redirectPath = decrypt(cookies.get('redirectPath')) || '/';
+      const data = { user: user, token: token };
+      cookies.set('session-token', JSON.stringify(data));
+      const redirectPath = cookies.get('redirectPath') || '/';
       cookies.remove('redirectPath');
       router.push(redirectPath);
     }
@@ -58,7 +58,7 @@ export default function Login() {
   if (session)
     return (
       <div>
-        <p>Welcome {JSON.stringify(session.user)}</p>{' '}
+        <p>Welcome {JSON.stringify(session)}</p>{' '}
         <Button onClick={() => signOut()}>Logout</Button>
       </div>
     );
@@ -165,9 +165,9 @@ export default function Login() {
 }
 
 export async function getServerSideProps(context) {
-  const { user } = getCookieData(context);
-  console.log(user);
-  if (user !== null) {
+  const { data } = getServerCookieData(context);
+  console.log(data);
+  if (data != null) {
     return {
       redirect: {
         permanent: false,
