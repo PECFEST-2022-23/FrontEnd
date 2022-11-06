@@ -78,24 +78,24 @@ const EventDialog = ({ onClose, open, eventId }) => {
     } else if ('target' in e) {
       const target_name = e.target.name;
       const target_value = e.target.value;
-      
+
       switch (target_name) {
-        case "eventName":
+        case 'eventName':
           setEventName(target_value);
           break;
-        case "eventVenue":
+        case 'eventVenue':
           setEventVenue(target_value);
           break;
-        case "minTeamSize":
+        case 'minTeamSize':
           setMinTeamSize(target_value);
           break;
-        case "maxTeamSize":
+        case 'maxTeamSize':
           setMaxTeamSize(target_value);
           break;
-        case "rulesLink":
+        case 'rulesLink':
           setRulesLink(target_value);
           break;
-        case "eventDescription":
+        case 'eventDescription':
           setEventDescription(target_value);
           break;
         default:
@@ -136,9 +136,13 @@ const EventDialog = ({ onClose, open, eventId }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle sx={{ display: "flex", justifyContent: "space-evenly" }}>
+      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
         {eventId ? `Edit Event Details` : `Add a New Event`}
-        {eventId && (<Button><DeleteOutlineIcon /></Button>)}
+        {eventId && (
+          <Button>
+            <DeleteOutlineIcon />
+          </Button>
+        )}
       </DialogTitle>
       <DialogContent>
         <Box
@@ -361,7 +365,7 @@ const AdminPanel = () => {
         fullWidth
       >
         {[1, 2, 3, 4, 5, 6].map((event, idx) => (
-          <div key = {idx}>
+          <div key={idx}>
             <EventCard openDialog={handleEditEventOpen} id={idx} />
             <EventDialog
               open={eventEditDialogOpen}

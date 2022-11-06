@@ -201,46 +201,6 @@ const MegaShowEvent = (props) => {
           <h2 className={styles.mainHeading}>EVENTS</h2>
         </Grid>
       </Grid>
-<<<<<<< HEAD
-      <Grid container>
-        <Grid item xs={12} md={3}>
-          <div className={styles.search}>
-            <TextField
-              style={{ width: '80%' }}
-              sx={{
-                input: { color: 'white' },
-              }}
-              InputLabelProps={{
-                style: { color: '#f1a661' },
-                underline: { color: 'white' },
-              }}
-              id="filled-primary"
-              label="Search"
-              variant="filled"
-              color="secondary"
-            />
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <Filters />
-          </div>
-        </Grid>
-        <Grid item xs={12} md={8} mr={1}>
-          <div className={styles.eventCards}>
-            <Grid
-              container
-              columns={12}
-              columnSpacing={2}
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
-              {events.map((event, id) => (
-                <EventListingCard
-                  id={event.id}
-                  key={id}
-                  eventType={event.type}
-                  eventDetails={event}
-=======
       <Container fluid className={styles.main_container} maxWidth={false}>
         <Grid container>
           <Grid item xs={12} md={3}>
@@ -268,7 +228,6 @@ const MegaShowEvent = (props) => {
                   onSelectFilters={selectFilters}
                   onDeSelectFilters={deselectFilters}
                   color={'primary'}
->>>>>>> 1bc45a721ecfe17e493004d6ce03a455d5b9ec31
                 />
               ))}
               {allSubFilters.map((filter, id) => (
