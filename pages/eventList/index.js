@@ -171,11 +171,62 @@ const MegaShowEvent = (props) => {
     }
   };
 
+  if(props.error) {
+    const statusCode = props.status?props.status:"500";
+
+    return (
+      
+      <div className={styles.background}>
+      <Grid container>
+        <Grid item xs={12} mt={4} mb={2} justifyContent="center">
+          <h2 className={styles.mainHeading}>EVENTS</h2>
+        </Grid>
+      </Grid>
+      <Container fluid className={styles.main_container} maxWidth={false}>
+        <Grid container>
+          <Grid item xs={12} md={3}>
+            <div className={styles.search}>
+              <TextField
+                style={{ width: '90%' }}
+                sx={{
+                  input: { color: 'white' },
+                }}
+                InputLabelProps={{
+                  style: { color: 'white' },
+                  underline: { color: 'white' },
+                }}
+                id="filled-primary"
+                label="Search Here ..."
+                variant="filled"
+                onChange={inputHandler}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12} md={8} mr={1}>
+            <div className={styles.eventCards}>
+              <Grid
+                container
+                columns={12}
+                columnSpacing={2}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <h2 className={styles.mainHeading} >{"Server Error :- "+statusCode}</h2>
+              </Grid>
+            </div>
+          </Grid>
+        </Grid>
+      </Container>
+    </div>
+    );
+  }
   return (
+
     <div className={styles.background}>
       <Grid container>
         <Grid item xs={12} mt={4} mb={2} justifyContent="center">
-          <h2 className={styles.mainHeading}>EVENTS AND COMPETITIONS</h2>
+          <h2 className={styles.mainHeading}>EVENTS</h2>
         </Grid>
       </Grid>
       <Container fluid className={styles.main_container} maxWidth={false}>
