@@ -1,0 +1,14 @@
+.background {
+  background-image: url('../../../public/website\ designs/Event desc.jpg');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+@media screen and (max-width: 576px) {
+  .background {
+    background-image: url('../../../public/mobile\ designs/event desc mobile.jpg');
+  }
+}
