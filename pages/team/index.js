@@ -30,17 +30,27 @@ function Team() {
         <div>
           <div className={styles.pageheader}>Conveners</div>
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={1}>
-              <Grid container item spacing={2}>
-                <TeamMemberCard />
-              </Grid>
+            <Grid container item className={styles.third}>
+              {committee.conveners &&
+                committee.conveners.map((item) => (
+                  <TeamMemberCard
+                    image={item.Photo}
+                    key={item.val}
+                    name={item.Name}
+                    committee={item.Committee}
+                    insta={item.Instagram}
+                    linkedin={item.Linkedin}
+                    contact={item.Contact}
+                    github="NA"
+                  />
+                ))}
             </Grid>
           </Box>
         </div>
         <div>
           <div className={styles.pageheader}>Secretaries</div>
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container item spacing={2} className={styles.third}>
+            <Grid container item className={styles.third}>
               {committee.secretary.map((item) => (
                 <TeamMemberCard
                   image={item.Photo}
@@ -59,21 +69,19 @@ function Team() {
         <div>
           <div className={styles.pageheader}>Heads</div>
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={1}>
-              <Grid container item spacing={2} className={styles.third}>
-                {committee.head.map((item) => (
-                  <TeamMemberCard
-                    image={item.Photo}
-                    key={item.val}
-                    name={item.Name}
-                    committee={item.Committee}
-                    insta={item.Instagram}
-                    linkedin={item.Linkedin}
-                    contact={item.Contact}
-                    github="NA"
-                  />
-                ))}
-              </Grid>
+            <Grid container item className={styles.third}>
+              {committee.head.map((item) => (
+                <TeamMemberCard
+                  image={item.Photo}
+                  key={item.val}
+                  name={item.Name}
+                  committee={item.Committee}
+                  insta={item.Instagram}
+                  linkedin={item.Linkedin}
+                  contact={item.Contact}
+                  github="NA"
+                />
+              ))}
             </Grid>
           </Box>
         </div>

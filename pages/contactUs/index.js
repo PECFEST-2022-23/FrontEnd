@@ -21,19 +21,19 @@ function ContactUs() {
             <Grid container spacing={1} className={styles.contactInfo}>
               <Grid container item className={styles.box}>
                 <div className={styles.icon}>
-                  <a href="tel:+91-6283730175" target="_blank" rel="noreferrer">
+                  <a href="tel:+918146539939" target="_blank" rel="noreferrer">
                     <PhoneIcon className={styles.contactIcon} />
                   </a>
                 </div>
                 <div className={styles.text}>
                   <h3>Call us directly at:</h3>
-                  <p></p>
+                  <p>+91 81465 39939</p>
                 </div>
               </Grid>
               <Grid container item className={styles.box}>
                 <div className={styles.icon}>
                   <a
-                    href="mailTo:pecfest2022.webmaster@gmail.com"
+                    href="mailTo:convener.pecfest@pec.edu.in"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -42,7 +42,7 @@ function ContactUs() {
                 </div>
                 <div className={styles.text}>
                   <h3>Reach out via email at</h3>
-                  <p>pecfest2022.webmaster@gmail.com</p>
+                  <p>convener.pecfest@pec.edu.in</p>
                 </div>
               </Grid>
             </Grid>

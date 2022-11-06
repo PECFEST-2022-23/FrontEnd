@@ -28,11 +28,6 @@ function Sponsor() {
                       image={item.Photo}
                       key={item.val}
                       name={item.Name}
-                      committee={item.Committee}
-                      insta={item.Instagram}
-                      linkedin={item.Linkedin}
-                      contact={item.Contact}
-                      github="NA"
                     />
                   ))}
               </Grid>
