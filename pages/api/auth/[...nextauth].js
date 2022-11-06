@@ -4,7 +4,7 @@ import { encrypt } from '../../../lib/auth/enctryption';
 import Cookies from 'universal-cookie';
 
 const nextAuthOptions = (req, res) => {
-  const cookies = new Cookies();
+  const cookies = new Cookies(req.headers.cookie);
 
   return {
     providers: [
@@ -43,7 +43,9 @@ const nextAuthOptions = (req, res) => {
 
       async redirect({ baseUrl }) {
         const url = baseUrl;
-        return baseUrl;
+        const redirectPath = cookies.get('redirectPath') || '/';
+        console.log(redirectPath);
+        return baseUrl + redirectPath;
       },
     },
   };

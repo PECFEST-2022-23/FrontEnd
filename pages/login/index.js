@@ -49,7 +49,7 @@ export default function Login() {
         token = res.token;
       const data = { user: user, token: token };
       cookies.set('session-token', JSON.stringify(data));
-      const redirectPath = decrypt(cookies.get('redirectPath')) || '/';
+      const redirectPath = cookies.get('redirectPath') || '/';
       cookies.remove('redirectPath');
       router.push(redirectPath);
     }
