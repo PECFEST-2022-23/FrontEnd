@@ -27,7 +27,7 @@ import { decrypt } from '../../lib/auth/enctryption';
 import Cookies from 'universal-cookie';
 import logout from '../../lib/auth/logout';
 import { useRouter } from 'next/router';
-import { useSession } from "next-auth/react";
+import { useSession } from 'next-auth/react';
 import getCookieData from '../../lib/auth/getCookieData';
 
 const drawerWidth = 240;
@@ -45,16 +45,12 @@ const Navbar = (props) => {
   const [profileOpen, setProfileOpen] = useState(false);
 
   const [user, setUser] = useState(null);
-  const { data: session } = useSession();
 
-  const cookies = new Cookies();
+  let { data: session, status } = useSession();
   useEffect(() => {
     const { data } = getCookieData(session);
-    console.log(data);
-    // const user = JSON.parse(decrypt(cookies.get('user')));
-    // setUser(() => user);
-    if(data)  setUser(() => data.user);
-  }, []);
+    if (data) setUser(() => data.user);
+  }, [session, status]);
 
   const handleAboutClick = (event) => {
     setAnchorEl(event.currentTarget);

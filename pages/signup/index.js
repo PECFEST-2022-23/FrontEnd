@@ -35,8 +35,7 @@ export default function SignUp() {
         }),
       }
     ).then((res) => res.json());
-    toast(res.message);
-
+    toast.info(res.message);
     router.push('/login');
   };
 
