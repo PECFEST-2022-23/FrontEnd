@@ -136,8 +136,7 @@ export default function SignUp() {
 
 export async function getServerSideProps(context) {
   const { data } = getServerCookieData(context);
-  console.log(data);
-  if (data !== null) {
+  if (data != null) {
     return {
       redirect: {
         permanent: false,
