@@ -26,7 +26,9 @@ import Link from 'next/link';
 import { decrypt } from '../../lib/auth/enctryption';
 import Cookies from 'universal-cookie';
 import logout from '../../lib/auth/logout';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
+import getCookieData from '../../lib/auth/getCookieData';
 
 const drawerWidth = 240;
 const navItemsOne = NavData.slice(0, NavData.length / 2);
@@ -43,10 +45,15 @@ const Navbar = (props) => {
   const [profileOpen, setProfileOpen] = useState(false);
 
   const [user, setUser] = useState(null);
+  const { data: session } = useSession();
+
   const cookies = new Cookies();
   useEffect(() => {
-    const user = JSON.parse(decrypt(cookies.get('user')));
-    setUser(() => user);
+    const { data } = getCookieData(session);
+    console.log(data);
+    // const user = JSON.parse(decrypt(cookies.get('user')));
+    // setUser(() => user);
+    if(data)  setUser(() => data.user);
   }, []);
 
   const handleAboutClick = (event) => {
@@ -70,8 +77,8 @@ const Navbar = (props) => {
 
   const handleLogout = () => {
     handleProfileClose();
-    logout(router);
-  }
+    logout(router, session);
+  };
 
   const handleClick = () => {
     setOpen(!open);
@@ -274,7 +281,7 @@ const Navbar = (props) => {
                   <MenuItem onClick={handleProfileClose} disableRipple>
                     <Link href={`/profile`}>Profile</Link>
                   </MenuItem>
-                  <MenuItem disabled onClick={handleLogout} disableRipple>
+                  <MenuItem onClick={handleLogout} disableRipple>
                     Log Out
                   </MenuItem>
                 </Menu>
@@ -304,7 +311,7 @@ const Navbar = (props) => {
                 <MenuItem onClick={handleProfileClose} disableRipple>
                   <Link href={`/profile`}>Profile</Link>
                 </MenuItem>
-                <MenuItem disabled onClick={handleLogout} disableRipple>
+                <MenuItem onClick={handleLogout} disableRipple>
                   Log Out
                 </MenuItem>
               </Menu>
