@@ -194,11 +194,25 @@ const MegaShowEvent = (props) => {
       </div>
     );
   }
+
+  let heading;
+
+  if (
+    !typeOfEvent ||
+    typeOfEvent == undefined ||
+    typeOfEvent == 'WORKSHOPS' ||
+    typeOfEvent == 'MEGASHOWS'
+  ) {
+    heading = 'Events';
+  } else {
+    heading = 'Competitions';
+  }
+
   return (
     <div className={styles.background}>
       <Grid container>
         <Grid item xs={12} mt={4} mb={2} justifyContent="center">
-          <h2 className={styles.mainHeading}>EVENTS</h2>
+          <h2 className={styles.mainHeading}>{heading}</h2>
         </Grid>
       </Grid>
       <Container fluid className={styles.main_container} maxWidth={false}>
@@ -228,6 +242,7 @@ const MegaShowEvent = (props) => {
                   onSelectFilters={selectFilters}
                   onDeSelectFilters={deselectFilters}
                   color={'primary'}
+                  eventType={typeOfEvent}
                 />
               ))}
               {allSubFilters.map((filter, id) => (
@@ -237,6 +252,7 @@ const MegaShowEvent = (props) => {
                   onSelectFilters={selectSubFilters}
                   onDeSelectFilters={deselectSubFilters}
                   color={'primary'}
+                  eventType={typeOfEvent}
                 />
               ))}
             </div>
