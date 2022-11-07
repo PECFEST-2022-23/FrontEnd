@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+import { useState } from 'react';
 import Head from 'next/head';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
@@ -15,14 +16,21 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import { encrypt, decrypt } from '../../lib/auth/enctryption';
 import Cookies from 'universal-cookie';
 import getServerCookieData from '../../lib/auth/getServerCookieData';
+import validator from 'validator';
 
 export default function Login() {
   const router = useRouter();
   const { data: session } = useSession();
   const cookies = new Cookies();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!validator.isEmail(email) || !validator.isStrongPassword(password)) {
+      toast.error('Please enter valid email and password');
+      return;
+    }
     const data = new FormData(event.currentTarget);
     const res = await fetch(
       process.env.NEXT_PUBLIC_BACKEND_API + 'auth/login/',
@@ -109,6 +117,12 @@ export default function Login() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                error={!validator.isEmail(email)}
+                helperText={
+                  !validator.isEmail(email) ? 'Please enter a valid email' : ''
+                }
+                onChange={(e) => setEmail(e.target.value)}
                 autoFocus
               />
               <TextField
@@ -119,6 +133,21 @@ export default function Login() {
                 label="Password"
                 type="password"
                 id="password"
+                value={password}
+                error={!validator.isStrongPassword(password)}
+                helperText={
+                  !validator.isStrongPassword(password) ? (
+                    <>
+                      Please use a strong password <br />
+                      Must contain a lower case character, an upper case
+                      character, a number and a symbol <br /> Must have minimum
+                      length of 8 character
+                    </>
+                  ) : (
+                    ''
+                  )
+                }
+                onChange={(e) => setPassword(e.target.value)}
                 autoComplete="current-password"
               />
 

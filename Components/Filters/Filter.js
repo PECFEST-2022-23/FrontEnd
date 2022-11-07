@@ -31,9 +31,11 @@ const Filters = (props) => {
     <>
       <Chip
         label={props.filterValue}
-        //style={{ marginTop: 10, marginRight: 5, color: "white", fontWeight: "bold" }}
-        //color={!active ? props.color : "success"}
-        className={active ? styles.activeTagStyle : styles.inactiveTagStyle}
+        className={
+          active || props.eventType == props.filterValue
+            ? styles.activeTagStyle
+            : styles.inactiveTagStyle
+        }
         icon={<EventIcon style={{ color: 'white' }} />}
         onClick={() => {
           if (!active) {
