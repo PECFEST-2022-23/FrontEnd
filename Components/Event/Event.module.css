@@ -1,7 +1,8 @@
 .imageGridItem {
   position: relative;
   object-fit: cover;
-  width: 100%;
+  width: auto;
+  aspect-ratio: 1;
   height: 550px;
   margin: 12px auto;
   background: white;
