@@ -9,24 +9,106 @@ import CardHeader from '@mui/material/CardHeader';
 import RoomIcon from '@mui/icons-material/Room';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import EventIcon from '@mui/icons-material/Event';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import classes from './Event.module.css';
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Cookies from 'universal-cookie';
 import getServerCookieData from '../../lib/auth/getServerCookieData';
 import getCookieData from '../../lib/auth/getCookieData';
-import { useEffect } from 'react';
+import redirectToLogin from '../../lib/auth/redirectToLogin';
+import { useState, useEffect } from 'react';
+import useSWR from 'swr';
 
 const Event = (props) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [cookieData, setCookieData] = useState(null);
+  const [teamData, setTeamData] = useState(null);
   const router = useRouter();
   const { data: session } = useSession();
   const cookies = new Cookies();
+
+  // const fetcher = (url) => fetch(url, {
+  //   method: "GET",
+  //   headers: {
+  //     'Authorization': `Token ${cookieData.token}`
+  //   }
+  // }).then((res) => res.json());
+
+  // const { teamData, teamError } = useSWR(isLoggedIn ? `https://api.pecfest.co.in/events/${props.eventDetails.id}/team/` : null, fetcher, { refreshInterval: 5000 });
+
+  const resFetch = async (req) => {
+    const res = await fetch(...req);
+    if (!res.ok) {
+      return res.status;
+    }
+    return res.json();
+  };
+
   useEffect(() => {
     const { data } = getCookieData(session);
-    console.log(data);
-    // const user = JSON.parse(decrypt(cookies.get('user')));
-    // setUser(() => user);
-  }, [session]);
+    if (typeof data == 'undefined' || data.user == null) {
+      setIsLoggedIn(false);
+      setLoading(false);
+    } else {
+      setCookieData(data);
+      setIsLoggedIn(true);
+    }
+  }, [session, props]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setLoading(true);
+      resFetch([
+        `https://api.pecfest.co.in/events/${props.eventDetails.id}/team`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Token ${cookieData.token}`,
+          },
+        },
+      ])
+        .then((res) => {
+          setLoading(false);
+          setTeamData(res);
+          setIsRegistered(teamData.is_registered);
+        })
+        .catch((status) => {
+          if (status == 401) {
+            signOut();
+          }
+        });
+    }
+  }, [isLoggedIn, cookieData, props]);
+
+  const handleRegisterClick = () => {
+    if (isLoggedIn) {
+      if (!isRegistered) {
+        if (props.eventDetails.type == 'INDIVIDUAL') {
+          resFetch([
+            `https://api.pecfest.co.in/events/register/${props.eventDetails.id}/ `,
+            {
+              method: 'POST',
+              headers: {
+                Authorization: `Token ${cookieData.token}`,
+              },
+            },
+          ])
+            .then((res) => {
+              console.log(res);
+              setIsRegistered(true);
+            })
+            .catch((status) => {
+              if (status == 401) {
+                signOut();
+              }
+            });
+        }
+      }
+    } else redirectToLogin(router);
+  };
 
   console.log(props);
 
@@ -130,14 +212,26 @@ const Event = (props) => {
               >
                 Rulebook
               </Button>
-              <Button
-                variant="contained"
-                style={{ border: '1px solid white' }}
-                onClick={() => console.log('clicked')}
-                size="small"
-              >
-                Register
-              </Button>
+              {!loading && (
+                <Button
+                  variant="contained"
+                  style={{ border: '1px solid white' }}
+                  onClick={handleRegisterClick}
+                  size="small"
+                >
+                  {isRegistered ? 'Registered' : 'Register'}
+                </Button>
+              )}
+              {isRegistered && props.eventDetails.type == 'TEAM' && (
+                <PeopleAltIcon
+                  style={{
+                    color: '#fff',
+                    fontSize: '2.4rem',
+                    padding: 0,
+                    margin: '0 0 -0.3rem 0.5rem',
+                  }}
+                />
+              )}
               <div style={{ right: '3%', position: 'absolute' }}>
                 <Chip
                   label={
@@ -145,8 +239,8 @@ const Event = (props) => {
                     (props.eventDetails?.type == 'INDIVIDUAL'
                       ? '1'
                       : props.eventDetails?.min_team_size +
-                        ' - ' +
-                        props.eventDetails?.max_team_size)
+                      ' - ' +
+                      props.eventDetails?.max_team_size)
                   }
                   color="info"
                   variant="filled"
