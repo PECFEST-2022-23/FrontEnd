@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head'
 import styles from './Developers.module.css';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -9,6 +10,10 @@ import developers from './DeveloperDetails.json';
 function Developers() {
   return (
     <div className={styles.background}>
+      <Head>
+        <title>Developers</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Container fluid className={styles.main_container}>
         <div>
           <div className={styles.pageheader}>Frontend Developers</div>
@@ -23,7 +28,7 @@ function Developers() {
                   insta={item.Insta}
                   linkedin={item.Linkedin}
                   contact={item.Contact}
-                  github="NA"
+                  github={item.Github}
                 />
               ))}
             </Grid>

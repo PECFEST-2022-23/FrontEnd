@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Head from 'next/head';
 import styles from './Schedule.module.css';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -14,6 +15,10 @@ function Schedule(props) {
   };
   return (
     <div className={styles.background}>
+      <Head>
+        <title>Schedule</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Container className={styles.main_container}>
         <Box>
           <Grid className={styles.pageheader}>Schedule</Grid>

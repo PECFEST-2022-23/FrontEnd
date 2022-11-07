@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import styles from './ContactUs.module.css';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -14,6 +15,10 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 function ContactUs() {
   return (
     <div className={styles.background}>
+      <Head>
+        <title>Contact Us</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <section className={styles.contact}>
         <Container className={styles.main_container}>
           <Grid className={styles.pageheader}>ContactUs</Grid>
