@@ -70,7 +70,7 @@ const Event = (props) => {
                     />
                     <Chip
                       size="small"
-                      label={props.eventDetails?.club?.toUpperCase()}
+                      label={props.eventDetails?.club_name?.toUpperCase()}
                       color="info"
                       variant="filled"
                       className={classes.chip}
@@ -102,7 +102,7 @@ const Event = (props) => {
                 </span>
               }
             />
-            <CardActions style={{ overflow: 'auto' }}>
+            <CardActions className={classes.cardActions}>
               <Button
                 variant="contained"
                 style={{ border: '1px solid white' }}
@@ -120,7 +120,7 @@ const Event = (props) => {
               >
                 Register
               </Button>
-              <div style={{ right: '3%', position: 'absolute' }}>
+              <div className={classes.teamSize}>
                 <Chip
                   label={
                     'Team size: ' +
