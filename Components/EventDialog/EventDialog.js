@@ -54,41 +54,19 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
     },
     zoom: 11,
   };
-  console.log(eventInfo)
-  const [eventName, setEventName] = useState(eventInfo ? eventInfo.name : null);
-  const [eventStart, setEventStart] = useState(
-    eventInfo ? eventInfo.startdatetime : `2022-11-25T00:00:00Z`
-  );
-  const [eventEnd, setEventEnd] = useState(
-    eventInfo ? eventInfo.enddatetime : `2022-11-28T00:00:00Z`
-  );
-  const [eventVenue, setEventVenue] = useState(
-    eventInfo ? eventInfo.venue : null
-  );
-  const [minTeamSize, setMinTeamSize] = useState(
-    eventInfo ? eventInfo.min_team_size : 1
-  );
-  const [maxTeamSize, setMaxTeamSize] = useState(
-    eventInfo ? eventInfo.max_team_size : 1
-  );
-  const [rulesLink, setRulesLink] = useState(
-    eventInfo ? eventInfo.rulebook_url : null
-  );
-  const [eventPoster, setEventPoster] = useState(
-    eventInfo ? eventInfo.image_url : null
-  );
-  const [eventDescription, setEventDescription] = useState(
-    eventInfo ? eventInfo.description : null
-  );
-  const [eventType, setEventType] = useState(
-    eventInfo ? eventInfo.type : `INDIVIDUAL`
-  );
-  const [eventCategory, setEventCategory] = useState(
-    eventInfo ? eventInfo.category : `CULTURAL`
-  );
-  const [eventCategorySubType, setEventCategorySubType] = useState(
-    eventInfo ? eventInfo.subcategory : `DANCE`
-  );
+
+  const [eventName, setEventName] = useState();
+  const [eventStart, setEventStart] = useState(`2022-11-25T00:00:00Z`);
+  const [eventEnd, setEventEnd] = useState(`2022-11-28T00:00:00Z`);
+  const [eventVenue, setEventVenue] = useState();
+  const [minTeamSize, setMinTeamSize] = useState(1);
+  const [maxTeamSize, setMaxTeamSize] = useState(1);
+  const [rulesLink, setRulesLink] = useState();
+  const [eventPoster, setEventPoster] = useState();
+  const [eventDescription, setEventDescription] = useState();
+  const [eventType, setEventType] = useState(`INDIVIDUAL`);
+  const [eventCategory, setEventCategory] = useState(`CULTURAL`);
+  const [eventCategorySubType, setEventCategorySubType] = useState(`DANCE`);
   const [pocName, setPocName] = useState();
   const [pocNumber, setPocNumber] = useState();
   // work-around for file clear in dropzone
@@ -98,6 +76,25 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
   const [dateError, setDateError] = useState(false);
   const [eventCreationStatus, setEventCreationStatus] = useState();
   const [delDialogOpen, setDelDialogOpen] = useState(false);
+
+  useEffect(() => {
+    if (eventInfo) {
+      setEventName(eventInfo.name);
+      setEventStart(eventInfo.startdatetime);
+      setEventEnd(eventInfo.enddatetime);
+      setEventVenue(eventInfo.venue);
+      setMinTeamSize(eventInfo.min_team_size);
+      setMaxTeamSize(eventInfo.max_team_size);
+      setEventPoster(eventInfo.image_url);
+      setEventDescription(eventInfo.description);
+      setEventType(eventInfo.type);
+      setEventCategory(eventInfo.category);
+      setEventCategorySubType(eventInfo.subcategory);
+      setRulesLink(eventInfo.rulebook_url);
+      setPocName();
+      setPocNumber();
+    }
+  }, [eventInfo]);
 
   const handleEventChange = (e, type) => {
     if ('$d' in e) {

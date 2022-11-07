@@ -15,6 +15,10 @@ const EventCard = ({ id, openDialog, image, event_name, event_id }) => {
     router.push(`/eventList/${event_id}`);
   };
 
+  const openEditEvent = () => {
+    router.push(`/adminPanel/${event_id}`);
+  };
+
   return (
     <Card variant="outlined">
       <CardContent>
@@ -30,7 +34,13 @@ const EventCard = ({ id, openDialog, image, event_name, event_id }) => {
         />
       </CardContent>
       <CardActions sx={{ justifyContent: 'center' }}>
-        <Button variant="contained" size="small" onClick={openDialog} id={id}>
+        <Button
+          variant="contained"
+          size="small"
+          onClick={openDialog}
+          id={id}
+          onClick={openEditEvent}
+        >
           Edit Information
         </Button>
         <Button

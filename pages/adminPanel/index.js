@@ -75,7 +75,6 @@ export default function AdminPanel(props) {
 
   const handleEditEventOpen = (e) => {
     setCurrentEvent(event_list[e.target.id]);
-    console.log("AP", currentEvent);
     setEventDialogOpen(true);
   };
 
@@ -138,7 +137,6 @@ export default function AdminPanel(props) {
           onClose={handleEditEventClose}
           eventInfo={currentEvent}
           user_token={currentToken}
-          id={currentEvent.id}
         />
       </Grid>
     </Container>
@@ -148,7 +146,6 @@ export default function AdminPanel(props) {
 export async function getServerSideProps(context) {
   const { data } = getServerCookieData(context);
   const { token } = data;
-
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}club/`, {
     method: `GET`,
     headers: {

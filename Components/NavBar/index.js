@@ -46,7 +46,7 @@ const Navbar = (props) => {
 
   const [user, setUser] = useState(null);
 
-  let { data: session, status } = useSession();
+  const { data: session, status } = useSession();
   useEffect(() => {
     const { data } = getCookieData(session);
     if (data) setUser(() => data.user);
@@ -128,7 +128,7 @@ const Navbar = (props) => {
             </div>
           ) : (
             <ListItem key={item.name} disablePadding>
-              <Link href={`/${item.link}`}>
+              <Link href={`/${item.link}`} passHref>
                 <ListItemButton sx={{ textAlign: 'center' }}>
                   <ListItemText primary={item.name} />
                 </ListItemButton>
