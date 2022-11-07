@@ -27,9 +27,10 @@ const MegaShowEvent = (props) => {
       const filtersAvailable = [];
       const subFiltersAvailable = [];
       props.evts.forEach((evt) => {
-        filtersAvailable.push(evt.category);
-        filtersAvailable.push(evt.type);
-        subFiltersAvailable.push(evt.subcategory);
+        filtersAvailable.push(evt.category.toUpperCase());
+        filtersAvailable.push(evt.type.toUpperCase());
+        filtersAvailable.push(evt.club_name.toUpperCase());
+        subFiltersAvailable.push(evt.subcategory.toUpperCase());
       });
 
       setAllFilters([...new Set(filtersAvailable)]);
@@ -42,10 +43,9 @@ const MegaShowEvent = (props) => {
   const filterPass = (event) => {
     return (
       filters.includes(event.category.toUpperCase()) ||
-      subFilters.includes(
-        event.subcategory.toUpperCase() ||
-          filters.includes(event.type.toUpperCase())
-      )
+      subFilters.includes(event.subcategory.toUpperCase()) ||
+      filters.includes(event.type.toUpperCase()) ||
+      filters.includes(event.club_name.toUpperCase())
     );
   };
 
@@ -53,7 +53,8 @@ const MegaShowEvent = (props) => {
     if (filterVal == undefined) return;
     const selectedFilters = filters;
     selectedFilters.push(filterVal);
-    setFilters(selectedFilters);
+
+    setFilters([...new Set(selectedFilters)]);
 
     if (filters.length || subFilters.length) {
       const filteredEvents = [];
@@ -73,7 +74,7 @@ const MegaShowEvent = (props) => {
     if (filterVal == undefined) return;
     const selectedFilters = filters;
     selectedFilters.splice(selectedFilters.indexOf(filterVal), 1);
-    setFilters(selectedFilters);
+    setFilters([...new Set(selectedFilters)]);
 
     if (filters.length || subFilters.length) {
       const filteredEvents = [];
@@ -92,7 +93,7 @@ const MegaShowEvent = (props) => {
     if (filterVal == undefined) return;
     const selectedFilters = subFilters;
     selectedFilters.push(filterVal);
-    setSubFilters(selectedFilters);
+    setSubFilters([...new Set(selectedFilters)]);
 
     if (filters.length || subFilters.length) {
       const filteredEvents = [];
@@ -111,7 +112,7 @@ const MegaShowEvent = (props) => {
     if (filterVal == undefined) return;
     const selectedFilters = subFilters;
     selectedFilters.splice(selectedFilters.indexOf(filterVal), 1);
-    setSubFilters(selectedFilters);
+    setSubFilters([...new Set(selectedFilters)]);
 
     if (filters.length || subFilters.length) {
       const filteredEvents = [];
