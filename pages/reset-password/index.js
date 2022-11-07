@@ -19,24 +19,19 @@ export default function ResetPassword() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const res = await fetch(
-      process.env.NEXT_PUBLIC_BACKEND_API + 'auth/reset-pass',
+      process.env.NEXT_PUBLIC_BACKEND_API + 'auth/register',
       {
-        method: 'POST',
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           email: data.get('email'),
           password: data.get('password'),
         }),
       }
     ).then((res) => res.json());
-    toast(res.message, {
-      position: 'top-right',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-    });
+    toast.info(res.message);
 
     router.push('/login');
   };
@@ -79,7 +74,7 @@ export default function ResetPassword() {
                   name="password"
                   label="New Password"
                   type="password"
-                  id="password"
+                  id="confirm-password"
                   autoComplete="new-password"
                 />
               </Grid>
