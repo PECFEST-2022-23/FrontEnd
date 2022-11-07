@@ -27,7 +27,7 @@ import { decrypt } from '../../lib/auth/enctryption';
 import Cookies from 'universal-cookie';
 import logout from '../../lib/auth/logout';
 import { useRouter } from 'next/router';
-import { useSession } from "next-auth/react";
+import { useSession } from 'next-auth/react';
 import getCookieData from '../../lib/auth/getCookieData';
 
 const drawerWidth = 240;
@@ -53,7 +53,7 @@ const Navbar = (props) => {
     console.log(data);
     // const user = JSON.parse(decrypt(cookies.get('user')));
     // setUser(() => user);
-    if(data)  setUser(() => data.user);
+    if (data) setUser(() => data.user);
   }, []);
 
   const handleAboutClick = (event) => {
