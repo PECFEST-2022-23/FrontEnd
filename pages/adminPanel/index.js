@@ -7,9 +7,11 @@ import {
   Button,
   Dialog,
   DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
   TextField,
   Grid,
-  DialogContent,
   Input,
   FormHelperText,
   Card,
@@ -22,6 +24,8 @@ import {
   Select,
   MenuItem,
   Alert,
+  Snackbar,
+  Divider,
 } from '@mui/material';
 import { DropzoneArea } from 'mui-file-dropzone';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
@@ -34,22 +38,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import SampleData from './sample.json';
 import GoogleMapReact from 'google-map-react';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+import { SignalCellularNullOutlined } from '@mui/icons-material';
+import getCookieData from '../../lib/auth/getCookieData';
+import getServerCookieData from '../../lib/auth/getServerCookieData';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-const EventDialog = ({ onClose, open, eventId }) => {
-  const eventObj = {
-    eventName: '',
-    eventStart: Date(),
-    eventEnd: Date(),
-    eventVenue: '',
-    minTeamSize: '',
-    maxTeamSize: '',
-    rulesLink: '',
-    eventPoster: '',
-    eventDescription: '',
-  };
-
+const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
   const defaultMapProps = {
     center: {
       lat: 30.76830387478322,
@@ -58,26 +54,49 @@ const EventDialog = ({ onClose, open, eventId }) => {
     zoom: 11,
   };
 
-  const [eventName, setEventName] = useState();
-  const [eventStart, setEventStart] = useState();
-  const [eventEnd, setEventEnd] = useState();
-  const [eventVenue, setEventVenue] = useState();
-  const [minTeamSize, setMinTeamSize] = useState();
-  const [maxTeamSize, setMaxTeamSize] = useState();
-  const [rulesLink, setRulesLink] = useState();
-  const [eventPoster, setEventPoster] = useState();
-  const [eventDescription, setEventDescription] = useState();
-  const [eventType, setEventType] = useState(`INDIVIDUAL`);
-  const [eventCategory, setEventCategory] = useState(`CULTURAL`);
-  const [eventCategorySubType, setEventCategorySubType] = useState(`DANCE`);
+  const [eventName, setEventName] = useState(eventInfo ? eventInfo.name : null);
+  const [eventStart, setEventStart] = useState(
+    eventInfo ? eventInfo.startdatetime : `2022-11-25T00:00:00Z`
+  );
+  const [eventEnd, setEventEnd] = useState(
+    eventInfo ? eventInfo.enddatetime : `2022-11-28T00:00:00Z`
+  );
+  const [eventVenue, setEventVenue] = useState(
+    eventInfo ? eventInfo.venue : null
+  );
+  const [minTeamSize, setMinTeamSize] = useState(
+    eventInfo ? eventInfo.min_team_size : 1
+  );
+  const [maxTeamSize, setMaxTeamSize] = useState(
+    eventInfo ? eventInfo.max_team_size : 1
+  );
+  const [rulesLink, setRulesLink] = useState(
+    eventInfo ? eventInfo.rulebook_url : null
+  );
+  const [eventPoster, setEventPoster] = useState(
+    eventInfo ? eventInfo.image_url : null
+  );
+  const [eventDescription, setEventDescription] = useState(
+    eventInfo ? eventInfo.description : null
+  );
+  const [eventType, setEventType] = useState(
+    eventInfo ? eventInfo.type : `INDIVIDUAL`
+  );
+  const [eventCategory, setEventCategory] = useState(
+    eventInfo ? eventInfo.category : `CULTURAL`
+  );
+  const [eventCategorySubType, setEventCategorySubType] = useState(
+    eventInfo ? eventInfo.subcategory : `DANCE`
+  );
   const [pocName, setPocName] = useState();
   const [pocNumber, setPocNumber] = useState();
   // work-around for file clear in dropzone
   const [dropzoneKey, setDropzoneKey] = useState(true);
   const [imgDimError, setImgDimError] = useState(false);
 
-  const [event, setEvent] = useState(eventObj);
   const [dateError, setDateError] = useState(false);
+  const [eventCreationStatus, setEventCreationStatus] = useState();
+  const [delDialogOpen, setDelDialogOpen] = useState(false);
 
   const handleEventChange = (e, type) => {
     if ('$d' in e) {
@@ -163,42 +182,126 @@ const EventDialog = ({ onClose, open, eventId }) => {
     }
   };
 
-  const handleEventSubmit = (e) => {
+  const handleSnackbarClose = () => {
+    setEventCreationStatus();
+  };
+
+  const clearState = () => {
+    setEventName();
+    setEventStart();
+    setEventEnd();
+    setEventVenue();
+    setMinTeamSize();
+    setMaxTeamSize();
+    setEventPoster();
+    setEventDescription();
+    setEventType();
+    setEventCategory();
+    setEventCategorySubType();
+    setPocName();
+    setPocNumber();
+    setDropzoneKey();
+    setImgDimError();
+    setDateError();
+    setEventCreationStatus();
+    setRulesLink();
+  };
+
+  const handleDelDialogOpen = () => {
+    setDelDialogOpen((prev => !prev));
+  }
+
+  const handleEventDelete = async (e) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_API}club/${eventInfo.id}`,
+      {
+        method: `DELETE`,
+        headers: {
+          Authorization: `Token ${user_token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    window.location.reload();
+  };
+
+  const handleEventSubmit = async (e) => {
     e.preventDefault();
     if (!dateError) {
       // make POST request
-      console.log(event);
-      setEvent(eventObj);
-      onClose();
+      const formData = new FormData();
+      formData.append(`name`, eventName);
+      formData.append(`type`, eventType.toUpperCase());
+      formData.append(`category`, eventCategory.toUpperCase());
+      formData.append(`subcategory`, eventCategorySubType.toUpperCase());
+      formData.append(
+        `description`,
+        `${eventDescription}\n\nPoint of Contact:\n${pocName}:${pocNumber}`
+      );
+      formData.append(`startdatetime`, eventStart.toISOString());
+      formData.append(`enddatetime`, eventEnd.toISOString());
+      formData.append(`venue`, eventVenue);
+      formData.append(`min_team_size`, minTeamSize);
+      formData.append(`max_team_size`, maxTeamSize);
+      formData.append(`image_url`, eventPoster);
+      formData.append(`latitude`, defaultMapProps.center.lat);
+      formData.append(`longitude`, defaultMapProps.center.lng);
+      formData.append(`rulebook_url`, rulesLink);
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}club/`, {
+        method: `POST`,
+        headers: {
+          Authorization: `Token ${user_token}`,
+        },
+        body: formData,
+      });
+
+      if (!res) {
+        setEventCreationStatus(`FAILURE: Event Creation Failed.`);
+      }
+
+      const data = await res.json();
+
+      if (data && data.event_id && data.message) {
+        setEventCreationStatus(`SUCCESS: Event Creation Successful`);
+      }
+
+      setTimeout(() => {
+        onClose();
+        clearState();
+        window.location.reload();
+      }, 2000);
     }
   };
-
-  useEffect(() => {
-    // get data from backend for a particular event
-    eventId &&
-      (async () => {
-        // tinker with date formats
-        const startDateTimeObj = new Date(SampleData.eventStart * 1000);
-        const endDateTimeObj = new Date(SampleData.eventEnd * 1000);
-        setEventName(SampleData.eventName);
-        setEventStart(startDateTimeObj);
-        setEventEnd(endDateTimeObj);
-        setEventVenue(SampleData.eventVenue);
-        setMinTeamSize(SampleData.minTeamSize);
-        setMaxTeamSize(SampleData.maxTeamSize);
-        setRulesLink(SampleData.rulesLink);
-        setEventDescription(SampleData.eventDescription);
-      })();
-  }, [eventId, event]);
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-        {eventId ? `Edit Event Details` : `Add a New Event`}
-        {eventId && (
-          <Button>
-            <DeleteOutlineIcon />
-          </Button>
+        {eventInfo ? `Edit Event Details` : `Add a New Event`}
+        {eventInfo && (
+          <>
+            <Button onClick={handleDelDialogOpen}>
+              <DeleteOutlineIcon />
+            </Button>
+            <Dialog
+              open={delDialogOpen}
+              onClose={handleDelDialogOpen}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                Are you sure you want to delete this event?
+              </DialogTitle>
+              <DialogActions>
+                <Button onClick={handleDelDialogOpen} autoFocus>No</Button>
+                <Button onClick={handleEventDelete}>
+                  Yes
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </>
         )}
       </DialogTitle>
       <DialogContent>
@@ -414,9 +517,9 @@ const EventDialog = ({ onClose, open, eventId }) => {
                 name="pocNumber"
               />
             </Grid>
-            <Grid item style={{width: "100%"}}>
-              <div style={{height: "250px", width: "100%"}}>
-              <InputLabel id="google-map-label">Select Location</InputLabel>
+            <Grid item style={{ width: '100%' }}>
+              <div style={{ height: '250px', width: '100%' }}>
+                <InputLabel id="google-map-label">Select Location</InputLabel>
                 <GoogleMapReact
                   bootstrapURLKeys={{
                     key: 'AIzaSyD5vRetEsh-ytb4Te898z89vWl6H_giTzI',
@@ -434,28 +537,41 @@ const EventDialog = ({ onClose, open, eventId }) => {
             </Grid>
             <Grid item xs={12} sm={12}>
               <Button fullWidth variant="contained" type="submit">
-                {eventId ? `Edit Event` : `Add Event`}
+                {eventInfo ? `Edit Event` : `Add Event`}
               </Button>
             </Grid>
           </Grid>
         </Box>
       </DialogContent>
+      <Snackbar
+        open={eventCreationStatus}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: '100%' }}
+        >
+          {eventCreationStatus}
+        </Alert>
+      </Snackbar>
     </Dialog>
   );
 };
 
-const EventCard = ({ id, openDialog }) => {
-  // Design will be changed, This is a basic one
+const EventCard = ({ id, openDialog, image, event_name }) => {
   return (
     <Card variant="outlined">
       <CardContent>
-        <CardHeader>
-          <Typography sx={{ fontSize: 20 }}>Event Name</Typography>
-        </CardHeader>
+        <CardHeader
+          titleTypographyProps={{ fontSize: `1rem`, textAlign: `center` }}
+          title={event_name}
+        ></CardHeader>
         <CardMedia
           component="img"
           height="194"
-          image="https://smaller-pictures.appspot.com/images/dreamstime_xxl_65780868_small.jpg"
+          image={`${process.env.NEXT_PUBLIC_BACKEND_API}${image}`}
           alt="Event Photo"
         />
       </CardContent>
@@ -468,12 +584,23 @@ const EventCard = ({ id, openDialog }) => {
   );
 };
 
-const AdminPanel = () => {
-  const [currentUser, setCurrentUser] = useState(
-    "Speakers' Association and Study Circle"
-  );
+export default function AdminPanel(props) {
+  const [currentUser, setCurrentUser] = useState();
+  const [currentToken, setCurrentToken] = useState();
+  const { data: session } = useSession();
+  useEffect(() => {
+    const { data } = getCookieData(session);
+    // const user = JSON.parse(decrypt(cookies.get('user')));
+    // setUser(() => user);
+    if (data) {
+      setCurrentUser(() => data.user);
+      setCurrentToken(() => data.token);
+    }
+  }, []);
+
   const [eventDialogOpen, setEventDialogOpen] = useState(false);
   const [eventEditDialogOpen, setEventEditDialogOpen] = useState(false);
+  const event_list = props.evts;
 
   const handleAddEventOpen = () => {
     setEventDialogOpen(true);
@@ -506,7 +633,9 @@ const AdminPanel = () => {
           marginTop: 8,
         }}
       >
-        <Typography variant={`h5`}>Events by: {currentUser}</Typography>
+        <Typography sx={{ width: `100%`, textAlign: `center` }} variant={`h5`}>
+          Events by: {currentUser && currentUser.first_name}
+        </Typography>
         <Button
           sx={{ display: 'flex', gap: '1em', alignItems: 'center' }}
           variant={`contained`}
@@ -517,7 +646,8 @@ const AdminPanel = () => {
         <EventDialog
           open={eventDialogOpen}
           onClose={handleAddEventClose}
-          eventId={null}
+          eventInfo={null}
+          user_token={currentToken}
         />
       </Box>
       <Grid
@@ -525,21 +655,54 @@ const AdminPanel = () => {
         container
         fullWidth
       >
-        {[1, 2, 3, 4, 5, 6].map((event, idx) => (
-          <div key={idx}>
-            <EventCard openDialog={handleEditEventOpen} id={idx} />
-            <EventDialog
-              open={eventEditDialogOpen}
-              onClose={handleEditEventClose}
-              eventId={idx}
-            />
-          </div>
-        ))}
+        {event_list &&
+          event_list.map((curr_event, idx) => (
+            <div key={idx}>
+              <EventCard
+                openDialog={handleEditEventOpen}
+                event_name={curr_event.name}
+                id={idx}
+                image={curr_event.image_url}
+              />
+              <EventDialog
+                open={eventEditDialogOpen}
+                onClose={handleEditEventClose}
+                eventInfo={curr_event}
+                user_token={currentToken}
+              />
+            </div>
+          ))}
       </Grid>
     </Container>
   );
-};
+}
 
-export default AdminPanel;
+export async function getServerSideProps(context) {
+  const { data } = getServerCookieData(context);
+  const { token } = data;
 
-// export async function getStaticProps() {}
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}club/`, {
+    method: `GET`,
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
+
+  if (!res || res.status != 200) {
+    return {
+      props: {
+        status: res.status,
+        error: true,
+      },
+    };
+  }
+  const events = await res.json();
+
+  return {
+    props: {
+      evts: events,
+      status: res.status,
+      error: false,
+    },
+  };
+}
