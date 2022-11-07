@@ -62,18 +62,18 @@ export default function MyApp(props) {
               <Navbar />
 
               <Component {...pageProps} />
-              <ToastContainer
-                position="top-right"
-                autoClose={8000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                draggable={false}
-                pauseOnVisibilityChange
-                closeOnClick
-                pauseOnHover
-              />
             </>
           )}
+          <ToastContainer
+            position="top-right"
+            autoClose={8000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            draggable={false}
+            pauseOnVisibilityChange
+            closeOnClick
+            pauseOnHover
+          />
         </ThemeProvider>
       </CacheProvider>
     </SessionProvider>

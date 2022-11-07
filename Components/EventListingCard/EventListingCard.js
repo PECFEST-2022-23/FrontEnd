@@ -27,7 +27,7 @@ function EventListingCard(props) {
         <Card className={`${styles.eventCard} ${styles.image}`}>
           <div className={styles.borderCardMediaDiv}>
             <CardMedia>
-              <Image src={require('./border-frame-design.png')} />
+              <Image src={require('./border-frame-design.png')} alt="Border Design Frame" />
             </CardMedia>
             <div className={styles.imageCardMediaDiv}>
               <CardMedia
@@ -55,7 +55,9 @@ function EventListingCard(props) {
               : ''}
           </p>
           <p className={styles.eventElementSubHeading}>
-            {props.eventDetails.subcategory + ' - ' + props.eventDetails.type}
+            {props.eventDetails.category +
+              '- ' +
+              props.eventDetails.subcategory}
           </p>
           <Grid container justifyContent="center" alignItems="center">
             <Grid item xs={1}>
@@ -69,8 +71,6 @@ function EventListingCard(props) {
                   year: 'numeric',
                   month: 'short',
                   day: '2-digit',
-                  hour: '2-digit',
-                  minute: '2-digit',
                 }).format(
                   new Date(Date.parse(props.eventDetails.startdatetime))
                 )}
