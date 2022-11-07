@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import NextLink from 'next/link';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,33 +11,40 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import validator from 'validator';
 import styles from './ResetPassword.module.css';
 
 export default function ResetPassword() {
   const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (
+      !validator.isEmail(email) ||
+      !validator.isStrongPassword(password) ||
+      confirmPassword !== password
+    ) {
+      toast.error('Please enter valid values');
+      return;
+    }
     const data = new FormData(event.currentTarget);
     const res = await fetch(
-      process.env.NEXT_PUBLIC_BACKEND_API + 'auth/reset-pass',
+      process.env.NEXT_PUBLIC_BACKEND_API + 'auth/register',
       {
-        method: 'POST',
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           email: data.get('email'),
           password: data.get('password'),
         }),
       }
     ).then((res) => res.json());
-    toast(res.message, {
-      position: 'top-right',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-    });
+    toast.info(res.message);
 
     router.push('/login');
   };
@@ -69,6 +77,14 @@ export default function ResetPassword() {
                   id="email"
                   label="Email Address"
                   name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  error={!validator.isEmail(email)}
+                  helperText={
+                    !validator.isEmail(email)
+                      ? 'Please enter a valid email'
+                      : ''
+                  }
                   autoComplete="email"
                 />
               </Grid>
@@ -80,6 +96,21 @@ export default function ResetPassword() {
                   label="New Password"
                   type="password"
                   id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  error={!validator.isStrongPassword(password)}
+                  helperText={
+                    !validator.isStrongPassword(password) ? (
+                      <>
+                        Please use a strong password <br />
+                        Must contain a lower case character, an upper case
+                        character, a number and a symbol <br /> Must have
+                        minimum length of 8 character
+                      </>
+                    ) : (
+                      ''
+                    )
+                  }
                   autoComplete="new-password"
                 />
               </Grid>
@@ -90,7 +121,15 @@ export default function ResetPassword() {
                   name="password"
                   label="Confirm Password"
                   type="password"
-                  id="password"
+                  id="confirm-password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  error={confirmPassword !== password}
+                  helperText={
+                    confirmPassword !== password
+                      ? 'Must match the new password'
+                      : ''
+                  }
                   autoComplete="new-password"
                 />
               </Grid>

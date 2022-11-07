@@ -28,7 +28,8 @@
     "react-dom": "18.2.0",
     "react-share": "^4.4.1",
     "react-toastify": "^9.0.8",
-    "universal-cookie": "^4.0.4"
+    "universal-cookie": "^4.0.4",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "eslint": "8.23.1",

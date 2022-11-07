@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import Button from '@mui/material/Button';
@@ -13,12 +14,26 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import styles from './Signup.module.css';
 import getServerCookieData from '../../lib/auth/getServerCookieData';
+import validator from 'validator';
 
 export default function SignUp() {
   const router = useRouter();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (
+      firstName === '' ||
+      lastName === '' ||
+      !validator.isEmail(email) ||
+      !validator.isStrongPassword(password)
+    ) {
+      toast.error('Please enter valid values');
+      return;
+    }
     const data = new FormData(event.currentTarget);
     const res = await fetch(
       process.env.NEXT_PUBLIC_BACKEND_API + 'auth/register/',
@@ -73,6 +88,10 @@ export default function SignUp() {
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  error={firstName === ''}
+                  helperText={firstName === '' ? 'Must not be empty' : ''}
                   autoFocus
                 />
               </Grid>
@@ -83,6 +102,10 @@ export default function SignUp() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  error={lastName === ''}
+                  helperText={lastName === '' ? 'Must not be empty' : ''}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -93,6 +116,14 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  error={!validator.isEmail(email)}
+                  helperText={
+                    !validator.isEmail(email)
+                      ? 'Please enter a valid email'
+                      : ''
+                  }
                   autoComplete="email"
                 />
               </Grid>
@@ -104,6 +135,21 @@ export default function SignUp() {
                   label="Password"
                   type="password"
                   id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  error={!validator.isStrongPassword(password)}
+                  helperText={
+                    !validator.isStrongPassword(password) ? (
+                      <>
+                        Please use a strong password <br />
+                        Must contain a lower case character, an upper case
+                        character, a number and a symbol <br /> Must have
+                        minimum length of 8 character
+                      </>
+                    ) : (
+                      ''
+                    )
+                  }
                   autoComplete="new-password"
                 />
               </Grid>
