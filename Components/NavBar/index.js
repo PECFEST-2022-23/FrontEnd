@@ -46,7 +46,7 @@ const Navbar = (props) => {
 
   const [user, setUser] = useState(null);
 
-  let { data: session, status } = useSession();
+  const { data: session, status } = useSession();
   useEffect(() => {
     const { data } = getCookieData(session);
     if (data) setUser(() => data.user);

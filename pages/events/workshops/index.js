@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import EventListingCard from '../../../Components/EventListingCard/EventListingCard';
-import styles from '../events.module.css';
+// import styles from '../events.module.css';
 
 const WorkShopEvent = () => {
   return (

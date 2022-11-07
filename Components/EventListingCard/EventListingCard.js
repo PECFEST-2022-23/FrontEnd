@@ -27,7 +27,10 @@ function EventListingCard(props) {
         <Card className={`${styles.eventCard} ${styles.image}`}>
           <div className={styles.borderCardMediaDiv}>
             <CardMedia>
-              <Image src={require('./border-frame-design.png')} alt="Border Design Frame" />
+              <Image
+                src={require('./border-frame-design.png')}
+                alt="Border Design Frame"
+              />
             </CardMedia>
             <div className={styles.imageCardMediaDiv}>
               <CardMedia
