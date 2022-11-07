@@ -105,7 +105,7 @@ const Event = (props) => {
             <CardActions className={classes.cardActions}>
               <Button
                 variant="contained"
-                style={{ border: '1px solid white' }}
+                style={{ border: '1px solid white', marginRight: '10px' }}
                 size="small"
                 target="_blank"
                 href={props.eventDetails.rulebook_url}
