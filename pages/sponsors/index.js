@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import styles from './Sponsors.module.css';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -16,9 +17,13 @@ function Sponsor() {
   ];
   return (
     <div className={styles.background}>
-      <Container fluid className={styles.main_container}>
+      <Head>
+        <title>Sponsors</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Container className={styles.main_container}>
         {type.map((tp) => (
-          <div key={tp.val}>
+          <div key={tp}>
             <div className={styles.pageheader}>{tp}</div>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container item spacing={2} className={styles.third}>
@@ -28,11 +33,6 @@ function Sponsor() {
                       image={item.Photo}
                       key={item.val}
                       name={item.Name}
-                      committee={item.Committee}
-                      insta={item.Instagram}
-                      linkedin={item.Linkedin}
-                      contact={item.Contact}
-                      github="NA"
                     />
                   ))}
               </Grid>

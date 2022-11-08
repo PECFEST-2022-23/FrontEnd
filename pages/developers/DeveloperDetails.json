@@ -18,6 +18,15 @@
         "Photo": "/developers/Utkarsh Goel.jpg"
        },
        {
+        "Name": "Shubh Ashish",
+        "Designation": "Frontend Developer",
+        "Contact": 7018010785,
+        "Insta": "NA",
+        "Github": "https://github.com/solarconstant",
+        "Linkedin": "https://www.linkedin.com/in/shubh-ashish-a4a415190/",
+        "Photo": "/developers/Shubh Ashish.jpg"
+       },
+       {
         "Name": "Bhavesh Kumar ",
         "Designation": "Frontend Developer",
         "Contact": 7027297692,
@@ -34,15 +43,6 @@
         "Github": "https://github.com/Arsh-Kashyap",
         "Linkedin": "https://www.linkedin.com/in/arsh-kashyap/",
         "Photo": "/developers/Arsh Kashyap.jpg"
-       },
-       {
-        "Name": "Navdeep Kumar ",
-        "Designation": "Frontend Developer",
-        "Contact": 8360297029,
-        "Insta": "https://www.instagram.com/navk_07/",
-        "Github": "https://github.com/navk007",
-        "Linkedin": "https://www.linkedin.com/in/navdeep-kumar-4bb934182/",
-        "Photo": "/developers/Navdeep Kumar.jpg"
        }],
        "backend" : [{
         "Name": "Aman Gupta",
