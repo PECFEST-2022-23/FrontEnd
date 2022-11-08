@@ -152,7 +152,10 @@ const MegaShowEvent = (props) => {
       <div className={styles.background}>
         <Head>
           <title>Events</title>
-          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
         </Head>
         <Grid container>
           <Grid item xs={12} mt={4} mb={2} justifyContent="center">
@@ -295,7 +298,7 @@ const MegaShowEvent = (props) => {
 };
 
 export async function getStaticProps(context) {
-  const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events');
+  const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events/');
   if (!res || res.status != 200) {
     return {
       props: {

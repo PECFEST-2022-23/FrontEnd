@@ -172,13 +172,13 @@ const Navbar = (props) => {
       <Divider />
       {/* <Button>Enter</Button> */}
       <Divider />
-      <ListItem>
+      {/* <ListItem>
         <Link href={`/ambassador`}>
           <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText primary={'Campus Ambassador'} />
           </ListItemButton>
         </Link>
-      </ListItem>
+      </ListItem> */}
     </Box>
   );
 
