@@ -4,6 +4,7 @@ import styles from './eventList.module.css';
 import EventListingCard from '../../Components/EventListingCard/EventListingCard';
 import { useRouter } from 'next/router';
 import Filters from '../../Components/Filters/Filter';
+import Head from 'next/head';
 
 const MegaShowEvent = (props) => {
   const router = useRouter();
@@ -149,6 +150,13 @@ const MegaShowEvent = (props) => {
 
     return (
       <div className={styles.background}>
+        <Head>
+          <title>Events</title>
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+        </Head>
         <Grid container>
           <Grid item xs={12} mt={4} mb={2} justifyContent="center">
             <h2 className={styles.mainHeading}>EVENTS</h2>
@@ -211,6 +219,10 @@ const MegaShowEvent = (props) => {
 
   return (
     <div className={styles.background}>
+      <Head>
+        <title>Events</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Grid container>
         <Grid item xs={12} mt={4} mb={2} justifyContent="center">
           <h2 className={styles.mainHeading}>{heading}</h2>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
+import { toast } from 'react-toastify';
 import Head from 'next/head';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,42 +10,99 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useRouter } from 'next/router';
 import styles from './Profile.module.css';
+import Cookies from 'universal-cookie';
+import getServerCookieData from '../../lib/auth/getServerCookieData';
+import { useSession } from 'next-auth/react';
 
 export default function Profile() {
   const router = useRouter();
+  const { data: session, status } = useSession();
+  // console.log(session.token)
+  const cookies = new Cookies();
+  let sessdata = '';
+  if (session) {
+    sessdata = session;
+  } else {
+    sessdata = cookies.get('session-token');
+  }
   const [collegeName, setCollegeName] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-
+  const [contact, setContact] = useState('');
+  const [update, setUpdate] = useState(false);
   useEffect(() => {
     (async () => {
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_BACKEND_API + '/profile',
-        {
-          method: 'GET',
-        }
-      ).then((res) => res.json());
-      setCollegeName(res.collegeName);
-      setContactNumber(res.contactNumber);
+      if (sessdata) {
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_BACKEND_API + 'auth/profile/',
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Token ${sessdata.token}`,
+            },
+          }
+        ).then((res) => res.json());
+        setCollegeName(res.college);
+        setContact(res.mobile);
+        setUpdate(true);
+      }
     })();
-  }, []);
+  }, [session, status]);
+
+  const handleEventChange = (e) => {
+    const target_name = e.target.name;
+    const target_value = e.target.value;
+    switch (target_name) {
+      case 'college':
+        setCollegeName(target_value);
+        break;
+      case 'contact':
+        setContact(target_value);
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_BACKEND_API + '/update-profile',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          college: data.get('college'),
-          contact: data.get('contact'),
-        }),
-      }
-    ).then((res) => res.json());
-    if (res.message === 'success') {
-      router.push('/');
+    const formdata = new FormData(event.currentTarget);
+    if (update) {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_BACKEND_API + 'auth/profile/',
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${sessdata.token}`,
+          },
+          body: JSON.stringify({
+            college: formdata.get('college'),
+            mobile: formdata.get('contact'),
+          }),
+        }
+      ).then((res) => res.json());
+      if (res.message === 'Additional Details updated') {
+        toast.info(res.message);
+        router.push('/');
+      } else toast.error(res.message);
     } else {
-      router.push('/profile');
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_BACKEND_API + 'auth/profile/',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${sessdata.token}`,
+          },
+          body: JSON.stringify({
+            college: formdata.get('college'),
+            mobile: formdata.get('contact'),
+          }),
+        }
+      ).then((res) => res.json());
+      if (res.message === 'Additional Details added') {
+        toast.info(res.message);
+        router.push('/');
+      } else toast.error(res.message);
     }
   };
 
@@ -84,8 +142,9 @@ export default function Profile() {
                   label="College"
                   name="college"
                   autoComplete="college"
+                  autoFocus
+                  onChange={(e) => handleEventChange(e)}
                   value={collegeName}
-                  onChange={(e) => setCollegeName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -96,8 +155,9 @@ export default function Profile() {
                   label="Contact Number"
                   name="contact"
                   autoComplete="contact"
-                  value={contactNumber}
-                  onChange={(e) => setContactNumber(e.target.value)}
+                  autoFocus
+                  onChange={(e) => handleEventChange(e)}
+                  value={contact}
                 />
               </Grid>
             </Grid>
@@ -114,4 +174,26 @@ export default function Profile() {
       </Container>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { data } = getServerCookieData(context);
+  // const res = await fetch(
+  //   process.env.NEXT_PUBLIC_BACKEND_API + '/profile',
+  //   {
+  //     method: 'GET',
+  //   }
+  // ).then((res) => res.json());
+  //   console.log(res);
+  if (data == null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 }

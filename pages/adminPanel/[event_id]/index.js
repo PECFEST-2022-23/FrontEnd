@@ -285,7 +285,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
         {
           method: `PATCH`,
           headers: {
-            Authorization: `Token ${user_token}`
+            Authorization: `Token ${user_token}`,
           },
           body: formData,
         }

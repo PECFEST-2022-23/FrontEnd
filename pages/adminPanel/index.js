@@ -27,6 +27,7 @@ import {
   Snackbar,
   Divider,
 } from '@mui/material';
+import Head from 'next/head';
 import { DropzoneArea } from 'mui-file-dropzone';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
