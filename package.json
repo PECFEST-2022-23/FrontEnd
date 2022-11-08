@@ -22,7 +22,7 @@
     "intl": "^1.2.5",
     "mui-file-dropzone": "^4.0.2",
     "next": "12.2.5",
-    "next-auth": "^4.12.0",
+    "next-auth": "4.15.0",
     "normalize.css": "^8.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

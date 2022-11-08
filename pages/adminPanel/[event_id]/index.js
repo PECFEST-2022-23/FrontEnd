@@ -80,9 +80,11 @@ const EditEvent = ({ eventInfo, user_token }) => {
 
   useEffect(() => {
     if (eventInfo) {
+      const start = dayjs(eventInfo.startdatetime);
+      const end = dayjs(eventInfo.enddatetime);
       setEventName(eventInfo.name);
-      setEventStart(Date(eventInfo.startdatetime));
-      setEventEnd(Date(eventInfo.enddatetime));
+      setEventStart(start);
+      setEventEnd(end);
       setEventVenue(eventInfo.venue);
       setMinTeamSize(eventInfo.min_team_size);
       setMaxTeamSize(eventInfo.max_team_size);
@@ -95,8 +97,10 @@ const EditEvent = ({ eventInfo, user_token }) => {
       // Extract POC from description
       const re = /[A-Za-z\s]*:\d*/g;
       const contact_info = eventInfo.description.match(re);
-      setPocName(contact_info.slice(-1)[0].split(':')[0]);
-      setPocNumber(contact_info.slice(-1)[0].split(':')[1]);
+      if (contact_info) {
+        setPocName(contact_info.slice(-1)[0].split(':')[0]);
+        setPocNumber(contact_info.slice(-1)[0].split(':')[1]);
+      }
 
       setEventDescription(
         eventInfo.description.substring(
@@ -238,47 +242,61 @@ const EditEvent = ({ eventInfo, user_token }) => {
     e.preventDefault();
     if (!dateError) {
       // make POST request
-      const formData = new FormData();
-      formData.append(`name`, eventName);
-      formData.append(`type`, eventType.toUpperCase());
-      formData.append(`category`, eventCategory.toUpperCase());
-      formData.append(`subcategory`, eventCategorySubType.toUpperCase());
-      formData.append(
-        `description`,
-        `${eventDescription}\n\nPoint of Contact:\n${pocName}:${pocNumber}`
-      );
-      formData.append(`startdatetime`, eventStart);
-      formData.append(`enddatetime`, eventEnd);
-      formData.append(`venue`, eventVenue);
-      formData.append(`min_team_size`, minTeamSize);
-      formData.append(`max_team_size`, maxTeamSize);
-      formData.append(`image_url`, eventPoster);
-      formData.append(`latitude`, defaultMapProps.center.lat);
-      formData.append(`longitude`, defaultMapProps.center.lng);
-      formData.append(`rulebook_url`, rulesLink);
+      const formData = {
+        name: eventName,
+        type: eventType.toUpperCase(),
+        category: eventCategory.toUpperCase(),
+        subcategory: eventCategorySubType.toUpperCase(),
+        description: `${eventDescription}\n\nPoint of Contact:\n${pocName}:${pocNumber}`,
+        startdatetime: eventStart,
+        enddatetime: eventEnd,
+        venue: eventVenue,
+        min_team_size: minTeamSize,
+        max_team_size: maxTeamSize,
+        latitude: defaultMapProps.center.lat,
+        longitude: defaultMapProps.center.lng,
+        rulebook_url: rulesLink
+      }
+      // const formData = new FormData();
+      // formData.append(`name`, eventName);
+      // formData.append(`type`, eventType.toUpperCase());
+      // formData.append(`category`, eventCategory.toUpperCase());
+      // formData.append(`subcategory`, eventCategorySubType.toUpperCase());
+      // formData.append(
+      //   `description`,
+      //   `${eventDescription}\n\nPoint of Contact:\n${pocName}:${pocNumber}`
+      // );
+      // formData.append(`startdatetime`, eventStart);
+      // formData.append(`enddatetime`, eventEnd);
+      // formData.append(`venue`, eventVenue);
+      // formData.append(`min_team_size`, minTeamSize);
+      // formData.append(`max_team_size`, maxTeamSize);
+      // formData.append(`image_url`, eventPoster);
+      // formData.append(`latitude`, defaultMapProps.center.lat);
+      // formData.append(`longitude`, defaultMapProps.center.lng);
+      // formData.append(`rulebook_url`, rulesLink);
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}club/`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}club/${eventInfo.id}`, {
         method: `PATCH`,
         headers: {
           Authorization: `Token ${user_token}`,
+          "Content-type": "application/json"
         },
-        data: formData,
+        body: JSON.stringify(formData),
       });
-
+      console.log(res);
       if (!res) {
-        setEventCreationStatus(`FAILURE: Event Creation Failed.`);
+        setEventCreationStatus(`FAILURE: Event Updation Failed.`);
       }
 
       const data = await res.json();
-
+      console.log(data);
       if (data && data.event_id && data.message) {
-        setEventCreationStatus(`SUCCESS: Event Creation Successful`);
+        setEventCreationStatus(`SUCCESS: Event Updation Successful`);
       }
 
       setTimeout(() => {
-        onClose();
-        clearState();
-        window.location.reload();
+        router.push("/adminPanel");
       }, 2000);
     }
   };
@@ -471,7 +489,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
               alt="Poster"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <DropzoneArea
               acceptedFiles={['image/*']}
               dropzoneText={'Change Event Poster'}
@@ -488,7 +506,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
                 Please Upload Posters In A 1:1 Aspect Ratio
               </Alert>
             )}
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={12}>
             <TextField
               fullWidth
