@@ -26,8 +26,8 @@ export default function Profile() {
   } else {
     sessdata = cookies.get('session-token');
   }
-  const [collegeName, setCollegeName] = useState('');
-  const [contact, setContact] = useState('');
+  const [collegeName, setCollegeName] = useState();
+  const [contact, setContact] = useState();
   const [update, setUpdate] = useState(false);
   useEffect(() => {
     (async () => {
@@ -72,6 +72,10 @@ export default function Profile() {
     const formdata = new FormData(event.currentTarget);
     if (!validator.isMobilePhone(formdata.get('contact'))) {
       toast.error('Please enter valid Contact Number');
+      return;
+    }
+    if(formdata.get('college')==''){
+      toast.error('Please enter College Name');
       return;
     }
     if (update) {

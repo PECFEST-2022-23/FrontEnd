@@ -13,7 +13,6 @@ import Container from '@mui/material/Container';
 import styles from './Login.module.css';
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { encrypt, decrypt } from '../../lib/auth/enctryption';
 import Cookies from 'universal-cookie';
 import getServerCookieData from '../../lib/auth/getServerCookieData';
 import validator from 'validator';
