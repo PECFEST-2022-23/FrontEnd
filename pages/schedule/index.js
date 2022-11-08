@@ -20,9 +20,7 @@ function Schedule(props) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Container className={styles.main_container}>
-        <Box>
-          <Grid className={styles.pageheader}>Schedule</Grid>
-        </Box>
+        <div className={styles.pageheader}>Schedule</div>
         <Box className={styles.tabs}>
           <ToggleButtonGroup
             color="primary"
@@ -35,22 +33,6 @@ function Schedule(props) {
             <ToggleButton value="ongoing">Ongoing Events</ToggleButton>
             <ToggleButton value="upcoming">Upcoming Events</ToggleButton>
           </ToggleButtonGroup>
-        </Box>
-        <Box className={styles.eventlist}>
-          <Grid container className={styles.eventheader}>
-            <Grid container item md={3} className={styles.eventobject}>
-              Event Name
-            </Grid>
-            <Grid container item md={2} className={styles.eventobject}>
-              Date
-            </Grid>
-            <Grid container item md={2} className={styles.eventobject}>
-              Time
-            </Grid>
-            <Grid container item md={3} className={styles.eventobject}>
-              Venue
-            </Grid>
-          </Grid>
         </Box>
         {alignment == 'past' ? (
           <Box className={styles.eventlist}>
@@ -111,6 +93,11 @@ export async function getStaticProps() {
   const events = await fetch(
     process.env.NEXT_PUBLIC_BACKEND_API + 'events/'
   ).then((res) => res.json());
+  events.sort(function (e1, e2) {
+    if (new Date(e1.startdatetime) > new Date(e2.startdatetime)) return 1;
+    if (new Date(e1.startdatetime) < new Date(e2.startdatetime)) return -1;
+    return 0;
+  });
   const pastEvents = events.filter((evt) => {
     const enddate = new Date(evt.enddatetime);
     const presentdate = new Date(Date.now());

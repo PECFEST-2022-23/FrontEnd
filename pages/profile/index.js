@@ -13,6 +13,7 @@ import styles from './Profile.module.css';
 import Cookies from 'universal-cookie';
 import getServerCookieData from '../../lib/auth/getServerCookieData';
 import { useSession } from 'next-auth/react';
+import validator from 'validator';
 
 export default function Profile() {
   const router = useRouter();
@@ -25,8 +26,8 @@ export default function Profile() {
   } else {
     sessdata = cookies.get('session-token');
   }
-  const [collegeName, setCollegeName] = useState('');
-  const [contact, setContact] = useState('');
+  const [collegeName, setCollegeName] = useState();
+  const [contact, setContact] = useState();
   const [update, setUpdate] = useState(false);
   useEffect(() => {
     (async () => {
@@ -40,12 +41,16 @@ export default function Profile() {
             },
           }
         ).then((res) => res.json());
+        if (res.message == "Additional Details doesn't exist") {
+          toast.info('Update Additional details');
+          return;
+        }
         setCollegeName(res.college);
         setContact(res.mobile);
         setUpdate(true);
       }
     })();
-  }, [session, status]);
+  }, []);
 
   const handleEventChange = (e) => {
     const target_name = e.target.name;
@@ -65,7 +70,16 @@ export default function Profile() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formdata = new FormData(event.currentTarget);
+    if (!validator.isMobilePhone(formdata.get('contact'))) {
+      toast.error('Please enter valid Contact Number');
+      return;
+    }
+    if(formdata.get('college')==''){
+      toast.error('Please enter College Name');
+      return;
+    }
     if (update) {
+      console.log(sessdata.token);
       const res = await fetch(
         process.env.NEXT_PUBLIC_BACKEND_API + 'auth/profile/',
         {

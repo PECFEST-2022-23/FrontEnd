@@ -20,7 +20,47 @@
             "Contact": 8146539939
         }
     ],
-
+    "secretary": [{
+            "Email": "ishagarg.bt19cse@pec.edu.in",
+            "Type": "Secretary",
+            "Committee": "Creative, Public Relations & Media, Publicity and Website Management",
+            "Name": "Isha Garg",
+            "Photo": "/team/Isha Garg.jpg",
+            "Instagram": "https://www.instagram.com/isha._.garg/",
+            "Linkedin": "https://www.linkedin.com/in/isha-garg-/",
+            "Contact": 9876978123
+        },
+        {
+            "Email": "shivamkansal.bt19ece@pec.edu.in",
+            "Type": "Secretary",
+            "Committee": "Finance, Marketing and Alumni & Industry Relations",
+            "Name": "Shivam Kansal",
+            "Photo": "/team/Shivam Kansal.jpg",
+            "Instagram": "https://www.instagram.com/kansal_shivam/",
+            "Linkedin": "https://www.linkedin.com/in/shivam-kansal-09773a199",
+            "Contact": 7837010005
+        },
+        {
+            "Email": "kshitijrastogi.bt19mech@pec.edu.in",
+            "Type": "Secretary",
+            "Committee": "Megashows, Infrastructure, Logistics & Hospitality",
+            "Name": "Kshitij Rastogi",
+            "Photo": "/team/Kshitij Rastogi.jpg",
+            "Instagram": "https://instagram.com/kshitijrastogi/",
+            "Linkedin": "https://www.linkedin.com/in/kshitijrastogi",
+            "Contact": 9467203233
+        },
+        {
+            "Email": "palashvij.bt19ece@pec.edu.in",
+            "Type": "Secretary",
+            "Committee": "Security & Discipline, Printing, Publishing and Stationary ",
+            "Name": "Palash Vij",
+            "Photo": "/team/Palash Vij.jpg",
+            "Instagram": "https://www.instagram.com/_palashvij/",
+            "Linkedin": "https://www.linkedin.com/in/palash-vij",
+            "Contact": 9888848179
+        }
+    ],
     "head": [{
             "Name": "Arjun Kathail",
             "Type": "Head",
@@ -121,6 +161,16 @@
             "Instagram": "https://www.instagram.com/yashkumarjindal/",
             "Linkedin": "https://www.linkedin.com/in/yash-jindal-13b3611b1",
             "Contact": 9784191751
+        },
+        {
+            "Email": "rasiksingla.bt19civil@pec.edu.in",
+            "Type": "Head",
+            "Committee": "Event Coord (Technical)",
+            "Name": "Rasik Singla",
+            "Photo": "/team/Rasik Singla.jpg",
+            "Instagram": "https://www.instagram.com/rasiksingla3r/",
+            "Linkedin": "https://www.linkedin.com/in/rasik-singla-5468a91b7/",
+            "Contact": 8146437890
         },
         {
             "Email": "navyaaggarwal.bt19ele@pec.edu.in",
@@ -361,47 +411,6 @@
             "Instagram": "NA",
             "Linkedin": "NA",
             "Contact": 8427188971
-        }
-    ],
-    "secretary": [{
-            "Email": "ishagarg.bt19cse@pec.edu.in",
-            "Type": "Secretary",
-            "Committee": "Creative, Public Relations & Media, Publicity and Website Management",
-            "Name": "Isha Garg",
-            "Photo": "/team/Isha Garg.jpg",
-            "Instagram": "https://www.instagram.com/isha._.garg/",
-            "Linkedin": "https://www.linkedin.com/in/isha-garg-/",
-            "Contact": 9876978123
-        },
-        {
-            "Email": "shivamkansal.bt19ece@pec.edu.in",
-            "Type": "Secretary",
-            "Committee": "Finance, Marketing and Alumni & Industry Relations",
-            "Name": "Shivam Kansal",
-            "Photo": "/team/Shivam Kansal.jpg",
-            "Instagram": "https://www.instagram.com/kansal_shivam/",
-            "Linkedin": "https://www.linkedin.com/in/shivam-kansal-09773a199",
-            "Contact": 7837010005
-        },
-        {
-            "Email": "kshitijrastogi.bt19mech@pec.edu.in",
-            "Type": "Secretary",
-            "Committee": "Megashows, Infrastructure, Logistics & Hospitality",
-            "Name": "Kshitij Rastogi",
-            "Photo": "/team/Kshitij Rastogi.jpg",
-            "Instagram": "https://instagram.com/kshitijrastogi/",
-            "Linkedin": "https://www.linkedin.com/in/kshitijrastogi",
-            "Contact": 9467203233
-        },
-        {
-            "Email": "palashvij.bt19ece@pec.edu.in",
-            "Type": "Secretary",
-            "Committee": "Security & Discipline, Printing, Publishing and Stationary ",
-            "Name": "Palash Vij",
-            "Photo": "/team/Palash Vij.jpg",
-            "Instagram": "https://www.instagram.com/_palashvij/",
-            "Linkedin": "https://www.linkedin.com/in/palash-vij",
-            "Contact": 9888848179
         }
     ]
 }

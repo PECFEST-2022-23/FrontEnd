@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
