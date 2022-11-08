@@ -23,7 +23,6 @@ import Image from 'next/image';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import NavData from './links.json';
 import Link from 'next/link';
-import { decrypt } from '../../lib/auth/enctryption';
 import Cookies from 'universal-cookie';
 import logout from '../../lib/auth/logout';
 import { useRouter } from 'next/router';

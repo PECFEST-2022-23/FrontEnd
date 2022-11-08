@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
-import { encrypt } from '../../../lib/auth/enctryption';
 import Cookies from 'universal-cookie';
 
 const nextAuthOptions = (req, res) => {
