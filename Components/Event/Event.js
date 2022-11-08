@@ -17,12 +17,12 @@ import Cookies from 'universal-cookie';
 import getServerCookieData from '../../lib/auth/getServerCookieData';
 import getCookieData from '../../lib/auth/getCookieData';
 import redirectToLogin from '../../lib/auth/redirectToLogin';
+import logout from '../../lib/auth/logout';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
 
 const Event = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
   const [loading, setLoading] = useState(true);
   const [cookieData, setCookieData] = useState(null);
   const [teamData, setTeamData] = useState(null);
@@ -42,7 +42,7 @@ const Event = (props) => {
   const resFetch = async (req) => {
     const res = await fetch(...req);
     if (!res.ok) {
-      return res.status;
+      throw new Error(res.status);
     }
     return res.json();
   };
@@ -53,6 +53,7 @@ const Event = (props) => {
       setIsLoggedIn(false);
       setLoading(false);
     } else {
+      console.log(data);
       setCookieData(data);
       setIsLoggedIn(true);
     }
@@ -71,12 +72,12 @@ const Event = (props) => {
         },
       ])
         .then((res) => {
-          setLoading(false);
           setTeamData(res);
-          setIsRegistered(teamData.is_registered);
+          setLoading(false);
         })
-        .catch((status) => {
-          if (status == 401) {
+        .catch((error) => {
+          console.log(error.message);
+          if (error.message == 401) {
             signOut();
           }
         });
@@ -85,7 +86,7 @@ const Event = (props) => {
 
   const handleRegisterClick = () => {
     if (isLoggedIn) {
-      if (!isRegistered) {
+      if (!teamData.is_registered) {
         if (props.eventDetails.type == 'INDIVIDUAL') {
           resFetch([
             `https://api.pecfest.co.in/events/register/${props.eventDetails.id}/ `,
@@ -97,12 +98,11 @@ const Event = (props) => {
             },
           ])
             .then((res) => {
-              console.log(res);
-              setIsRegistered(true);
+              setTeamData({ ...teamData, is_registered: true });
             })
-            .catch((status) => {
-              if (status == 401) {
-                signOut();
+            .catch((error) => {
+              if (error.message == 401) {
+                logout(router, session);
               }
             });
         }
@@ -218,20 +218,26 @@ const Event = (props) => {
                   style={{ border: '1px solid white' }}
                   onClick={handleRegisterClick}
                   size="small"
+                  disabled={teamData.is_registered}
                 >
-                  {isRegistered ? 'Registered' : 'Register'}
+                  {teamData && teamData.is_registered
+                    ? 'Registered'
+                    : 'Register'}
                 </Button>
               )}
-              {isRegistered && props.eventDetails.type == 'TEAM' && (
-                <PeopleAltIcon
-                  style={{
-                    color: '#fff',
-                    fontSize: '2.4rem',
-                    padding: 0,
-                    margin: '0 0 -0.3rem 0.5rem',
-                  }}
-                />
-              )}
+              {!loading &&
+                isLoggedIn &&
+                props.eventDetails.type == 'TEAM' &&
+                teamData.is_registered && (
+                  <PeopleAltIcon
+                    style={{
+                      color: '#fff',
+                      fontSize: '2.4rem',
+                      padding: 0,
+                      margin: '0 0 -0.3rem 0.5rem',
+                    }}
+                  />
+                )}
               <div style={{ right: '3%', position: 'absolute' }}>
                 <Chip
                   label={
@@ -239,8 +245,8 @@ const Event = (props) => {
                     (props.eventDetails?.type == 'INDIVIDUAL'
                       ? '1'
                       : props.eventDetails?.min_team_size +
-                      ' - ' +
-                      props.eventDetails?.max_team_size)
+                        ' - ' +
+                        props.eventDetails?.max_team_size)
                   }
                   color="info"
                   variant="filled"
