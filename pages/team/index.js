@@ -8,10 +8,9 @@ import TeamMemberCard from '../../Components/TeamTiles/TeamMemberCard';
 import committee from './CommitteeDetails.json';
 
 function Team() {
-
   return (
     <div className={styles.background}>
-    <Head>
+      <Head>
         <title>Team</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>

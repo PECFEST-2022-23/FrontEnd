@@ -46,6 +46,7 @@ const nextAuthOptions = (req, res) => {
         return baseUrl + redirectPath;
       },
     },
+    secret: process.env.NEXTAUTH_SECRET,
   };
 };
 

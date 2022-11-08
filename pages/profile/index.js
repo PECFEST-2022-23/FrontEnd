@@ -30,49 +30,49 @@ export default function Profile() {
   const [update, setUpdate] = useState(false);
   useEffect(() => {
     (async () => {
-      if(sessdata){
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_BACKEND_API + 'auth/profile/',
-        {
-          method: 'GET',
-          headers: {
-            'Authorization': `Token ${sessdata.token}`,
-          },
-        }
-      ).then((res) => res.json());
-      setCollegeName(res.college);
-      setContact(res.mobile);
-      setUpdate(true);
+      if (sessdata) {
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_BACKEND_API + 'auth/profile/',
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Token ${sessdata.token}`,
+            },
+          }
+        ).then((res) => res.json());
+        setCollegeName(res.college);
+        setContact(res.mobile);
+        setUpdate(true);
       }
     })();
   }, [session, status]);
 
   const handleEventChange = (e) => {
-      const target_name = e.target.name;
-      const target_value = e.target.value;
-      switch(target_name) {
-        case 'college':
-          setCollegeName(target_value);
-          break;
-        case 'contact':
-          setContact(target_value);
-          break;
-        default:
-          break;
-      }
-  }
+    const target_name = e.target.name;
+    const target_value = e.target.value;
+    switch (target_name) {
+      case 'college':
+        setCollegeName(target_value);
+        break;
+      case 'contact':
+        setContact(target_value);
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formdata = new FormData(event.currentTarget);
-    if(update){
+    if (update) {
       const res = await fetch(
         process.env.NEXT_PUBLIC_BACKEND_API + 'auth/profile/',
         {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${sessdata.token}`,
+            Authorization: `Token ${sessdata.token}`,
           },
           body: JSON.stringify({
             college: formdata.get('college'),
@@ -80,21 +80,18 @@ export default function Profile() {
           }),
         }
       ).then((res) => res.json());
-      if (res.message === 'Additional Details updated'){
+      if (res.message === 'Additional Details updated') {
         toast.info(res.message);
         router.push('/');
-      }
-      else 
-        toast.error(res.message);
-    }
-    else{
+      } else toast.error(res.message);
+    } else {
       const res = await fetch(
         process.env.NEXT_PUBLIC_BACKEND_API + 'auth/profile/',
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${sessdata.token}`,
+            Authorization: `Token ${sessdata.token}`,
           },
           body: JSON.stringify({
             college: formdata.get('college'),
@@ -102,12 +99,10 @@ export default function Profile() {
           }),
         }
       ).then((res) => res.json());
-      if (res.message === 'Additional Details added'){
+      if (res.message === 'Additional Details added') {
         toast.info(res.message);
         router.push('/');
-      }
-      else 
-        toast.error(res.message);
+      } else toast.error(res.message);
     }
   };
 

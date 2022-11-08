@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from 'next/head'
+import Head from 'next/head';
 import styles from './Developers.module.css';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
