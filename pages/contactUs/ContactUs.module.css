@@ -1,13 +1,13 @@
 .background {
     background-image: url('contact us 2@2x-100.jpg');
-    height: 100%;
+    min-height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
   }
 .main_container {
-    padding-top: 2.5rem;
+  padding-top: 3.5em;
     overflow-x: hidden;
   }
   
@@ -19,7 +19,6 @@
     letter-spacing: 5px;
     text-shadow: 5px 5px 5px #000;
     text-align: center;
-    margin-top: 1em;
     /* padding: 10px 10px; */
   }
 
@@ -51,7 +50,7 @@
 }
 
 .box {
-  padding: 10px!important;
+  padding: 10px 0!important;
   justify-content: center;
   align-items: center;
 }
@@ -99,7 +98,6 @@
 .socialInfo {
     display: flex;
     flex-direction: column;
-    margin-top: auto;
     font-weight: 500;
 }
 
@@ -212,6 +210,11 @@
 @media screen and (max-width: 768px) {
   .pageheader {
     font-size: 32px;
+    margin-top: 0;
+  }
+
+  .main_container {
+    padding-top: 0rem;
   }
 
   .icon {

@@ -1,6 +1,6 @@
 .background {
   background-image: url('schedule 2@2x-100.jpg');
-  height: 100vh;
+  min-height: 91vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -24,11 +24,14 @@
     /* margin-bottom: 70vh; */
   }
   
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 900px) {
   
   .pageheader {
     font-size: 28px;
-    margin-bottom: 100vh;
+  }
+
+  .eventheader{
+    display: none;
   }
 
 }
@@ -58,7 +61,7 @@
 }
 
 .eventobject {
-    padding: 10px !important;
+    padding: 8px !important;
     align-items: center;
     justify-content: center;
     color: black;

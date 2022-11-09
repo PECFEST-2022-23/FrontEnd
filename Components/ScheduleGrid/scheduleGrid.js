@@ -6,23 +6,26 @@ import Link from 'next/link';
 
 function ScheduleGrid(props) {
   return (
-    <Grid container className={styles.event}>
-      <Grid container item md={3} className={styles.eventobject}>
-        {props.name.slice(0, 22)}
-      </Grid>
-      <Grid container item md={2} className={styles.eventobject}>
-        {new Date(props.date).toLocaleDateString('en-GB')}
-      </Grid>
-      <Grid container item md={2} className={styles.eventobject}>
-        {new Date(props.date).toLocaleTimeString('en-US')}
-      </Grid>
-      <Grid container item md={3} className={styles.eventobject}>
-        {props.venue}
-      </Grid>
-      <Grid container item md={2} className={styles.eventobject}>
-        <Link href={`/eventList/${props.id}`}>
-          <Button>View</Button>
-        </Link>
+    <Grid className={styles.scheduleInfo}>
+      <Grid container item className={styles.box}>
+        <div className={styles.time}>
+          <h3>{new Date(props.date).toLocaleDateString('en-GB')}</h3>
+          <p>
+            {new Date(props.date).toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+          </p>
+        </div>
+        <div className={styles.text}>
+          <h3>{props.name.slice(0, 22)}</h3>
+          <p>{props.venue}</p>
+        </div>
+        <div className={styles.button}>
+          <Link href={`/eventList/${props.id}`}>
+            <Button>View</Button>
+          </Link>
+        </div>
       </Grid>
     </Grid>
   );
