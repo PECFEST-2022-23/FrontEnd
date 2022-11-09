@@ -7,8 +7,6 @@ export default function Notify() {
   const router = useRouter();
   const { type, status } = router.query;
 
-  console.log(type, status);
-
   function toTitleCase(str) {
     if (typeof str === 'string')
       return str.replace(/\w\S*/g, function (txt) {

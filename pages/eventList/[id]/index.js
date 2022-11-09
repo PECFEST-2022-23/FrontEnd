@@ -11,6 +11,7 @@ const EventDetails = (props) => {
 
   return (
     <section style={{ minHeight: '91vh' }} className={classes.background}>
+      <div suppressHydrationWarning>Ignore this</div>
       <Event eventDetails={props.eventDetails} teamId={tid} />
     </section>
   );

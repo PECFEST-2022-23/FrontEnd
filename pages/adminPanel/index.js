@@ -18,6 +18,7 @@ import {
   CardMedia,
   CardHeader,
 } from '@mui/material';
+import Head from 'next/head';
 import { DropzoneArea } from 'mui-file-dropzone';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
@@ -110,6 +111,10 @@ const EventDialog = ({ onClose, open, eventId }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
+      <Head>
+        <title>Admin panel</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <DialogTitle sx={{ textAlign: 'center' }}>
         {eventId ? `Edit Event Details` : `Add a New Event`}
       </DialogTitle>

@@ -202,10 +202,10 @@ const Event = (props) => {
                 </span>
               }
             />
-            <CardActions style={{ overflow: 'auto' }}>
+            <CardActions className={classes.cardActions}>
               <Button
                 variant="contained"
-                style={{ border: '1px solid white' }}
+                style={{ border: '1px solid white', marginRight: '10px' }}
                 size="small"
                 target="_blank"
                 href={props.eventDetails.rulebook_url}
@@ -218,9 +218,8 @@ const Event = (props) => {
                   style={{ border: '1px solid white' }}
                   onClick={handleRegisterClick}
                   size="small"
-                  disabled={teamData.is_registered}
                 >
-                  {teamData && teamData.is_registered
+                  {isLoggedIn && teamData.is_registered
                     ? 'Registered'
                     : 'Register'}
                 </Button>
@@ -238,7 +237,7 @@ const Event = (props) => {
                     }}
                   />
                 )}
-              <div style={{ right: '3%', position: 'absolute' }}>
+              <div className={classes.teamSize}>
                 <Chip
                   label={
                     'Team size: ' +

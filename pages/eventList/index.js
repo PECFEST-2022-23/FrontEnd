@@ -4,6 +4,7 @@ import styles from './eventList.module.css';
 import EventListingCard from '../../Components/EventListingCard/EventListingCard';
 import { useRouter } from 'next/router';
 import Filters from '../../Components/Filters/Filter';
+import Head from 'next/head';
 
 const MegaShowEvent = (props) => {
   const router = useRouter();
@@ -27,9 +28,10 @@ const MegaShowEvent = (props) => {
       const filtersAvailable = [];
       const subFiltersAvailable = [];
       props.evts.forEach((evt) => {
-        filtersAvailable.push(evt.category);
-        filtersAvailable.push(evt.type);
-        subFiltersAvailable.push(evt.subcategory);
+        filtersAvailable.push(evt.category.toUpperCase());
+        filtersAvailable.push(evt.type.toUpperCase());
+        filtersAvailable.push(evt.club_name.toUpperCase());
+        subFiltersAvailable.push(evt.subcategory.toUpperCase());
       });
 
       setAllFilters([...new Set(filtersAvailable)]);
@@ -42,10 +44,9 @@ const MegaShowEvent = (props) => {
   const filterPass = (event) => {
     return (
       filters.includes(event.category.toUpperCase()) ||
-      subFilters.includes(
-        event.subcategory.toUpperCase() ||
-          filters.includes(event.type.toUpperCase())
-      )
+      subFilters.includes(event.subcategory.toUpperCase()) ||
+      filters.includes(event.type.toUpperCase()) ||
+      filters.includes(event.club_name.toUpperCase())
     );
   };
 
@@ -53,7 +54,8 @@ const MegaShowEvent = (props) => {
     if (filterVal == undefined) return;
     const selectedFilters = filters;
     selectedFilters.push(filterVal);
-    setFilters(selectedFilters);
+
+    setFilters([...new Set(selectedFilters)]);
 
     if (filters.length || subFilters.length) {
       const filteredEvents = [];
@@ -73,7 +75,7 @@ const MegaShowEvent = (props) => {
     if (filterVal == undefined) return;
     const selectedFilters = filters;
     selectedFilters.splice(selectedFilters.indexOf(filterVal), 1);
-    setFilters(selectedFilters);
+    setFilters([...new Set(selectedFilters)]);
 
     if (filters.length || subFilters.length) {
       const filteredEvents = [];
@@ -92,7 +94,7 @@ const MegaShowEvent = (props) => {
     if (filterVal == undefined) return;
     const selectedFilters = subFilters;
     selectedFilters.push(filterVal);
-    setSubFilters(selectedFilters);
+    setSubFilters([...new Set(selectedFilters)]);
 
     if (filters.length || subFilters.length) {
       const filteredEvents = [];
@@ -111,7 +113,7 @@ const MegaShowEvent = (props) => {
     if (filterVal == undefined) return;
     const selectedFilters = subFilters;
     selectedFilters.splice(selectedFilters.indexOf(filterVal), 1);
-    setSubFilters(selectedFilters);
+    setSubFilters([...new Set(selectedFilters)]);
 
     if (filters.length || subFilters.length) {
       const filteredEvents = [];
@@ -148,6 +150,13 @@ const MegaShowEvent = (props) => {
 
     return (
       <div className={styles.background}>
+        <Head>
+          <title>Events</title>
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+        </Head>
         <Grid container>
           <Grid item xs={12} mt={4} mb={2} justifyContent="center">
             <h2 className={styles.mainHeading}>EVENTS</h2>
@@ -194,11 +203,29 @@ const MegaShowEvent = (props) => {
       </div>
     );
   }
+
+  let heading;
+
+  if (
+    !typeOfEvent ||
+    typeOfEvent == undefined ||
+    typeOfEvent == 'WORKSHOPS' ||
+    typeOfEvent == 'MEGASHOWS'
+  ) {
+    heading = 'Events';
+  } else {
+    heading = 'Competitions';
+  }
+
   return (
     <div className={styles.background}>
+      <Head>
+        <title>Events</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Grid container>
         <Grid item xs={12} mt={4} mb={2} justifyContent="center">
-          <h2 className={styles.mainHeading}>EVENTS</h2>
+          <h2 className={styles.mainHeading}>{heading}</h2>
         </Grid>
       </Grid>
       <Container fluid className={styles.main_container} maxWidth={false}>
@@ -228,6 +255,7 @@ const MegaShowEvent = (props) => {
                   onSelectFilters={selectFilters}
                   onDeSelectFilters={deselectFilters}
                   color={'primary'}
+                  eventType={typeOfEvent}
                 />
               ))}
               {allSubFilters.map((filter, id) => (
@@ -237,6 +265,7 @@ const MegaShowEvent = (props) => {
                   onSelectFilters={selectSubFilters}
                   onDeSelectFilters={deselectSubFilters}
                   color={'primary'}
+                  eventType={typeOfEvent}
                 />
               ))}
             </div>

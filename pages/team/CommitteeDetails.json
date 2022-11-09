@@ -1,4 +1,26 @@
 {
+    "convener": [{
+            "Email": "yuvrajsinghdeol.bt19cse@pec.edu.in",
+            "Type": "Convener",
+            "Committee": "Convener",
+            "Name": "Yuvraj Deol",
+            "Photo": "/team/Yuvraj Deol.jpg",
+            "Instagram": "https://www.instagram.com/yuvrajdeol_/",
+            "Linkedin": "https://www.linkedin.com/in/yuvraj-deol-12336a1a6/",
+            "Contact": 8146539939
+        },
+        {
+            "Email": "namancheetu.bt19cse@pec.edu.in",
+            "Type": "Convener",
+            "Committee": "Co-Convener",
+            "Name": "Naman Cheetu",
+            "Photo": "/team/Tanay Gopal.jpg",
+            "Instagram": "https://www.instagram.com/yuvrajdeol_/",
+            "Linkedin": "https://www.linkedin.com/in/yuvraj-deol-12336a1a6/",
+            "Contact": 8146539939
+        }
+    ],
+
     "head": [{
             "Name": "Arjun Kathail",
             "Type": "Head",
@@ -57,8 +79,18 @@
             "Name": "Tushar Garg",
             "Photo": "/team/Tushar Garg.jpg",
             "Instagram": "https://www.instagram.com/tusharxgarg/",
-            "Linkedin": "linkedin.com/tushar_garg_pec",
+            "Linkedin": "https://www.linkedin.com/tushar_garg_pec",
             "Contact": 9115670588
+        },
+        {
+            "Email": "richa.bt19ele@pec.edu.in",
+            "Type": "Head",
+            "Committee": "Creative",
+            "Name": "Richa Sabharwal",
+            "Photo": "/team/Richa.jpg",
+            "Instagram": "https://instagram.com/richa_sabharwal/",
+            "Linkedin": "https://www.linkedin.com/in/richasabharwal",
+            "Contact": 8284003672
         },
         {
             "Email": "shreyassinha.bt19ece@pec.edu.in",
@@ -79,16 +111,6 @@
             "Instagram": "https://www.instagram.com/piyush31._.gulati/",
             "Linkedin": "NA",
             "Contact": 9878036666
-        },
-        {
-            "Email": "hardikbaweja.bt19mech@pec.edu.in",
-            "Type": "Head",
-            "Committee": "Event Coord (Cultural)",
-            "Name": "Hardik Baweja",
-            "Photo": "/team/Hardik Baweja.jpg",
-            "Instagram": "https://instagram.com/hardik.baweja1?igshid=YmMyMTA2M2Y=",
-            "Linkedin": "www.linkedin.com/in/hardik-baweja-3357591a9",
-            "Contact": 8708759320
         },
         {
             "Email": "yashjindal.bt19mech@pec.edu.in",
@@ -151,26 +173,6 @@
             "Contact": 7018167703
         },
         {
-            "Email": "vanigupta.bt19meta@pec.edu.in",
-            "Type": "Head",
-            "Committee": "Hospitality & Logistics",
-            "Name": "Vani Gupta",
-            "Photo": "/team/Vani Gupta.jpg",
-            "Instagram": "https://www.instagram.com/vanixgupta/",
-            "Linkedin": "https://www.linkedin.com/in/vani-gupta-0706",
-            "Contact": 9814721019
-        },
-        {
-            "Email": "rohansonthwal.bt19ece@pec.edu.in",
-            "Type": "Head",
-            "Committee": "Infrastructure ",
-            "Name": "Rohan",
-            "Photo": "/team/Rohan.jpg",
-            "Instagram": "https://www.instagram.com/rohanify/",
-            "Linkedin": "NA",
-            "Contact": 9815618931
-        },
-        {
             "Email": "pallavsemwal.bt19ece@pec.edu.in",
             "Type": "Head",
             "Committee": "Infrastructure ",
@@ -191,6 +193,16 @@
             "Contact": 9501798358
         },
         {
+            "Email": "chahelbalasubramaniyan.bt19aero@pec.edu.in",
+            "Type": "Head",
+            "Committee": "Infrastructure ",
+            "Name": "Chahel",
+            "Photo": "/team/Chahel.jpg",
+            "Instagram": "https://www.instagram.com/chahel_._/",
+            "Linkedin": "https://www.linkedin.com/in/chahel-balasubramaniyan-70464b215",
+            "Contact": 8792773972
+        },
+        {
             "Email": "kartikaybhaskar.bt19civil@pec.edu.in",
             "Type": "Head",
             "Committee": "Marketing",
@@ -209,6 +221,16 @@
             "Instagram": "https://www.instagram.com/tanay.gopal/",
             "Linkedin": "https://www.linkedin.com/in/tanaygopal",
             "Contact": 7696249449
+        },
+        {
+            "Email": "ishaansinghmendiratta.bt19cse@pec.edu.in",
+            "Type": "Head",
+            "Committee": "Marketing",
+            "Name": "Ishaan Singh",
+            "Photo": "/team/Ishaan Singh.jpg",
+            "Instagram": "https://www.instagram.com/ishaan_mendi/",
+            "Linkedin": "https://www.linkedin.com/in/ishaan-singh-mendiratta-8572b7208",
+            "Contact": 9988371264
         },
         {
             "Email": "pratikshitagrahari.bt19cse@pec.edu.in",
@@ -319,16 +341,6 @@
             "Instagram": "https://www.instagram.com/poojaojha_/",
             "Linkedin": "https://www.linkedin.com/in/pooja-ojha-a8ab28216/",
             "Contact": 9653130101
-        },
-        {
-            "Email": "garvitbanga.bt19ece@pec.edu.in",
-            "Type": "Head",
-            "Committee": "Security & Discipline",
-            "Name": "Garvit Banga",
-            "Photo": "/team/Garvit Banga.jpg",
-            "Instagram": "https://www.instagram.com/garvitbanga007/",
-            "Linkedin": "https://www.linkedin.com/in/garvit-banga-bbb43b199",
-            "Contact": 7015319263
         },
         {
             "Email": "karannaurd.bt19ece@pec.edu.in",
