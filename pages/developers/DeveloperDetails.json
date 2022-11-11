@@ -1,5 +1,15 @@
 {
     "frontend": [{
+        "Name": "Puneet Bansal",
+        "Designation": "Frontend Developer",
+        "Contact": 8968315422,
+        "Insta": "https://www.instagram.com/puneet_bansal15/",
+        "Linkedin": "https://www.linkedin.com/in/puneet-bansal15/",
+        "Github": "https://github.com/bansalpuneet15",
+        "Photo": "/team/Puneet Bansal.jpg",
+        "Email": "puneetbansal.bt19cse@pec.edu.in"
+    },
+    {
         "Name": "Arjun Kathail",
         "Designation": "Frontend Developer",
         "Contact": 7009719991,

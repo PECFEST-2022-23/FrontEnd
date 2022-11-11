@@ -17,6 +17,7 @@
     "@mui/material": "5.10.6",
     "@mui/x-date-pickers": "^5.0.3",
     "dayjs": "^1.11.5",
+    "google-map-react": "^2.2.0",
     "intl": "^1.2.5",
     "mui-file-dropzone": "^4.0.2",
     "next": "12.2.5",

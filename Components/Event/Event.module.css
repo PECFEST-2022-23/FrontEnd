@@ -59,8 +59,8 @@
 
 @media screen and (max-width: 576px) {
   .eventDescription {
-    height: auto;
-    overflow-y: hidden;
+    /* height: auto;
+    overflow-y: hidden; */
     mask-image: none;
   }
   .teamSize {

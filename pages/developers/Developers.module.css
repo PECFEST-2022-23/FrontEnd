@@ -1,5 +1,5 @@
 .background {
-  background-image: url('sponsors 2@2x-100.jpg');
+  background-image: url('/website designs/sponsors.jpg');
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -23,7 +23,11 @@
     /* padding: 10px 10px; */
   }
   
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 600px) {
+  .background {
+    background-image: url('/mobile designs/sponsor mobile.jpg');
+  }
+
   .pageheader {
     font-size: 28px;
   }
