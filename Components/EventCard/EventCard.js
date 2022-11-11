@@ -37,7 +37,7 @@ const EventCard = ({ id, openDialog, image, event_name, event_id }) => {
         <Button
           variant="contained"
           size="small"
-          onClick={openDialog}
+          // onClick={openDialog}
           id={id}
           onClick={openEditEvent}
         >
