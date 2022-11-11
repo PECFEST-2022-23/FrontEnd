@@ -2,49 +2,35 @@ import { useEffect, useState } from 'react';
 import {
   Container,
   Box,
-  CssBaseline,
   Typography,
   Button,
   Dialog,
   DialogTitle,
   DialogActions,
-  DialogContent,
-  DialogContentText,
   TextField,
   Grid,
-  Input,
   FormHelperText,
-  Card,
-  CardContent,
-  CardActions,
-  CardMedia,
-  CardHeader,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   Alert,
   Snackbar,
-  Divider,
 } from '@mui/material';
 import Head from 'next/head';
 import { DropzoneArea } from 'mui-file-dropzone';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
-import { SignalCellularNullOutlined } from '@mui/icons-material';
-import getCookieData from '../../../lib/auth/getCookieData';
 import getServerCookieData from '../../../lib/auth/getServerCookieData';
 import { useRouter } from 'next/router';
 import styles from './adminevent.module.css';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+// const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 const EditEvent = ({ eventInfo, user_token }) => {
   const defaultMapProps = {
