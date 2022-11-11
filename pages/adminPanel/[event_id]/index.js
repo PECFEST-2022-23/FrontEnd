@@ -27,6 +27,7 @@ import {
   Snackbar,
   Divider,
 } from '@mui/material';
+import Head from 'next/head';
 import { DropzoneArea } from 'mui-file-dropzone';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -35,13 +36,13 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import GoogleMapReact from 'google-map-react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { SignalCellularNullOutlined } from '@mui/icons-material';
 import getCookieData from '../../../lib/auth/getCookieData';
 import getServerCookieData from '../../../lib/auth/getServerCookieData';
 import { useRouter } from 'next/router';
+import styles from './adminevent.module.css';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -308,285 +309,311 @@ const EditEvent = ({ eventInfo, user_token }) => {
   };
 
   return (
-    <Container>
-      <Typography variant="h3">Edit Event Details</Typography>
-      <>
-        <Button onClick={handleDelDialogOpen}>
-          <DeleteOutlineIcon /> Delete Event
-        </Button>
-        <Dialog
-          open={delDialogOpen}
-          onClose={handleDelDialogOpen}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+    <div className={styles.background}>
+      <Head>
+        <title>Admin Panel</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Container>
+        <Box
+          sx={{
+            // maxWidth: '440px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '1em',
+            margin: 'auto',
+            marginTop: 8,
+          }}
         >
-          <DialogTitle id="alert-dialog-title">
-            Are you sure you want to delete this event?
-          </DialogTitle>
-          <DialogActions>
-            <Button onClick={handleDelDialogOpen} autoFocus>
-              No
-            </Button>
-            <Button onClick={handleEventDelete}>Yes</Button>
-          </DialogActions>
-        </Dialog>
-      </>
-      <Box
-        component="form"
-        sx={{
-          '& .MuiTextField-root': { mt: 1 },
-        }}
-        autoComplete="off"
-        onSubmit={handleEventSubmit}
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={12}>
-            <TextField
-              name="eventName"
-              required
-              fullWidth
-              id="eventName"
-              label="Event Name"
-              autoFocus
-              onChange={(e) => handleEventChange(e)}
-              value={eventName}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateTimePicker
-                label="Event Start Date and Time"
-                value={eventStart}
-                onChange={(e) => handleEventChange(e, 0)}
-                renderInput={(params) => (
-                  <TextField name="eventStart" required fullWidth {...params} />
-                )}
-              />
-              {dateError && (
-                <FormHelperText>
-                  Event should start before it ends 😐
-                </FormHelperText>
-              )}
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateTimePicker
-                label="Event End Date and Time"
-                value={eventEnd}
-                onChange={(e) => handleEventChange(e, 1)}
-                renderInput={(params) => (
-                  <TextField name="eventEnd" fullWidth {...params} />
-                )}
-              />
-              {dateError && (
-                <FormHelperText>
-                  Event should end after it starts 😐
-                </FormHelperText>
-              )}
-            </LocalizationProvider>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Type</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={eventType}
-                label="Type"
-                name="eventType"
-                onChange={handleEventChange}
-              >
-                <MenuItem value={`INDIVIDUAL`}>Individual</MenuItem>
-                <MenuItem value={`TEAM`}>Team</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Category</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={eventCategory}
-                label="Category"
-                name="eventCategory"
-                onChange={handleEventChange}
-              >
-                <MenuItem value={`CULTURAL`}>Cultural</MenuItem>
-                <MenuItem value={`MEGASHOWS`}>Mega Shows</MenuItem>
-                <MenuItem value={`TECHNICAL`}>Technical</MenuItem>
-                <MenuItem value={`WORKSHOPS`}>Workshops</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
-                Sub-Category
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={eventCategorySubType}
-                label="Sub-Category"
-                name="eventSubCategory"
-                onChange={handleEventChange}
-              >
-                <MenuItem value={`DANCE`}>Dance</MenuItem>
-                <MenuItem value={`MUSIC`}>Music</MenuItem>
-                <MenuItem value={`CODING`}>Coding</MenuItem>
-                <MenuItem value={`HARDWARE`}>Hardware</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              onChange={(e) => handleEventChange(e)}
-              label="Event Venue"
-              name="eventVenue"
-              value={eventVenue}
-            />
-          </Grid>
-          {eventType == `TEAM` && (
-            <Grid item xs={6} sm={3}>
+          <Typography variant="h3" className={styles.pageheader}>
+            Edit Event Details
+          </Typography>
+        </Box>
+        <>
+          <Button onClick={handleDelDialogOpen}>
+            <DeleteOutlineIcon /> Delete Event
+          </Button>
+          <Dialog
+            open={delDialogOpen}
+            onClose={handleDelDialogOpen}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              Are you sure you want to delete this event?
+            </DialogTitle>
+            <DialogActions>
+              <Button onClick={handleDelDialogOpen} autoFocus>
+                No
+              </Button>
+              <Button onClick={handleEventDelete}>Yes</Button>
+            </DialogActions>
+          </Dialog>
+        </>
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { mt: 1 },
+          }}
+          autoComplete="off"
+          onSubmit={handleEventSubmit}
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={12}>
               <TextField
+                name="eventName"
                 required
                 fullWidth
-                type={'number'}
-                label="Min Team Size"
+                id="eventName"
+                label="Event Name"
+                autoFocus
                 onChange={(e) => handleEventChange(e)}
-                name="minTeamSize"
-                value={minTeamSize}
+                value={eventName}
               />
             </Grid>
-          )}
-          {eventType == `TEAM` && (
-            <Grid item xs={6} sm={3}>
-              <TextField
-                required
-                fullWidth
-                type={'number'}
-                label="Max Team Size"
-                onChange={(e) => handleEventChange(e)}
-                name="maxTeamSize"
-                value={maxTeamSize}
-              />
-            </Grid>
-          )}
-          <Grid item xs={12} sm={12}>
-            <TextField
-              required
-              fullWidth
-              onChange={(e) => handleEventChange(e)}
-              label="Link to the Rulebook"
-              name="rulesLink"
-              value={rulesLink}
-            />
-          </Grid>
-          <Grid item sm={6}>
-            <InputLabel id="google-map-label">Uploaded Image</InputLabel>
-            <Image
-              width={400}
-              height={400}
-              src={eventInfo.image_url}
-              alt="Poster"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <DropzoneArea
-              acceptedFiles={['image/*']}
-              dropzoneText={'Change Event Poster'}
-              filesLimit={1}
-              Icon={UploadFileIcon}
-              maxFileSize={2097152}
-              onChange={(e) => handleEventChange(e)}
-              name="eventPoster"
-              clearOnUnmount
-              key={dropzoneKey}
-            />
-            {imgDimError && (
-              <Alert severity="warning">
-                Please Upload Posters In A 1:1 Aspect Ratio
-              </Alert>
-            )}
-          </Grid>
-          <Grid item xs={12} sm={12}>
-            <TextField
-              fullWidth
-              multiline
-              label="Event Description"
-              minRows={12}
-              maxRows={12}
-              required
-              onChange={(e) => handleEventChange(e)}
-              name="eventDescription"
-              value={eventDescription}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              type={'text'}
-              label="Point of Contact Name"
-              onChange={(e) => handleEventChange(e)}
-              name="pocName"
-              value={pocName}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              type={'number'}
-              label="Point of Contact Number"
-              onChange={(e) => handleEventChange(e)}
-              name="pocNumber"
-              value={pocNumber}
-            />
-          </Grid>
-          <Grid item style={{ width: '100%' }}>
-            <div style={{ height: '250px', width: '100%' }}>
-              <InputLabel id="google-map-label">Select Location</InputLabel>
-              <GoogleMapReact
-                bootstrapURLKeys={{
-                  key: 'AIzaSyD5vRetEsh-ytb4Te898z89vWl6H_giTzI',
-                }}
-                defaultCenter={defaultMapProps.center}
-                defaultZoom={defaultMapProps.zoom}
-              >
-                <AnyReactComponent
-                  lat={59.955413}
-                  lng={30.337844}
-                  text="My Marker"
+            <Grid item xs={12} sm={6}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker
+                  label="Event Start Date and Time"
+                  value={eventStart}
+                  onChange={(e) => handleEventChange(e, 0)}
+                  renderInput={(params) => (
+                    <TextField
+                      name="eventStart"
+                      required
+                      fullWidth
+                      {...params}
+                    />
+                  )}
                 />
-              </GoogleMapReact>
-            </div>
+                {dateError && (
+                  <FormHelperText>
+                    Event should start before it ends 😐
+                  </FormHelperText>
+                )}
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker
+                  label="Event End Date and Time"
+                  value={eventEnd}
+                  onChange={(e) => handleEventChange(e, 1)}
+                  renderInput={(params) => (
+                    <TextField name="eventEnd" fullWidth {...params} />
+                  )}
+                />
+                {dateError && (
+                  <FormHelperText>
+                    Event should end after it starts 😐
+                  </FormHelperText>
+                )}
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={eventType}
+                  label="Type"
+                  name="eventType"
+                  onChange={handleEventChange}
+                >
+                  <MenuItem value={`INDIVIDUAL`}>Individual</MenuItem>
+                  <MenuItem value={`TEAM`}>Team</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={eventCategory}
+                  label="Category"
+                  name="eventCategory"
+                  onChange={handleEventChange}
+                >
+                  <MenuItem value={`CULTURAL`}>Cultural</MenuItem>
+                  <MenuItem value={`MEGASHOWS`}>Mega Shows</MenuItem>
+                  <MenuItem value={`TECHNICAL`}>Technical</MenuItem>
+                  <MenuItem value={`WORKSHOPS`}>Workshops</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Sub-Category
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={eventCategorySubType}
+                  label="Sub-Category"
+                  name="eventSubCategory"
+                  onChange={handleEventChange}
+                >
+                  <MenuItem value={`DANCE`}>Dance</MenuItem>
+                  <MenuItem value={`MUSIC`}>Music</MenuItem>
+                  <MenuItem value={`CODING`}>Coding</MenuItem>
+                  <MenuItem value={`HARDWARE`}>Hardware</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                onChange={(e) => handleEventChange(e)}
+                label="Event Venue"
+                name="eventVenue"
+                value={eventVenue}
+              />
+            </Grid>
+            {eventType == `TEAM` && (
+              <Grid item xs={6} sm={3}>
+                <TextField
+                  required
+                  fullWidth
+                  type={'number'}
+                  label="Min Team Size"
+                  onChange={(e) => handleEventChange(e)}
+                  name="minTeamSize"
+                  value={minTeamSize}
+                />
+              </Grid>
+            )}
+            {eventType == `TEAM` && (
+              <Grid item xs={6} sm={3}>
+                <TextField
+                  required
+                  fullWidth
+                  type={'number'}
+                  label="Max Team Size"
+                  onChange={(e) => handleEventChange(e)}
+                  name="maxTeamSize"
+                  value={maxTeamSize}
+                />
+              </Grid>
+            )}
+            <Grid item xs={12} sm={12}>
+              <TextField
+                required
+                fullWidth
+                onChange={(e) => handleEventChange(e)}
+                label="Link to the Rulebook"
+                name="rulesLink"
+                value={rulesLink}
+              />
+            </Grid>
+            <Grid item sm={6}>
+              <InputLabel id="google-map-label">Uploaded Image</InputLabel>
+              <Image
+                width={400}
+                height={400}
+                src={eventInfo.image_url}
+                alt="Poster"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <DropzoneArea
+                acceptedFiles={['image/*']}
+                dropzoneText={'Change Event Poster'}
+                filesLimit={1}
+                Icon={UploadFileIcon}
+                maxFileSize={2097152}
+                onChange={(e) => handleEventChange(e)}
+                name="eventPoster"
+                clearOnUnmount
+                key={dropzoneKey}
+              />
+              {imgDimError && (
+                <Alert severity="warning">
+                  Please Upload Posters In A 1:1 Aspect Ratio
+                </Alert>
+              )}
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                fullWidth
+                multiline
+                label="Event Description"
+                minRows={12}
+                maxRows={12}
+                required
+                onChange={(e) => handleEventChange(e)}
+                name="eventDescription"
+                value={eventDescription}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                type={'text'}
+                label="Point of Contact Name"
+                onChange={(e) => handleEventChange(e)}
+                name="pocName"
+                value={pocName}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                type={'number'}
+                label="Point of Contact Number"
+                onChange={(e) => handleEventChange(e)}
+                name="pocNumber"
+                value={pocNumber}
+              />
+            </Grid>
+            {/* <Grid item style={{ width: '100%' }}>
+              <div style={{ height: '250px', width: '100%' }}>
+                <InputLabel id="google-map-label">Select Location</InputLabel>
+                <GoogleMapReact
+                  bootstrapURLKeys={{
+                    key: 'AIzaSyD5vRetEsh-ytb4Te898z89vWl6H_giTzI',
+                  }}
+                  defaultCenter={defaultMapProps.center}
+                  defaultZoom={defaultMapProps.zoom}
+                >
+                  <AnyReactComponent
+                    lat={59.955413}
+                    lng={30.337844}
+                    text="My Marker"
+                  />
+                </GoogleMapReact>
+              </div>
+            </Grid> */}
+            <Grid item xs={12} sm={12}>
+              <Button fullWidth variant="contained" type="submit">
+                Edit Event
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={12}>
-            <Button fullWidth variant="contained" type="submit">
-              Edit Event
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
-      <Snackbar
-        open={eventCreationStatus}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-      >
-        <Alert
+        </Box>
+        <Snackbar
+          open={eventCreationStatus}
+          autoHideDuration={6000}
           onClose={handleSnackbarClose}
-          severity="success"
-          sx={{ width: '100%' }}
         >
-          {eventCreationStatus}
-        </Alert>
-      </Snackbar>
-    </Container>
+          <Alert
+            onClose={handleSnackbarClose}
+            severity="success"
+            sx={{ width: '100%' }}
+          >
+            {eventCreationStatus}
+          </Alert>
+        </Snackbar>
+      </Container>
+    </div>
   );
 };
 

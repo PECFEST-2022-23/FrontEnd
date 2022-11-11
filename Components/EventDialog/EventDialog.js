@@ -35,8 +35,6 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import SampleData from './sample.json';
-import GoogleMapReact from 'google-map-react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { SignalCellularNullOutlined } from '@mui/icons-material';
@@ -56,8 +54,10 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
   };
 
   const [eventName, setEventName] = useState();
-  const [eventStart, setEventStart] = useState(`2022-11-25T00:00:00Z`);
-  const [eventEnd, setEventEnd] = useState(`2022-11-28T00:00:00Z`);
+  const [eventStart, setEventStart] = useState(
+    new Date(`2022-11-25T00:00:00Z`)
+  );
+  const [eventEnd, setEventEnd] = useState(new Date(`2022-11-28T00:00:00Z`));
   const [eventVenue, setEventVenue] = useState();
   const [minTeamSize, setMinTeamSize] = useState(1);
   const [maxTeamSize, setMaxTeamSize] = useState(1);
@@ -257,7 +257,7 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
       }
 
       const data = await res.json();
-
+      console.log(data);
       if (data && data.event_id && data.message) {
         setEventCreationStatus(`SUCCESS: Event Creation Successful`);
       }
@@ -511,7 +511,7 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
                 name="pocNumber"
               />
             </Grid>
-            <Grid item style={{ width: '100%' }}>
+            {/* <Grid item style={{ width: '100%' }}>
               <div style={{ height: '250px', width: '100%' }}>
                 <InputLabel id="google-map-label">Select Location</InputLabel>
                 <GoogleMapReact
@@ -528,7 +528,7 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
                   />
                 </GoogleMapReact>
               </div>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} sm={12}>
               <Button fullWidth variant="contained" type="submit">
                 {eventInfo ? `Edit Event` : `Add Event`}
