@@ -32,8 +32,6 @@ export default function AdminPanel(props) {
   }, []);
 
   const [eventDialogOpen, setEventDialogOpen] = useState(false);
-  const [eventEditDialogOpen, setEventEditDialogOpen] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState();
   const event_list = props.evts;
 
   const handleAddEventOpen = () => {
@@ -42,16 +40,6 @@ export default function AdminPanel(props) {
 
   const handleAddEventClose = () => {
     setEventDialogOpen(false);
-  };
-
-  const handleEditEventOpen = (e) => {
-    setCurrentEvent(event_list[e.target.id]);
-    setEventDialogOpen(true);
-  };
-
-  const handleEditEventClose = () => {
-    setEventEditDialogOpen(false);
-    setCurrentEvent();
   };
 
   return (
@@ -104,7 +92,6 @@ export default function AdminPanel(props) {
             event_list.map((curr_event, idx) => (
               <div key={idx}>
                 <EventCard
-                  openDialog={handleEditEventOpen}
                   event_name={curr_event.name}
                   id={idx}
                   image={curr_event.image_url}
@@ -112,12 +99,6 @@ export default function AdminPanel(props) {
                 />
               </div>
             ))}
-          <EventDialog
-            open={eventEditDialogOpen}
-            onClose={handleEditEventClose}
-            eventInfo={currentEvent}
-            user_token={currentToken}
-          />
         </Grid>
       </Container>
     </div>
@@ -135,28 +116,16 @@ export async function getServerSideProps(context) {
     };
   }
   const { token } = data;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}club/`, {
+  const events = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}club/`, {
     method: `GET`,
     headers: {
       Authorization: `Token ${token}`,
     },
-  });
-
-  if (!res || res.status != 200) {
-    return {
-      props: {
-        status: res.status,
-        error: true,
-      },
-    };
-  }
-  const events = await res.json();
+  }).then((res) => res.json());
 
   return {
     props: {
       evts: events,
-      status: res.status,
-      error: false,
     },
   };
 }

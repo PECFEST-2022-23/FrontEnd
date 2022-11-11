@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { useRouter } from 'next/router';
 
-const EventCard = ({ id, openDialog, image, event_name, event_id }) => {
+const EventCard = ({ id, image, event_name, event_id }) => {
   const router = useRouter();
 
   const openEvent = () => {
@@ -37,7 +37,6 @@ const EventCard = ({ id, openDialog, image, event_name, event_id }) => {
         <Button
           variant="contained"
           size="small"
-          // onClick={openDialog}
           id={id}
           onClick={openEditEvent}
         >
