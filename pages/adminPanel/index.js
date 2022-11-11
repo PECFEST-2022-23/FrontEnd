@@ -27,6 +27,8 @@ import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import SampleData from './sample.json';
+import getServerCookieData from '../../lib/auth/getServerCookieData';
+import styles from './adminPanel.module.css';
 
 const EventDialog = ({ onClose, open, eventId }) => {
   const eventObj = {
@@ -107,7 +109,7 @@ const EventDialog = ({ onClose, open, eventId }) => {
           eventEnd: endDateTimeObj,
         });
       })();
-  }, [eventId, event]);
+  }, [eventId]);
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -308,52 +310,71 @@ const AdminPanel = () => {
   };
 
   return (
-    <Container component={`main`}>
-      <CssBaseline />
-      <Box
-        sx={{
-          maxWidth: '440px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          gap: '1em',
-          margin: 'auto',
-          marginTop: 8,
-        }}
-      >
-        <Typography variant={`h5`}>Events by: {currentUser}</Typography>
-        <Button
-          sx={{ display: 'flex', gap: '1em', alignItems: 'center' }}
-          variant={`contained`}
-          onClick={handleAddEventOpen}
+    <div className={styles.background}>
+      <Container component={`main`}>
+        <CssBaseline />
+        <Box
+          sx={{
+            // maxWidth: '440px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '1em',
+            margin: 'auto',
+            marginTop: 8,
+          }}
         >
-          Add an Event <AddBoxOutlinedIcon />
-        </Button>
-        <EventDialog
-          open={eventDialogOpen}
-          onClose={handleAddEventClose}
-          eventId={null}
-        />
-      </Box>
-      <Grid
-        sx={{ mt: 8, justifyContent: 'center', gap: '2em', mb: 4 }}
-        container
-        fullWidth
-      >
-        {[1, 2, 3, 4, 5, 6].map((event, idx) => (
-          <>
-            <EventCard openDialog={handleEditEventOpen} key={idx} id={idx} />
-            <EventDialog
-              open={eventEditDialogOpen}
-              onClose={handleEditEventClose}
-              eventId={idx}
-            />
-          </>
-        ))}
-      </Grid>
-    </Container>
+          <Typography variant={`h5`} className={styles.pageheader}>
+            Events by: {currentUser}
+          </Typography>
+          <Button
+            sx={{ display: 'flex', gap: '1em', alignItems: 'center' }}
+            variant={`contained`}
+            onClick={handleAddEventOpen}
+          >
+            Add an Event <AddBoxOutlinedIcon />
+          </Button>
+          <EventDialog
+            open={eventDialogOpen}
+            onClose={handleAddEventClose}
+            eventId={null}
+          />
+        </Box>
+        <Grid
+          sx={{ mt: 8, justifyContent: 'center', gap: '2em', mb: 4 }}
+          container
+          fullWidth
+        >
+          {[1, 2, 3, 4, 5, 6].map((event, idx) => (
+            <>
+              <EventCard openDialog={handleEditEventOpen} key={idx} id={idx} />
+              <EventDialog
+                open={eventEditDialogOpen}
+                onClose={handleEditEventClose}
+                eventId={idx}
+              />
+            </>
+          ))}
+        </Grid>
+      </Container>
+    </div>
   );
 };
 
 export default AdminPanel;
+
+export async function getServerSideProps(context) {
+  const { data } = getServerCookieData(context);
+  if (data == null || data.user == null || data.user.is_staff == false) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+}

@@ -273,9 +273,15 @@ const Navbar = (props) => {
                   open={profileOpen}
                   onClose={handleProfileClose}
                 >
-                  <MenuItem onClick={handleProfileClose} disableRipple>
-                    <Link href={`/profile`}>Profile</Link>
-                  </MenuItem>
+                  {user.is_staff === false ? (
+                    <MenuItem onClick={handleProfileClose} disableRipple>
+                      <Link href={`/profile`}>Profile</Link>
+                    </MenuItem>
+                  ) : (
+                    <MenuItem onClick={handleProfileClose} disableRipple>
+                      <Link href={`/adminPanel`}>Admin Panel</Link>
+                    </MenuItem>
+                  )}
                   <MenuItem onClick={handleLogout} disableRipple>
                     Log Out
                   </MenuItem>
@@ -303,9 +309,15 @@ const Navbar = (props) => {
                 open={profileOpen}
                 onClose={handleProfileClose}
               >
-                <MenuItem onClick={handleProfileClose} disableRipple>
-                  <Link href={`/profile`}>Profile</Link>
-                </MenuItem>
+                {user.is_staff === false ? (
+                  <MenuItem onClick={handleProfileClose} disableRipple>
+                    <Link href={`/profile`}>Profile</Link>
+                  </MenuItem>
+                ) : (
+                  <MenuItem onClick={handleProfileClose} disableRipple>
+                    <Link href={`/adminPanel`}>Admin Panel</Link>
+                  </MenuItem>
+                )}
                 <MenuItem onClick={handleLogout} disableRipple>
                   Log Out
                 </MenuItem>
