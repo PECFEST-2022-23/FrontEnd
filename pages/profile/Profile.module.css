@@ -96,5 +96,9 @@
     .links {
       color: white;
     }
+
+    .background {
+      background-image: url('/mobile designs/login mobile.jpg');
+    }
   }
   

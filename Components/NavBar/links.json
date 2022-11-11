@@ -10,13 +10,14 @@
     "name": "Schedule",
     "link": "schedule"
   },
-  {
-    "name": "Merchandise",
-    "link": "merchandise"
-  },
+  
   {
     "name": "Sponsors",
     "link": "sponsors"
+  },
+  {
+    "name": "Contact Us",
+    "link": "contactUs"
   },
   {
     "name": "About",
@@ -27,10 +28,6 @@
       {
         "name": "Developers",
         "link": "developers"
-      },
-      {
-        "name": "Contact Us",
-        "link": "contactUs"
       }
     ]
   }

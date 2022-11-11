@@ -127,7 +127,7 @@ const Navbar = (props) => {
             </div>
           ) : (
             <ListItem key={item.name} disablePadding>
-              <Link href={`/${item.link}`}>
+              <Link href={`/${item.link}`} passHref>
                 <ListItemButton sx={{ textAlign: 'center' }}>
                   <ListItemText primary={item.name} />
                 </ListItemButton>
@@ -171,13 +171,13 @@ const Navbar = (props) => {
       <Divider />
       {/* <Button>Enter</Button> */}
       <Divider />
-      <ListItem>
+      {/* <ListItem>
         <Link href={`/ambassador`}>
           <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText primary={'Campus Ambassador'} />
           </ListItemButton>
         </Link>
-      </ListItem>
+      </ListItem> */}
     </Box>
   );
 
@@ -273,9 +273,15 @@ const Navbar = (props) => {
                   open={profileOpen}
                   onClose={handleProfileClose}
                 >
-                  <MenuItem onClick={handleProfileClose} disableRipple>
-                    <Link href={`/profile`}>Profile</Link>
-                  </MenuItem>
+                  {user.is_staff === false ? (
+                    <MenuItem onClick={handleProfileClose} disableRipple>
+                      <Link href={`/profile`}>Profile</Link>
+                    </MenuItem>
+                  ) : (
+                    <MenuItem onClick={handleProfileClose} disableRipple>
+                      <Link href={`/adminPanel`}>Admin Panel</Link>
+                    </MenuItem>
+                  )}
                   <MenuItem onClick={handleLogout} disableRipple>
                     Log Out
                   </MenuItem>
@@ -303,9 +309,15 @@ const Navbar = (props) => {
                 open={profileOpen}
                 onClose={handleProfileClose}
               >
-                <MenuItem onClick={handleProfileClose} disableRipple>
-                  <Link href={`/profile`}>Profile</Link>
-                </MenuItem>
+                {user.is_staff === false ? (
+                  <MenuItem onClick={handleProfileClose} disableRipple>
+                    <Link href={`/profile`}>Profile</Link>
+                  </MenuItem>
+                ) : (
+                  <MenuItem onClick={handleProfileClose} disableRipple>
+                    <Link href={`/adminPanel`}>Admin Panel</Link>
+                  </MenuItem>
+                )}
                 <MenuItem onClick={handleLogout} disableRipple>
                   Log Out
                 </MenuItem>

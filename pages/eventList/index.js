@@ -298,7 +298,7 @@ const MegaShowEvent = (props) => {
 };
 
 export async function getStaticProps(context) {
-  const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events');
+  const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_API + 'events/');
   if (!res || res.status != 200) {
     return {
       props: {
