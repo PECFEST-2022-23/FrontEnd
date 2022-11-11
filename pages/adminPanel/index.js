@@ -43,6 +43,7 @@ import { useSession } from 'next-auth/react';
 import { SignalCellularNullOutlined } from '@mui/icons-material';
 import getCookieData from '../../lib/auth/getCookieData';
 import getServerCookieData from '../../lib/auth/getServerCookieData';
+import styles from './adminPanel.module.css';
 
 import EventDialog from '../../Components/EventDialog/EventDialog';
 import EventCard from '../../Components/EventCard/EventCard';
@@ -85,67 +86,85 @@ export default function AdminPanel(props) {
   };
 
   return (
-    <Container component={`main`}>
-      <CssBaseline />
-      <Box
-        sx={{
-          maxWidth: '440px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          gap: '1em',
-          margin: 'auto',
-          marginTop: 8,
-        }}
-      >
-        <Typography sx={{ width: `100%`, textAlign: `center` }} variant={`h5`}>
-          Events by: {currentUser && currentUser.first_name}
-        </Typography>
-        <Button
-          sx={{ display: 'flex', gap: '1em', alignItems: 'center' }}
-          variant={`contained`}
-          onClick={handleAddEventOpen}
+    <div className={styles.background}>
+      <Head>
+        <title>Admin Panel</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Container component={`main`}>
+        <CssBaseline />
+        <Box
+          sx={{
+            // maxWidth: '440px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: '1em',
+            margin: 'auto',
+            marginTop: 8,
+          }}
         >
-          Add an Event <AddBoxOutlinedIcon />
-        </Button>
-        <EventDialog
-          open={eventDialogOpen}
-          onClose={handleAddEventClose}
-          eventInfo={null}
-          user_token={currentToken}
-        />
-      </Box>
-      <Grid
-        sx={{ mt: 8, justifyContent: 'center', gap: '2em', mb: 4 }}
-        container
-        fullWidth
-      >
-        {event_list &&
-          event_list.map((curr_event, idx) => (
-            <div key={idx}>
-              <EventCard
-                openDialog={handleEditEventOpen}
-                event_name={curr_event.name}
-                id={idx}
-                image={curr_event.image_url}
-                event_id={curr_event.id}
-              />
-            </div>
-          ))}
-        <EventDialog
-          open={eventEditDialogOpen}
-          onClose={handleEditEventClose}
-          eventInfo={currentEvent}
-          user_token={currentToken}
-        />
-      </Grid>
-    </Container>
+          <Typography
+            sx={{ width: `100%`, textAlign: `center` }}
+            variant={`h5`}
+            className={styles.pageheader}
+          >
+            Events by: {currentUser && currentUser.first_name}
+          </Typography>
+          <Button
+            sx={{ display: 'flex', gap: '1em', alignItems: 'center' }}
+            variant={`contained`}
+            onClick={handleAddEventOpen}
+          >
+            Add an Event <AddBoxOutlinedIcon />
+          </Button>
+          <EventDialog
+            open={eventDialogOpen}
+            onClose={handleAddEventClose}
+            eventInfo={null}
+            user_token={currentToken}
+          />
+        </Box>
+        <Grid
+          sx={{ mt: 8, justifyContent: 'center', gap: '2em', mb: 4 }}
+          container
+          fullWidth
+        >
+          {event_list &&
+            event_list.map((curr_event, idx) => (
+              <div key={idx}>
+                <EventCard
+                  openDialog={handleEditEventOpen}
+                  event_name={curr_event.name}
+                  id={idx}
+                  image={curr_event.image_url}
+                  event_id={curr_event.id}
+                />
+              </div>
+            ))}
+          <EventDialog
+            open={eventEditDialogOpen}
+            onClose={handleEditEventClose}
+            eventInfo={currentEvent}
+            user_token={currentToken}
+          />
+        </Grid>
+      </Container>
+    </div>
   );
 }
 
 export async function getServerSideProps(context) {
   const { data } = getServerCookieData(context);
+  if (data == null || data.user == null || data.user.is_staff == false) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
   const { token } = data;
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}club/`, {
     method: `GET`,

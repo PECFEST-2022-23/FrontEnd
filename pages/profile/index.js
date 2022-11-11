@@ -74,7 +74,7 @@ export default function Profile() {
       toast.error('Please enter valid Contact Number');
       return;
     }
-    if(formdata.get('college')==''){
+    if (formdata.get('college') == '') {
       toast.error('Please enter College Name');
       return;
     }
