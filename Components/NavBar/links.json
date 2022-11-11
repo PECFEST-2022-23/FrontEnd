@@ -16,6 +16,10 @@
     "link": "sponsors"
   },
   {
+    "name": "Contact Us",
+    "link": "contactUs"
+  },
+  {
     "name": "About",
     "children": [{
         "name": "The PECFEST Team",
@@ -26,9 +30,5 @@
         "link": "developers"
       }
     ]
-  },
-  {
-    "name": "Contact Us",
-    "link": "contactUs"
   }
 ]

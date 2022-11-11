@@ -36,14 +36,13 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import GoogleMapReact from 'google-map-react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { SignalCellularNullOutlined } from '@mui/icons-material';
 import getCookieData from '../../../lib/auth/getCookieData';
 import getServerCookieData from '../../../lib/auth/getServerCookieData';
 import { useRouter } from 'next/router';
-import styles from '../adminPanel.module.css';
+import styles from './adminevent.module.css';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -575,7 +574,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
                 value={pocNumber}
               />
             </Grid>
-            <Grid item style={{ width: '100%' }}>
+            {/* <Grid item style={{ width: '100%' }}>
               <div style={{ height: '250px', width: '100%' }}>
                 <InputLabel id="google-map-label">Select Location</InputLabel>
                 <GoogleMapReact
@@ -592,7 +591,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
                   />
                 </GoogleMapReact>
               </div>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} sm={12}>
               <Button fullWidth variant="contained" type="submit">
                 Edit Event
