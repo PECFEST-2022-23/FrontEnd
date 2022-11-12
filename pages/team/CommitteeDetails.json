@@ -31,6 +31,16 @@
             "Contact": 9876978123
         },
         {
+            "Email": "kshitijrastogi.bt19mech@pec.edu.in",
+            "Type": "Secretary",
+            "Committee": "Megashows, Infrastructure, Logistics & Hospitality",
+            "Name": "Kshitij Rastogi",
+            "Photo": "/team/Kshitij Rastogi.jpeg",
+            "Instagram": "https://instagram.com/kshitijrastogi/",
+            "Linkedin": "https://www.linkedin.com/in/kshitijrastogi",
+            "Contact": 9467203233
+        },
+        {
             "Email": "shivamkansal.bt19ece@pec.edu.in",
             "Type": "Secretary",
             "Committee": "Finance, Marketing and Alumni & Industry Relations",
@@ -39,16 +49,6 @@
             "Instagram": "https://www.instagram.com/kansal_shivam/",
             "Linkedin": "https://www.linkedin.com/in/shivam-kansal-09773a199",
             "Contact": 7837010005
-        },
-        {
-            "Email": "kshitijrastogi.bt19mech@pec.edu.in",
-            "Type": "Secretary",
-            "Committee": "Megashows, Infrastructure, Logistics & Hospitality",
-            "Name": "Kshitij Rastogi",
-            "Photo": "/team/Kshitij Rastogi.jpg",
-            "Instagram": "https://instagram.com/kshitijrastogi/",
-            "Linkedin": "https://www.linkedin.com/in/kshitijrastogi",
-            "Contact": 9467203233
         },
         {
             "Email": "palashvij.bt19ece@pec.edu.in",

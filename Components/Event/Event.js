@@ -60,6 +60,29 @@ const Event = (props) => {
     return res.json();
   };
 
+  const fetchTeamData = () => {
+    resFetch([
+      `${process.env.NEXT_PUBLIC_BACKEND_API}events/${props.eventDetails.id}/team`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Token ${cookieData.token}`,
+        },
+      },
+    ])
+      .then((res) => {
+        console.log('team info' + res);
+        setTeamData({ ...teamData, ...res });
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        if (error.message == 401) {
+          logout(router, session);
+        }
+      });
+  };
+
   useEffect(() => {
     const { data } = getCookieData(session);
     if (typeof data == 'undefined' || data.user == null) {
@@ -93,49 +116,50 @@ const Event = (props) => {
   useEffect(() => {
     if (isLoggedIn) {
       setLoading(true);
-      resFetch([
-        `${process.env.NEXT_PUBLIC_BACKEND_API}events/${props.eventDetails.id}/team`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Token ${cookieData.token}`,
-          },
-        },
-      ])
-        .then((res) => {
-          console.log('team info' + res);
-          setTeamData({ ...teamData, ...res });
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error.message);
-          if (error.message == 401) {
-            logout(router, session);
-          }
-        });
+      fetchTeamData();
     }
   }, [isLoggedIn, cookieData, props, router, session]);
 
   const handleRegisterClick = () => {
     if (props.eventDetails.type == 'INDIVIDUAL') {
       if (isLoggedIn) {
-        resFetch([
-          `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/ `,
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `Token ${cookieData.token}`,
+        if (teamData && teamData.is_registered) {
+          resFetch([
+            `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/ `,
+            {
+              method: 'DELETE',
+              headers: {
+                Authorization: `Token ${cookieData.token}`,
+              },
             },
-          },
-        ])
-          .then((res) => {
-            setTeamData({ ...teamData, is_registered: true, id: res.id });
-          })
-          .catch((error) => {
-            if (error.message == 401) {
-              logout(router, session);
-            }
-          });
+          ])
+            .then((res) => {
+              setTeamData({ is_registered: false });
+            })
+            .catch((error) => {
+              if (error.message == 401) {
+                logout(router, session);
+              }
+            });
+        } else {
+          resFetch([
+            `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/ `,
+            {
+              method: 'POST',
+              headers: {
+                Authorization: `Token ${cookieData.token}`,
+              },
+            },
+          ])
+            .then((res) => {
+              setTeamData({ ...teamData, is_registered: true, id: res.id });
+            })
+            .catch((error) => {
+              if (error.message == 401) {
+                logout(router, session);
+              }
+            });
+        }
       } else redirectToLogin(router);
     } else {
       if (isLoggedIn && teamData && teamData.is_registered) {
@@ -158,6 +182,7 @@ const Event = (props) => {
           });
       } else setIsModalOpen(true);
     }
+    fetchTeamData();
   };
 
   const handleTeamRegisterClick = () => {
@@ -212,6 +237,7 @@ const Event = (props) => {
         }
       }
     } else redirectToLogin(router);
+    fetchTeamData();
   };
 
   console.log(props);
