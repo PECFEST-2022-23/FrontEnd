@@ -1,11 +1,19 @@
 import Event from '../../../Components/Event/Event';
+import { useRouter } from 'next/router';
 import classes from './event.module.css';
 
 const EventDetails = (props) => {
+  const router = useRouter();
+
+  const {
+    query: { tid },
+  } = router;
+
   return (
     <section style={{ minHeight: '91vh' }} className={classes.background}>
-      <div suppressHydrationWarning>Ignore this</div>
-      <Event eventDetails={props.eventDetails} />
+      <div suppressHydrationWarning>
+        <Event eventDetails={props.eventDetails} teamId={tid} />
+      </div>
     </section>
   );
 };

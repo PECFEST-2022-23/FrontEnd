@@ -1,3 +1,12 @@
+.modalInput {
+  border: 0;
+}
+
+.teamName {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
 .imageGridItem {
   position: relative;
   object-fit: cover;
@@ -31,11 +40,9 @@
   white-space: pre-line;
   height: 32vh;
   overflow-y: auto;
-  mask-image: linear-gradient(
-    to bottom,
-    black calc(100% - 48px),
-    transparent 100%
-  );
+  mask-image: linear-gradient(to bottom,
+      black calc(100% - 48px),
+      transparent 100%);
 }
 
 .chipsGridItem {
@@ -53,6 +60,7 @@
   position: absolute;
   right: 3%;
 }
+
 .cardActions {
   overflow: auto;
 }
@@ -63,15 +71,18 @@
     overflow-y: hidden; */
     mask-image: none;
   }
+
   .teamSize {
     font-size: smaller;
     position: relative;
     margin-top: 8px;
     margin-left: 10px;
   }
+
   .cardActions {
     display: block;
   }
+
   .imageGridItem {
     height: 380px;
   }

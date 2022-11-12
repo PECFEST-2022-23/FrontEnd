@@ -6,14 +6,394 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
+import Backdrop from '@mui/material/Backdrop';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Fade from '@mui/material/Fade';
+import TextField from '@mui/material/TextField';
 import RoomIcon from '@mui/icons-material/Room';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import EventIcon from '@mui/icons-material/Event';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import PersonIcon from '@mui/icons-material/Person';
+import { useRouter } from 'next/router';
+import { useSession, signIn, signOut } from 'next-auth/react';
+import Cookies from 'universal-cookie';
+import getServerCookieData from '../../lib/auth/getServerCookieData';
+import getCookieData from '../../lib/auth/getCookieData';
+import redirectToLogin from '../../lib/auth/redirectToLogin';
+import logout from '../../lib/auth/logout';
+import { useState, useEffect } from 'react';
+import useSWR from 'swr';
 import classes from './Event.module.css';
 
 const Event = (props) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [cookieData, setCookieData] = useState(null);
+  const [teamData, setTeamData] = useState(null);
+  const [teamName, setTeamName] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
+  const { data: session } = useSession();
+  const cookies = new Cookies();
+
+  // const fetcher = (url) => fetch(url, {
+  //   method: "GET",
+  //   headers: {
+  //     'Authorization': `Token ${cookieData.token}`
+  //   }
+  // }).then((res) => res.json());
+
+  // const { teamData, teamError } = useSWR(isLoggedIn ? `${process.env.NEXT_PUBLIC_BACKEND_API}events/${props.eventDetails.id}/team/` : null, fetcher, { refreshInterval: 5000 });
+
+  const resFetch = async (req) => {
+    console.log(...req);
+    const res = await fetch(...req);
+    if (!(res.ok || res.created)) {
+      throw new Error(res.status);
+    }
+    return res.json();
+  };
+
+  const fetchTeamData = () => {
+    resFetch([
+      `${process.env.NEXT_PUBLIC_BACKEND_API}events/${props.eventDetails.id}/team`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Token ${cookieData.token}`,
+        },
+      },
+    ])
+      .then((res) => {
+        console.log('team info' + res);
+        setTeamData({ ...teamData, ...res });
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        if (error.message == 401) {
+          logout(router, session);
+        }
+      });
+  };
+
+  useEffect(() => {
+    const { data } = getCookieData(session);
+    if (typeof data == 'undefined' || data.user == null) {
+      setIsLoggedIn(false);
+      setLoading(false);
+    } else {
+      console.log(data);
+      setCookieData(data);
+      setIsLoggedIn(true);
+    }
+  }, [session, props]);
+
+  useEffect(() => {
+    if (props.teamId) {
+      resFetch([
+        `${process.env.NEXT_PUBLIC_BACKEND_API}events/team/${props.teamId}`,
+        {
+          method: 'GET',
+        },
+      ])
+        .then((res) => {
+          console.log(res);
+          setTeamData({ ...teamData, res, id: props.teamId });
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
+  }, [props]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setLoading(true);
+      fetchTeamData();
+    }
+  }, [isLoggedIn, cookieData, props, router, session]);
+
+  const handleRegisterClick = () => {
+    if (props.eventDetails.type == 'INDIVIDUAL') {
+      if (isLoggedIn) {
+        if (teamData && teamData.is_registered) {
+          resFetch([
+            `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/ `,
+            {
+              method: 'DELETE',
+              headers: {
+                Authorization: `Token ${cookieData.token}`,
+              },
+            },
+          ])
+            .then((res) => {
+              setTeamData({ is_registered: false });
+            })
+            .catch((error) => {
+              if (error.message == 401) {
+                logout(router, session);
+              }
+            });
+        } else {
+          resFetch([
+            `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/ `,
+            {
+              method: 'POST',
+              headers: {
+                Authorization: `Token ${cookieData.token}`,
+              },
+            },
+          ])
+            .then((res) => {
+              setTeamData({ ...teamData, is_registered: true, id: res.id });
+            })
+            .catch((error) => {
+              if (error.message == 401) {
+                logout(router, session);
+              }
+            });
+        }
+      } else redirectToLogin(router);
+    } else {
+      if (isLoggedIn && teamData && teamData.is_registered) {
+        resFetch([
+          `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/ `,
+          {
+            method: 'DELETE',
+            headers: {
+              Authorization: `Token ${cookieData.token}`,
+            },
+          },
+        ])
+          .then((res) => {
+            setTeamData({ is_registered: false });
+          })
+          .catch((error) => {
+            if (error.message == 401) {
+              logout(router, session);
+            }
+          });
+      } else setIsModalOpen(true);
+    }
+    fetchTeamData();
+  };
+
+  const handleTeamRegisterClick = () => {
+    if (isLoggedIn) {
+      if (!teamData.is_registered && props.eventDetails.type == 'TEAM') {
+        if (teamData.id) {
+          resFetch([
+            `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/ `,
+            {
+              method: 'POST',
+              headers: {
+                Authorization: `Token ${cookieData.token}`,
+              },
+            },
+          ])
+            .then((res) => {
+              setTeamData({ ...teamData, is_registered: true });
+            })
+            .catch((error) => {
+              if (error.message == 401) {
+                logout(router, session);
+              }
+            });
+        } else if (teamName.trim().length > 0) {
+          resFetch([
+            `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${cookieData.token}`,
+              },
+              body: JSON.stringify({
+                team_name: `${teamName.trim()}`,
+              }),
+            },
+          ])
+            .then((res) => {
+              console.log(res);
+              setTeamData({
+                ...teamData,
+                is_registered: true,
+                id: res.id,
+                team_name: teamName,
+              });
+            })
+            .catch((error) => {
+              if (error.message == 401) {
+                logout(router, session);
+              }
+            });
+        }
+      }
+    } else redirectToLogin(router);
+    fetchTeamData();
+  };
+
+  console.log(props);
+  console.log(teamData);
+
+  const styles = {
+    newTeamModal: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 300,
+      bgcolor: '#fff',
+      borderRadius: '0.5rem',
+      boxShadow: 24,
+      p: 4,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
+      gap: '1.5rem',
+    },
+    modalInput: {
+      width: '200px',
+    },
+    teamDetailsModal: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 500,
+      bgcolor: '#fff',
+      borderRadius: '0.5rem',
+      boxShadow: 24,
+      p: 4,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
+      gap: '1.5rem',
+    },
+  };
+
   return (
     <div style={{ paddingTop: '50px', margin: '0 30px' }}>
+      <Modal
+        aria-labelledby="register-modal-team"
+        aria-describedby="register-modal-team"
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={isModalOpen}>
+          {teamData && teamData.is_registered ? (
+            <Box sx={styles.teamDetailsModal}>
+              <div className={classes.teamName}>{teamData.team_name}</div>
+              <div>
+                Link to join team:{' '}
+                <span>
+                  {process.env.NEXT_PUBLIC_URL +
+                    `eventList/${props.eventDetails.id}` +
+                    '/?tid=' +
+                    teamData.id}
+                </span>
+              </div>
+              <List>
+                {teamData && teamData.members ? (
+                  teamData.members.map((member) => {
+                    return (
+                      <ListItem
+                        disablePadding
+                        key={`${member.first_name}${member.last_name}${member.user_id}`}
+                      >
+                        <ListItemIcon>
+                          <PersonIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={`${member.first_name} ${member.last_name}`}
+                        />
+                      </ListItem>
+                    );
+                  })
+                ) : (
+                  <div></div>
+                )}
+              </List>
+            </Box>
+          ) : teamData && teamData.id ? (
+            <Box sx={styles.teamDetailsModal}>
+              <div className={classes.teamName}>{teamData.team_name}</div>
+              <div>
+                Link to join team:{' '}
+                <span>
+                  {process.env.NEXT_PUBLIC_URL +
+                    `eventList/${props.eventDetails.id}` +
+                    '/?tid=' +
+                    teamData.id}
+                </span>
+              </div>
+              <List>
+                {teamData && teamData.members ? (
+                  teamData.members.map((member) => {
+                    return (
+                      <ListItem
+                        disablePadding
+                        key={`${member.first_name}${member.last_name}${member.user_id}`}
+                      >
+                        <ListItemIcon>
+                          <PersonIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={`${member.first_name} ${member.last_name}`}
+                        />
+                      </ListItem>
+                    );
+                  })
+                ) : (
+                  <div></div>
+                )}
+              </List>
+              <Button
+                variant="contained"
+                onClick={handleTeamRegisterClick}
+                size="small"
+              >
+                Register
+              </Button>
+            </Box>
+          ) : (
+            <Box sx={styles.newTeamModal}>
+              <TextField
+                id="teamName"
+                label="Team Name"
+                variant="standard"
+                sx={styles.modalInput}
+                value={teamName}
+                onChange={(evt) => {
+                  if (evt.target.value.length <= 25)
+                    setTeamName(evt.target.value);
+                }}
+              />
+              <Button
+                variant="contained"
+                onClick={handleTeamRegisterClick}
+                size="small"
+              >
+                Register
+              </Button>
+            </Box>
+          )}
+        </Fade>
+      </Modal>
       <Grid container spacing={2} direction="row-reverse">
         <Grid item xs={11} sm={9} md={5} className={classes.imageGridItem}>
           <Image
@@ -112,14 +492,34 @@ const Event = (props) => {
               >
                 Rulebook
               </Button>
-              <Button
-                variant="contained"
-                style={{ border: '1px solid white' }}
-                onClick={() => console.log('clicked')}
-                size="small"
-              >
-                Register
-              </Button>
+              {!loading && (
+                <Button
+                  variant="contained"
+                  style={{ border: '1px solid white' }}
+                  onClick={handleRegisterClick}
+                  size="small"
+                >
+                  {isLoggedIn && teamData && teamData.is_registered
+                    ? 'Registered'
+                    : 'Register'}
+                </Button>
+              )}
+              {!loading &&
+                isLoggedIn &&
+                props.eventDetails.type == 'TEAM' &&
+                teamData &&
+                teamData.is_registered && (
+                  <PeopleAltIcon
+                    sx={{
+                      color: '#fff',
+                      fontSize: '2.4rem',
+                      padding: 0,
+                      margin: '0 0 -0.3rem 0.5rem',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => setIsModalOpen(true)}
+                  />
+                )}
               <div className={classes.teamSize}>
                 <Chip
                   label={
