@@ -14,10 +14,10 @@
             "Type": "Convener",
             "Committee": "Co-Convener",
             "Name": "Naman Cheetu",
-            "Photo": "/team/Tanay Gopal.jpg",
-            "Instagram": "https://www.instagram.com/yuvrajdeol_/",
-            "Linkedin": "https://www.linkedin.com/in/yuvraj-deol-12336a1a6/",
-            "Contact": 8146539939
+            "Photo": "/team/Naman Cheetu.jpg",
+            "Instagram": "https://www.instagram.com/namancheetu/",
+            "Linkedin": "https://www.linkedin.com/in/naman-cheetu-135455188/",
+            "Contact": 9417826900
         }
     ],
     "secretary": [{
@@ -80,6 +80,16 @@
             "Linkedin": "https://www.linkedin.com/in/puneet-bansal15/",
             "Photo": "/team/Puneet Bansal.jpg",
             "Email": "puneetbansal.bt19cse@pec.edu.in"
+        },
+        {
+            "Name": "Shubham Bansal",
+            "Type": "Head",
+            "Committee": "Website Development",
+            "Contact": 9041512088,
+            "Instagram": "https://instagram.com/shubham_bansal0110/",
+            "Linkedin": "https://www.linkedin.com/in/shubham-bansal-01/",
+            "Photo": "/developers/Shubham Bansal.jpg",
+            "Email": "shubhambansal.bt19ece@pec.edu.in"
         },
         {
 

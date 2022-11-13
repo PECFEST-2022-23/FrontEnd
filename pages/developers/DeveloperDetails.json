@@ -55,6 +55,14 @@
         "Photo": "/developers/Arsh Kashyap.jpg"
        }],
        "backend" : [{
+        "Name": "Shubham Bansal",
+        "Designation": "Banckend Developer",
+        "Contact": 9041512088,
+        "Instagram": "https://instagram.com/shubham_bansal0110/",
+        "Linkedin": "https://www.linkedin.com/in/shubham-bansal-01/",
+        "Photo": "/developers/Shubham Bansal.jpg",
+        "Github": "https://www.github.com/shubhambansalgit"
+    },{
         "Name": "Aman Gupta",
         "Designation": "Backend Developer",
         "Contact": 7568938710,
