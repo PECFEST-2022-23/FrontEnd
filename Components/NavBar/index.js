@@ -104,26 +104,15 @@ const Navbar = (props) => {
         {navItemsOne.map((item) =>
           item.children ? (
             <div key={item.name}>
-              <ListItemButton onClick={handleClick}>
-                <ListItemText primary={item.name} />
-                {open ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
-              <Collapse
-                className={styles.navbar_collapse}
-                in
-                timeout="auto"
-                unmountOnExit
-              >
-                {item.children.map((child) => (
-                  <List key={child.name} component="div" disablePadding>
-                    <Link href={`/${child.link}`}>
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary={child.name} />
-                      </ListItemButton>
-                    </Link>
-                  </List>
-                ))}
-              </Collapse>
+              {item.children.map((child) => (
+                <ListItem key={child.name} disablePadding>
+                  <Link href={`/${child.link}`} passHref>
+                    <ListItemButton sx={{ textAlign: 'center' }}>
+                      <ListItemText primary={child.name} />
+                    </ListItemButton>
+                  </Link>
+                </ListItem>
+              ))}
             </div>
           ) : (
             <ListItem key={item.name} disablePadding>
@@ -141,21 +130,15 @@ const Navbar = (props) => {
         {navItemsTwo.map((item) =>
           item.children ? (
             <div key={item.name}>
-              <ListItemButton onClick={handleClick}>
-                <ListItemText primary={item.name} />
-                {open ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                {item.children.map((child) => (
-                  <List key={child.name} component="div" disablePadding>
-                    <Link href={`/${child.link}`}>
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary={child.name} />
-                      </ListItemButton>
-                    </Link>
-                  </List>
-                ))}
-              </Collapse>
+              {item.children.map((child) => (
+                <ListItem key={child.name} disablePadding>
+                  <Link href={`/${child.link}`} passHref>
+                    <ListItemButton sx={{ textAlign: 'center' }}>
+                      <ListItemText primary={child.name} />
+                    </ListItemButton>
+                  </Link>
+                </ListItem>
+              ))}
             </div>
           ) : (
             <ListItem key={item.name} disablePadding>
