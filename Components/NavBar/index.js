@@ -246,7 +246,7 @@ const Navbar = (props) => {
                         onClick={handleAboutClose}
                         disableRipple
                       >
-                        <Link href={child.link}>{child.name}</Link>
+                        <Link href={`/${child.link}`}>{child.name}</Link>
                       </MenuItem>
                     ))}
                   </Menu>

@@ -90,7 +90,9 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
       setEventType(eventInfo.type);
       setEventCategory(eventInfo.category);
       setEventCategorySubType(eventInfo.subcategory);
-      setRulesLink(eventInfo.rulebook_url);
+      if (eventInfo.rulebook_url) {
+        setRulesLink(eventInfo.rulebook_url);
+      }
       setPocName();
       setPocNumber();
     }
@@ -242,7 +244,9 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
       formData.append(`image_url`, eventPoster);
       formData.append(`latitude`, defaultMapProps.center.lat);
       formData.append(`longitude`, defaultMapProps.center.lng);
-      formData.append(`rulebook_url`, rulesLink);
+      if (rulesLink && rulesLink.trim() !== '') {
+        formData.append(`rulebook_url`, rulesLink);
+      }
 
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}club/`, {
         method: `POST`,
@@ -451,7 +455,6 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
             )}
             <Grid item xs={12} sm={12}>
               <TextField
-                required
                 fullWidth
                 onChange={(e) => handleEventChange(e)}
                 label="Link to the Rulebook"

@@ -42,10 +42,10 @@ const EditEvent = ({ eventInfo, user_token }) => {
   };
 
   const router = useRouter();
-
+  console.log('Token', user_token);
   const [eventName, setEventName] = useState();
-  const [eventStart, setEventStart] = useState(`2022-11-25T00:00:00Z`);
-  const [eventEnd, setEventEnd] = useState(`2022-11-28T00:00:00Z`);
+  const [eventStart, setEventStart] = useState(dayjs(`2022-11-25T00:00:00Z`));
+  const [eventEnd, setEventEnd] = useState(dayjs(`2022-11-28T00:00:00Z`));
   const [eventVenue, setEventVenue] = useState();
   const [minTeamSize, setMinTeamSize] = useState(1);
   const [maxTeamSize, setMaxTeamSize] = useState(1);
@@ -89,14 +89,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
         setPocNumber(contact_info.slice(-1)[0].split(':')[1]);
       }
 
-      setEventDescription(
-        eventInfo.description.substring(
-          0,
-          eventInfo.description
-            .substring(0, eventInfo.description.lastIndexOf('\n'))
-            .lastIndexOf('\n')
-        )
-      );
+      setEventDescription(eventInfo.description.split('Point of Contact:')[0]);
     }
   }, [eventInfo]);
 
@@ -229,43 +222,25 @@ const EditEvent = ({ eventInfo, user_token }) => {
     e.preventDefault();
     if (!dateError) {
       // make POST request
-      // const formData = {
-      //   name: eventName,
-      //   type: eventType.toUpperCase(),
-      //   category: eventCategory.toUpperCase(),
-      //   subcategory: eventCategorySubType.toUpperCase(),
-      //   description: `${eventDescription}\n\nPoint of Contact:\n${pocName}:${pocNumber}`,
-      //   startdatetime: eventStart,
-      //   enddatetime: eventEnd,
-      //   venue: eventVenue,
-      //   min_team_size: minTeamSize,
-      //   max_team_size: maxTeamSize,
-      //   latitude: defaultMapProps.center.lat,
-      //   longitude: defaultMapProps.center.lng,
-      //   rulebook_url: rulesLink,
-      // };
+      const formData = {
+        name: eventName,
+        type: eventType.toUpperCase(),
+        category: eventCategory.toUpperCase(),
+        subcategory: eventCategorySubType.toUpperCase(),
+        description: `${eventDescription}\n\nPoint of Contact:\n${pocName}:${pocNumber}`,
+        startdatetime: eventStart.toISOString(),
+        enddatetime: eventEnd.toISOString(),
+        venue: eventVenue,
+        min_team_size: minTeamSize,
+        max_team_size: maxTeamSize,
+        latitude: defaultMapProps.center.lat,
+        longitude: defaultMapProps.center.lng,
+        rulebook_url: rulesLink,
+      };
 
-      // if(eventPoster) {
-      //   formData['image_url'] = eventPoster;
-      // }
-      const formData = new FormData();
-      formData.append(`name`, eventName);
-      formData.append(`type`, eventType.toUpperCase());
-      formData.append(`category`, eventCategory.toUpperCase());
-      formData.append(`subcategory`, eventCategorySubType.toUpperCase());
-      formData.append(
-        `description`,
-        `${eventDescription}\n\nPoint of Contact:\n${pocName}:${pocNumber}`
-      );
-      formData.append(`startdatetime`, eventStart.toISOString());
-      formData.append(`enddatetime`, eventEnd.toISOString());
-      formData.append(`venue`, eventVenue);
-      formData.append(`min_team_size`, minTeamSize);
-      formData.append(`max_team_size`, maxTeamSize);
-      formData.append(`image_url`, eventPoster);
-      formData.append(`latitude`, defaultMapProps.center.lat);
-      formData.append(`longitude`, defaultMapProps.center.lng);
-      formData.append(`rulebook_url`, rulesLink);
+      if (typeof eventPoster !== 'string') {
+        formData['image_url'] = eventPoster;
+      }
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_API}club/${eventInfo.id}`,
@@ -273,8 +248,9 @@ const EditEvent = ({ eventInfo, user_token }) => {
           method: `PATCH`,
           headers: {
             Authorization: `Token ${user_token}`,
+            'Content-type': 'application/json',
           },
-          body: formData,
+          body: JSON.stringify(formData),
         }
       );
       console.log(res);
@@ -303,7 +279,6 @@ const EditEvent = ({ eventInfo, user_token }) => {
       <Container>
         <Box
           sx={{
-            // maxWidth: '440px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -490,7 +465,6 @@ const EditEvent = ({ eventInfo, user_token }) => {
             )}
             <Grid item xs={12} sm={12}>
               <TextField
-                required
                 fullWidth
                 onChange={(e) => handleEventChange(e)}
                 label="Link to the Rulebook"
