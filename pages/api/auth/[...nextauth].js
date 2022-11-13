@@ -37,6 +37,7 @@ const nextAuthOptions = (req, res) => {
           return backendRes.json();
         });
         session.token = backendRes.token;
+        session.user = backendRes.user;
         return session;
       },
 
