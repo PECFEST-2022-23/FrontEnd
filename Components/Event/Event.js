@@ -30,6 +30,7 @@ import logout from '../../lib/auth/logout';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import classes from './Event.module.css';
+import { toast } from 'react-toastify';
 
 const Event = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,6 +39,7 @@ const Event = (props) => {
   const [teamData, setTeamData] = useState(null);
   const [teamName, setTeamName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(true);
   const router = useRouter();
   const { data: session } = useSession();
   const cookies = new Cookies();
@@ -101,6 +103,10 @@ const Event = (props) => {
       console.log(data);
       setCookieData(data);
       setIsLoggedIn(true);
+    }
+    console.log(data);
+    if(data && data.user_status!=3) {
+      setIsCompleted(false);
     }
   }, [session, props]);
 
@@ -177,7 +183,11 @@ const Event = (props) => {
               }
             });
         } else {
-          resFetch([
+          if(!isCompleted){
+            toast.info("Please complete your profile first");
+            router.push('/profile');
+          }
+          else {resFetch([
             `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
             {
               method: 'POST',
@@ -194,6 +204,7 @@ const Event = (props) => {
                 logout(router, session);
               }
             });
+          }
         }
       } else redirectToLogin(router);
     } else {
@@ -227,7 +238,11 @@ const Event = (props) => {
   const handleTeamRegisterClick = () => {
     if (isLoggedIn) {
       if (!teamData.is_registered && props.eventDetails.type == 'TEAM') {
-        if (teamData.id) {
+        if(!isCompleted){
+          toast.info("Please complete your profile first");
+          router.push('/profile');
+        }
+        else if (teamData.id) {
           resFetch([
             `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/`,
             {
@@ -283,9 +298,9 @@ const Event = (props) => {
     } else redirectToLogin(router);
   };
 
-  console.log(props);
-  console.log(teamData);
-  console.log(teamData?.members.length, props.eventDetails?.max_team_size);
+  // console.log(props);
+  // console.log(teamData);
+  // console.log(teamData?.members.length, props.eventDetails?.max_team_size);
 
   const styles = {
     newTeamModal: {
@@ -407,7 +422,7 @@ const Event = (props) => {
                 )}
               </List>
               {!(
-                teamData?.members.length >= props.eventDetails?.max_team_size
+                teamData?.members?.length >= props.eventDetails?.max_team_size
               ) && (
                 <Button
                   variant="contained"
@@ -432,7 +447,7 @@ const Event = (props) => {
                 }}
               />
               {!(
-                teamData?.members.length >= props.eventDetails?.max_team_size
+                teamData?.members?.length >= props.eventDetails?.max_team_size
               ) && (
                 <Button
                   variant="contained"

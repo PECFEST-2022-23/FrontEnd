@@ -1,6 +1,6 @@
 .background {
   background-image: url('/website designs/sponsors.jpg');
-  height: 100%;
+  min-height: 91vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
