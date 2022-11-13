@@ -60,27 +60,36 @@ const Event = (props) => {
     return res.json();
   };
 
-  const fetchTeamData = () => {
-    resFetch([
-      `${process.env.NEXT_PUBLIC_BACKEND_API}events/${props.eventDetails.id}/team`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Token ${cookieData.token}`,
+  const fetchTeamData = (ID) => {
+    if (ID) {
+      resFetch([
+        `${process.env.NEXT_PUBLIC_BACKEND_API}events/team/${ID}`,
+        {
+          method: 'GET',
         },
-      },
-    ])
-      .then((res) => {
-        console.log('team info' + res);
-        setTeamData({ ...teamData, ...res });
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        if (error.message == 401) {
-          logout(router, session);
-        }
-      });
+      ])
+        .then((res) => {
+          console.log('teamData res' + res);
+          setTeamData((prevState) => ({ ...prevState, ...res, id: ID }));
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } else if (teamData?.id) {
+      resFetch([
+        `${process.env.NEXT_PUBLIC_BACKEND_API}events/team/${teamData.id}`,
+        {
+          method: 'GET',
+        },
+      ])
+        .then((res) => {
+          console.log('teamData res' + res);
+          setTeamData((prevState) => ({ ...prevState, ...res }));
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
   };
 
   useEffect(() => {
@@ -96,7 +105,7 @@ const Event = (props) => {
   }, [session, props]);
 
   useEffect(() => {
-    if (props.teamId) {
+    if (props.teamId && !teamData?.is_registered) {
       resFetch([
         `${process.env.NEXT_PUBLIC_BACKEND_API}events/team/${props.teamId}`,
         {
@@ -104,8 +113,12 @@ const Event = (props) => {
         },
       ])
         .then((res) => {
-          console.log(res);
-          setTeamData({ ...teamData, res, id: props.teamId });
+          console.log('teamData res' + res);
+          setTeamData((prevState) => ({
+            ...prevState,
+            ...res,
+            id: props.teamId,
+          }));
         })
         .catch((error) => {
           console.log(error.message);
@@ -116,16 +129,35 @@ const Event = (props) => {
   useEffect(() => {
     if (isLoggedIn) {
       setLoading(true);
-      fetchTeamData();
+      resFetch([
+        `${process.env.NEXT_PUBLIC_BACKEND_API}events/${props.eventDetails.id}/team`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Token ${cookieData.token}`,
+          },
+        },
+      ])
+        .then((res) => {
+          console.log('team info' + res);
+          setTeamData({ ...teamData, ...res });
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error.message);
+          if (error.message == 401) {
+            logout(router, session);
+          }
+        });
     }
   }, [isLoggedIn, cookieData, props, router, session]);
 
   const handleRegisterClick = () => {
     if (props.eventDetails.type == 'INDIVIDUAL') {
       if (isLoggedIn) {
-        if (teamData && teamData.is_registered) {
+        if (teamData?.is_registered) {
           resFetch([
-            `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/ `,
+            `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/`,
             {
               method: 'DELETE',
               headers: {
@@ -134,7 +166,10 @@ const Event = (props) => {
             },
           ])
             .then((res) => {
-              setTeamData({ is_registered: false });
+              setTeamData((prevState) => ({
+                ...prevState,
+                is_registered: false,
+              }));
             })
             .catch((error) => {
               if (error.message == 401) {
@@ -143,7 +178,7 @@ const Event = (props) => {
             });
         } else {
           resFetch([
-            `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/ `,
+            `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
             {
               method: 'POST',
               headers: {
@@ -162,9 +197,10 @@ const Event = (props) => {
         }
       } else redirectToLogin(router);
     } else {
-      if (isLoggedIn && teamData && teamData.is_registered) {
+      fetchTeamData();
+      if (isLoggedIn && teamData?.is_registered) {
         resFetch([
-          `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/ `,
+          `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/`,
           {
             method: 'DELETE',
             headers: {
@@ -173,16 +209,19 @@ const Event = (props) => {
           },
         ])
           .then((res) => {
-            setTeamData({ is_registered: false });
+            setTeamData({ ...teamData, is_registered: false });
           })
           .catch((error) => {
             if (error.message == 401) {
               logout(router, session);
             }
           });
+        fetchTeamData();
+      } else if (!isLoggedIn && !teamData?.id) {
+        console.log(teamData);
+        redirectToLogin(router);
       } else setIsModalOpen(true);
     }
-    fetchTeamData();
   };
 
   const handleTeamRegisterClick = () => {
@@ -190,7 +229,7 @@ const Event = (props) => {
       if (!teamData.is_registered && props.eventDetails.type == 'TEAM') {
         if (teamData.id) {
           resFetch([
-            `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/ `,
+            `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/`,
             {
               method: 'POST',
               headers: {
@@ -199,7 +238,11 @@ const Event = (props) => {
             },
           ])
             .then((res) => {
-              setTeamData({ ...teamData, is_registered: true });
+              fetchTeamData();
+              setTeamData((prevState) => ({
+                ...prevState,
+                is_registered: true,
+              }));
             })
             .catch((error) => {
               if (error.message == 401) {
@@ -222,12 +265,13 @@ const Event = (props) => {
           ])
             .then((res) => {
               console.log(res);
-              setTeamData({
-                ...teamData,
+              fetchTeamData(res.id);
+              setTeamData((prevState) => ({
+                ...prevState,
                 is_registered: true,
                 id: res.id,
                 team_name: teamName,
-              });
+              }));
             })
             .catch((error) => {
               if (error.message == 401) {
@@ -237,11 +281,11 @@ const Event = (props) => {
         }
       }
     } else redirectToLogin(router);
-    fetchTeamData();
   };
 
   console.log(props);
   console.log(teamData);
+  console.log(teamData?.members.length, props.eventDetails?.max_team_size);
 
   const styles = {
     newTeamModal: {
@@ -295,7 +339,7 @@ const Event = (props) => {
         }}
       >
         <Fade in={isModalOpen}>
-          {teamData && teamData.is_registered ? (
+          {teamData?.is_registered ? (
             <Box sx={styles.teamDetailsModal}>
               <div className={classes.teamName}>{teamData.team_name}</div>
               <div>
@@ -308,7 +352,7 @@ const Event = (props) => {
                 </span>
               </div>
               <List>
-                {teamData && teamData.members ? (
+                {teamData?.members ? (
                   teamData.members.map((member) => {
                     return (
                       <ListItem
@@ -329,20 +373,20 @@ const Event = (props) => {
                 )}
               </List>
             </Box>
-          ) : teamData && teamData.id ? (
+          ) : teamData?.id ? (
             <Box sx={styles.teamDetailsModal}>
               <div className={classes.teamName}>{teamData.team_name}</div>
               <div>
                 Link to join team:{' '}
                 <span>
                   {process.env.NEXT_PUBLIC_URL +
-                    `eventList/${props.eventDetails.id}` +
+                    `eventList / ${props.eventDetails.id}` +
                     '/?tid=' +
                     teamData.id}
                 </span>
               </div>
               <List>
-                {teamData && teamData.members ? (
+                {teamData?.members ? (
                   teamData.members.map((member) => {
                     return (
                       <ListItem
@@ -362,13 +406,17 @@ const Event = (props) => {
                   <div></div>
                 )}
               </List>
-              <Button
-                variant="contained"
-                onClick={handleTeamRegisterClick}
-                size="small"
-              >
-                Register
-              </Button>
+              {!(
+                teamData?.members.length >= props.eventDetails?.max_team_size
+              ) && (
+                <Button
+                  variant="contained"
+                  onClick={handleTeamRegisterClick}
+                  size="small"
+                >
+                  Register
+                </Button>
+              )}
             </Box>
           ) : (
             <Box sx={styles.newTeamModal}>
@@ -383,13 +431,17 @@ const Event = (props) => {
                     setTeamName(evt.target.value);
                 }}
               />
-              <Button
-                variant="contained"
-                onClick={handleTeamRegisterClick}
-                size="small"
-              >
-                Register
-              </Button>
+              {!(
+                teamData?.members.length >= props.eventDetails?.max_team_size
+              ) && (
+                <Button
+                  variant="contained"
+                  onClick={handleTeamRegisterClick}
+                  size="small"
+                >
+                  Register
+                </Button>
+              )}
             </Box>
           )}
         </Fade>
@@ -499,7 +551,7 @@ const Event = (props) => {
                   onClick={handleRegisterClick}
                   size="small"
                 >
-                  {isLoggedIn && teamData && teamData.is_registered
+                  {isLoggedIn && teamData?.is_registered
                     ? 'Registered'
                     : 'Register'}
                 </Button>
@@ -507,8 +559,7 @@ const Event = (props) => {
               {!loading &&
                 isLoggedIn &&
                 props.eventDetails.type == 'TEAM' &&
-                teamData &&
-                teamData.is_registered && (
+                teamData?.is_registered && (
                   <PeopleAltIcon
                     sx={{
                       color: '#fff',
@@ -517,7 +568,10 @@ const Event = (props) => {
                       margin: '0 0 -0.3rem 0.5rem',
                       cursor: 'pointer',
                     }}
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => {
+                      fetchTeamData();
+                      setIsModalOpen(true);
+                    }}
                   />
                 )}
               <div className={classes.teamSize}>
