@@ -222,7 +222,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
     e.preventDefault();
     if (!dateError) {
       // make POST request
-      const formData = {
+      const formDataObj = {
         name: eventName,
         type: eventType.toUpperCase(),
         category: eventCategory.toUpperCase(),
@@ -238,8 +238,14 @@ const EditEvent = ({ eventInfo, user_token }) => {
         rulebook_url: rulesLink,
       };
 
+      const formData = new FormData();
+
+      Object.keys(formDataObj).forEach((key) => {
+        formData.append(key, formDataObj[key]);
+      })
+
       if (typeof eventPoster !== 'string') {
-        formData['image_url'] = eventPoster;
+        formData.append("image_url", eventPoster);
       }
 
       const res = await fetch(
@@ -247,10 +253,9 @@ const EditEvent = ({ eventInfo, user_token }) => {
         {
           method: `PATCH`,
           headers: {
-            Authorization: `Token ${user_token}`,
-            'Content-type': 'application/json',
+            Authorization: `Token ${user_token}`
           },
-          body: JSON.stringify(formData),
+          body: formData
         }
       );
       console.log(res);
@@ -264,9 +269,9 @@ const EditEvent = ({ eventInfo, user_token }) => {
         setEventCreationStatus(`SUCCESS: Event Updation Successful`);
       }
 
-      setTimeout(() => {
-        router.push('/adminPanel');
-      }, 2000);
+      // setTimeout(() => {
+      //   router.push('/adminPanel');
+      // }, 2000);
     }
   };
 
@@ -317,6 +322,12 @@ const EditEvent = ({ eventInfo, user_token }) => {
           component="form"
           sx={{
             '& .MuiTextField-root': { mt: 1 },
+            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            backdropFilter: "blur(25px)",
+            marginTop: "10px",
+            padding: "10px",
+            borderRadius: "5px",
+            marginBottom: "10px"
           }}
           autoComplete="off"
           onSubmit={handleEventSubmit}
