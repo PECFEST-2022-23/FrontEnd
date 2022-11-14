@@ -44,6 +44,7 @@ function Schedule(props) {
                   name={evt.name}
                   date={evt.startdatetime}
                   venue={evt.venue}
+                  type={evt.type}
                 />
               );
             })}
@@ -61,6 +62,7 @@ function Schedule(props) {
                   name={evt.name}
                   date={evt.startdatetime}
                   venue={evt.venue}
+                  type={evt.type}
                 />
               );
             })}
@@ -78,6 +80,7 @@ function Schedule(props) {
                   name={evt.name}
                   date={evt.startdatetime}
                   venue={evt.venue}
+                  type={evt.type}
                 />
               );
             })}
