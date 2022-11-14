@@ -105,7 +105,7 @@ const Event = (props) => {
       setIsLoggedIn(true);
     }
     console.log(data);
-    if(data && data.user_status!=3) {
+    if (data && data.user_status != 3) {
       setIsCompleted(false);
     }
   }, [session, props]);
@@ -183,27 +183,27 @@ const Event = (props) => {
               }
             });
         } else {
-          if(!isCompleted){
-            toast.info("Please complete your profile first");
+          if (!isCompleted) {
+            toast.info('Please complete your profile first');
             router.push('/profile');
-          }
-          else {resFetch([
-            `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
-            {
-              method: 'POST',
-              headers: {
-                Authorization: `Token ${cookieData.token}`,
+          } else {
+            resFetch([
+              `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
+              {
+                method: 'POST',
+                headers: {
+                  Authorization: `Token ${cookieData.token}`,
+                },
               },
-            },
-          ])
-            .then((res) => {
-              setTeamData({ ...teamData, is_registered: true, id: res.id });
-            })
-            .catch((error) => {
-              if (error.message == 401) {
-                logout(router, session);
-              }
-            });
+            ])
+              .then((res) => {
+                setTeamData({ ...teamData, is_registered: true, id: res.id });
+              })
+              .catch((error) => {
+                if (error.message == 401) {
+                  logout(router, session);
+                }
+              });
           }
         }
       } else redirectToLogin(router);
@@ -238,11 +238,10 @@ const Event = (props) => {
   const handleTeamRegisterClick = () => {
     if (isLoggedIn) {
       if (!teamData.is_registered && props.eventDetails.type == 'TEAM') {
-        if(!isCompleted){
-          toast.info("Please complete your profile first");
+        if (!isCompleted) {
+          toast.info('Please complete your profile first');
           router.push('/profile');
-        }
-        else if (teamData.id) {
+        } else if (teamData.id) {
           resFetch([
             `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/`,
             {
@@ -550,17 +549,19 @@ const Event = (props) => {
               }
             />
             <CardActions className={classes.cardActions}>
-            {
-              props.eventDetails.rulebook_url ? (<Button
-                variant="contained"
-                style={{ border: '1px solid white', marginRight: '10px' }}
-                size="small"
-                target="_blank"
-                href={props.eventDetails.rulebook_url}
-              >
-                Rulebook
-              </Button>
-              ) : <></>}
+              {props.eventDetails.rulebook_url ? (
+                <Button
+                  variant="contained"
+                  style={{ border: '1px solid white', marginRight: '10px' }}
+                  size="small"
+                  target="_blank"
+                  href={props.eventDetails.rulebook_url}
+                >
+                  Rulebook
+                </Button>
+              ) : (
+                <></>
+              )}
               {!loading && (
                 <Button
                   variant="contained"

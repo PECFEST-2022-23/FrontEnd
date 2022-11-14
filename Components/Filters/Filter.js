@@ -16,7 +16,7 @@ import classes from './Filters.module.css';
 
 const Filters = (props) => {
   const [active, setActive] = useState(false);
-  const [buttonType, setButtonType] = useState("text");
+  const [buttonType, setButtonType] = useState('text');
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -31,20 +31,20 @@ const Filters = (props) => {
   };
   return (
     <>
-      <Button 
+      <Button
         variant={buttonType}
-        style={{marginRight: 15, marginTop: 4, color: "white"}}
+        style={{ marginRight: 15, marginTop: 4, color: 'white' }}
         className={styles.activeTagStyle}
         startIcon={<EventIcon style={{ color: 'white' }} />}
         onClick={() => {
           if (!active) {
             props.onSelectFilters(props.filterValue);
             setActive(true);
-            setButtonType("contained");
+            setButtonType('contained');
           } else {
             props.onDeSelectFilters(props.filterValue);
             setActive(false);
-            setButtonType("text");
+            setButtonType('text');
           }
         }}
       >
