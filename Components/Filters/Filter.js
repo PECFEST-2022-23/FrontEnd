@@ -10,11 +10,13 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import EventIcon from '@mui/icons-material/Event';
+import Button from '@mui/material/Button';
 import styles from './Filters.module.css';
 import classes from './Filters.module.css';
 
 const Filters = (props) => {
   const [active, setActive] = useState(false);
+  const [buttonType, setButtonType] = useState("text");
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -29,24 +31,25 @@ const Filters = (props) => {
   };
   return (
     <>
-      <Chip
-        label={props.filterValue}
-        className={
-          active || props.eventType == props.filterValue
-            ? styles.activeTagStyle
-            : styles.inactiveTagStyle
-        }
-        icon={<EventIcon style={{ color: 'white' }} />}
+      <Button 
+        variant={buttonType}
+        style={{marginRight: 4, marginTop: 4, color: "white"}}
+        className={styles.activeTagStyle}
+        startIcon={<EventIcon style={{ color: 'white' }} />}
         onClick={() => {
           if (!active) {
             props.onSelectFilters(props.filterValue);
             setActive(true);
+            setButtonType("contained");
           } else {
             props.onDeSelectFilters(props.filterValue);
             setActive(false);
+            setButtonType("text");
           }
         }}
-      />
+      >
+        {props.filterValue}
+      </Button>
     </>
   );
 };
