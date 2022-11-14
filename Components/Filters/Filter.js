@@ -33,7 +33,7 @@ const Filters = (props) => {
     <>
       <Button 
         variant={buttonType}
-        style={{marginRight: 4, marginTop: 4, color: "white"}}
+        style={{marginRight: 15, marginTop: 4, color: "white"}}
         className={styles.activeTagStyle}
         startIcon={<EventIcon style={{ color: 'white' }} />}
         onClick={() => {
