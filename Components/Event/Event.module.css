@@ -43,6 +43,7 @@
   mask-image: linear-gradient(to bottom,
       black calc(100% - 48px),
       transparent 100%);
+  padding-bottom: 25px;
 }
 
 .chipsGridItem {

@@ -535,7 +535,8 @@ const Event = (props) => {
               }
             />
             <CardActions className={classes.cardActions}>
-              <Button
+            {
+              props.eventDetails.rulebook_url ? (<Button
                 variant="contained"
                 style={{ border: '1px solid white', marginRight: '10px' }}
                 size="small"
@@ -544,6 +545,7 @@ const Event = (props) => {
               >
                 Rulebook
               </Button>
+              ) : <></>}
               {!loading && (
                 <Button
                   variant="contained"
@@ -552,7 +554,7 @@ const Event = (props) => {
                   size="small"
                 >
                   {isLoggedIn && teamData?.is_registered
-                    ? 'Registered'
+                    ? 'Unregister'
                     : 'Register'}
                 </Button>
               )}
