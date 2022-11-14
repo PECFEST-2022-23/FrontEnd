@@ -52,7 +52,6 @@ export default function AdminPanel(props) {
         <CssBaseline />
         <Box
           sx={{
-            // maxWidth: '440px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -79,7 +78,6 @@ export default function AdminPanel(props) {
           <EventDialog
             open={eventDialogOpen}
             onClose={handleAddEventClose}
-            eventInfo={null}
             user_token={currentToken}
           />
         </Box>

@@ -1,50 +1,27 @@
 import { useEffect, useState } from 'react';
 import {
-  Container,
   Box,
-  CssBaseline,
-  Typography,
   Button,
   Dialog,
   DialogTitle,
-  DialogActions,
   DialogContent,
-  DialogContentText,
   TextField,
   Grid,
-  Input,
   FormHelperText,
-  Card,
-  CardContent,
-  CardActions,
-  CardMedia,
-  CardHeader,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   Alert,
   Snackbar,
-  Divider,
 } from '@mui/material';
 import { DropzoneArea } from 'mui-file-dropzone';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { DateTimePicker } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import Image from 'next/image';
-import { useSession } from 'next-auth/react';
-import { SignalCellularNullOutlined } from '@mui/icons-material';
-import getCookieData from '../../lib/auth/getCookieData';
-import getServerCookieData from '../../lib/auth/getServerCookieData';
-import { useRouter } from 'next/router';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
-const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
+const EventDialog = ({ onClose, open, user_token }) => {
   const defaultMapProps = {
     center: {
       lat: 30.76830387478322,
@@ -59,8 +36,8 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
   );
   const [eventEnd, setEventEnd] = useState(new Date(`2022-11-28T00:00:00Z`));
   const [eventVenue, setEventVenue] = useState();
-  const [minTeamSize, setMinTeamSize] = useState(1);
-  const [maxTeamSize, setMaxTeamSize] = useState(1);
+  const [minTeamSize, setMinTeamSize] = useState();
+  const [maxTeamSize, setMaxTeamSize] = useState();
   const [rulesLink, setRulesLink] = useState();
   const [eventPoster, setEventPoster] = useState();
   const [eventDescription, setEventDescription] = useState();
@@ -75,28 +52,7 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
 
   const [dateError, setDateError] = useState(false);
   const [eventCreationStatus, setEventCreationStatus] = useState();
-  const [delDialogOpen, setDelDialogOpen] = useState(false);
-
-  useEffect(() => {
-    if (eventInfo) {
-      setEventName(eventInfo.name);
-      setEventStart(eventInfo.startdatetime);
-      setEventEnd(eventInfo.enddatetime);
-      setEventVenue(eventInfo.venue);
-      setMinTeamSize(eventInfo.min_team_size);
-      setMaxTeamSize(eventInfo.max_team_size);
-      setEventPoster(eventInfo.image_url);
-      setEventDescription(eventInfo.description);
-      setEventType(eventInfo.type);
-      setEventCategory(eventInfo.category);
-      setEventCategorySubType(eventInfo.subcategory);
-      if (eventInfo.rulebook_url) {
-        setRulesLink(eventInfo.rulebook_url);
-      }
-      setPocName();
-      setPocNumber();
-    }
-  }, [eventInfo]);
+  const [teamSizeError, setTeamSizeError] = useState();
 
   const handleEventChange = (e, type) => {
     if ('$d' in e) {
@@ -131,9 +87,19 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
           setEventVenue(target_value);
           break;
         case 'minTeamSize':
+          if (maxTeamSize && maxTeamSize < target_value) {
+            setTeamSizeError(true);
+          } else {
+            setTeamSizeError(false);
+          }
           setMinTeamSize(target_value);
           break;
         case 'maxTeamSize':
+          if (minTeamSize && Number(minTeamSize) > Number(target_value)) {
+            setTeamSizeError(true);
+          } else {
+            setTeamSizeError(false);
+          }
           setMaxTeamSize(target_value);
           break;
         case 'rulesLink':
@@ -203,29 +169,9 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
     setRulesLink();
   };
 
-  const handleDelDialogOpen = () => {
-    setDelDialogOpen((prev) => !prev);
-  };
-
-  const handleEventDelete = async (e) => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API}club/${eventInfo.id}`,
-      {
-        method: `DELETE`,
-        headers: {
-          Authorization: `Token ${user_token}`,
-        },
-      }
-    );
-
-    const data = await res.json();
-
-    window.location.reload();
-  };
-
   const handleEventSubmit = async (e) => {
     e.preventDefault();
-    if (!dateError) {
+    if (!dateError && !teamSizeError && eventPoster) {
       // make POST request
       const formData = new FormData();
       formData.append(`name`, eventName);
@@ -261,7 +207,7 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
       }
 
       const data = await res.json();
-      console.log(data);
+
       if (data && data.event_id && data.message) {
         setEventCreationStatus(`SUCCESS: Event Creation Successful`);
       }
@@ -277,30 +223,7 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-        {eventInfo ? `Edit Event Details` : `Add a New Event`}
-        {eventInfo && (
-          <>
-            <Button onClick={handleDelDialogOpen}>
-              <DeleteOutlineIcon />
-            </Button>
-            <Dialog
-              open={delDialogOpen}
-              onClose={handleDelDialogOpen}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                Are you sure you want to delete this event?
-              </DialogTitle>
-              <DialogActions>
-                <Button onClick={handleDelDialogOpen} autoFocus>
-                  No
-                </Button>
-                <Button onClick={handleEventDelete}>Yes</Button>
-              </DialogActions>
-            </Dialog>
-          </>
-        )}
+        Add a New Event
       </DialogTitle>
       <DialogContent>
         <Box
@@ -322,6 +245,7 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
                 autoFocus
                 onChange={(e) => handleEventChange(e)}
                 value={eventName}
+                inputProps={{ maxLength: 50 }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -425,6 +349,7 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
                 label="Event Venue"
                 name="eventVenue"
                 value={eventVenue}
+                inputProps={{ maxLength: 25 }}
               />
             </Grid>
             {eventType == `TEAM` && (
@@ -453,6 +378,13 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
                 />
               </Grid>
             )}
+            {eventType == `TEAM` && teamSizeError && (
+              <Grid item>
+                <Alert severity="error">
+                  Min Team Size should be less than Max Team Size. 😐
+                </Alert>
+              </Grid>
+            )}
             <Grid item xs={12} sm={12}>
               <TextField
                 fullWidth
@@ -468,7 +400,7 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
                 dropzoneText={'Attach Event Poster'}
                 filesLimit={1}
                 Icon={UploadFileIcon}
-                maxFileSize={2097152}
+                maxFileSize={204800}
                 onChange={(e) => handleEventChange(e)}
                 name="eventPoster"
                 clearOnUnmount
@@ -514,27 +446,9 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
                 name="pocNumber"
               />
             </Grid>
-            {/* <Grid item style={{ width: '100%' }}>
-              <div style={{ height: '250px', width: '100%' }}>
-                <InputLabel id="google-map-label">Select Location</InputLabel>
-                <GoogleMapReact
-                  bootstrapURLKeys={{
-                    key: 'AIzaSyD5vRetEsh-ytb4Te898z89vWl6H_giTzI',
-                  }}
-                  defaultCenter={defaultMapProps.center}
-                  defaultZoom={defaultMapProps.zoom}
-                >
-                  <AnyReactComponent
-                    lat={59.955413}
-                    lng={30.337844}
-                    text="My Marker"
-                  />
-                </GoogleMapReact>
-              </div>
-            </Grid> */}
             <Grid item xs={12} sm={12}>
               <Button fullWidth variant="contained" type="submit">
-                {eventInfo ? `Edit Event` : `Add Event`}
+                Add Event
               </Button>
             </Grid>
           </Grid>

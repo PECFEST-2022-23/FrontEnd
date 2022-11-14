@@ -18,7 +18,9 @@ function ScheduleGrid(props) {
           </p>
         </div>
         <div className={styles.text}>
-          <h3>`{props.name.slice(0, 22)}-{props.type}`</h3>
+          <h3>
+            `{props.name.slice(0, 22)}-{props.type}`
+          </h3>
           <p>{props.venue}</p>
         </div>
         <div className={styles.button}>

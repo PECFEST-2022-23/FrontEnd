@@ -56,7 +56,7 @@ export default function Login() {
       const user = res.user,
         token = res.token,
         user_status = res.user_status;
-      const data = { user: user, token: token, user_status: user_status, };
+      const data = { user: user, token: token, user_status: user_status };
       cookies.set('session-token', JSON.stringify(data));
       const redirectPath = cookies.get('redirectPath') || '/';
       cookies.remove('redirectPath');

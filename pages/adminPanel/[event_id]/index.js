@@ -42,7 +42,6 @@ const EditEvent = ({ eventInfo, user_token }) => {
   };
 
   const router = useRouter();
-  console.log('Token', user_token);
   const [eventName, setEventName] = useState();
   const [eventStart, setEventStart] = useState(dayjs(`2022-11-25T00:00:00Z`));
   const [eventEnd, setEventEnd] = useState(dayjs(`2022-11-28T00:00:00Z`));
@@ -181,43 +180,6 @@ const EditEvent = ({ eventInfo, user_token }) => {
     setEventCreationStatus();
   };
 
-  const clearState = () => {
-    setEventName();
-    setEventStart();
-    setEventEnd();
-    setEventVenue();
-    setMinTeamSize();
-    setMaxTeamSize();
-    setEventPoster();
-    setEventDescription();
-    setEventType();
-    setEventCategory();
-    setEventCategorySubType();
-    setPocName();
-    setPocNumber();
-    setRulesLink();
-  };
-
-  const handleDelDialogOpen = () => {
-    setDelDialogOpen((prev) => !prev);
-  };
-
-  const handleEventDelete = async (e) => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API}club/${eventInfo.id}`,
-      {
-        method: `DELETE`,
-        headers: {
-          Authorization: `Token ${user_token}`,
-        },
-      }
-    );
-
-    const data = await res.json();
-
-    router.push(`/adminPanel`);
-  };
-
   const handleEventSubmit = async (e) => {
     e.preventDefault();
     if (!dateError) {
@@ -241,11 +203,13 @@ const EditEvent = ({ eventInfo, user_token }) => {
       const formData = new FormData();
 
       Object.keys(formDataObj).forEach((key) => {
-        formData.append(key, formDataObj[key]);
-      })
+        if (eventInfo[key] != formDataObj[key]) {
+          formData.append(key, formDataObj[key]);
+        }
+      });
 
       if (typeof eventPoster !== 'string') {
-        formData.append("image_url", eventPoster);
+        formData.append('image_url', eventPoster);
       }
 
       const res = await fetch(
@@ -253,25 +217,25 @@ const EditEvent = ({ eventInfo, user_token }) => {
         {
           method: `PATCH`,
           headers: {
-            Authorization: `Token ${user_token}`
+            Authorization: `Token ${user_token}`,
           },
-          body: formData
+          body: formData,
         }
       );
-      console.log(res);
+
       if (!res) {
         setEventCreationStatus(`FAILURE: Event Updation Failed.`);
       }
 
       const data = await res.json();
-      console.log(data);
+
       if (data && data.event_id && data.message) {
         setEventCreationStatus(`SUCCESS: Event Updation Successful`);
       }
 
-      // setTimeout(() => {
-      //   router.push('/adminPanel');
-      // }, 2000);
+      setTimeout(() => {
+        router.push('/adminPanel');
+      }, 2000);
     }
   };
 
@@ -297,37 +261,16 @@ const EditEvent = ({ eventInfo, user_token }) => {
             Edit Event Details
           </Typography>
         </Box>
-        <>
-          <Button onClick={handleDelDialogOpen}>
-            <DeleteOutlineIcon /> Delete Event
-          </Button>
-          <Dialog
-            open={delDialogOpen}
-            onClose={handleDelDialogOpen}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">
-              Are you sure you want to delete this event?
-            </DialogTitle>
-            <DialogActions>
-              <Button onClick={handleDelDialogOpen} autoFocus>
-                No
-              </Button>
-              <Button onClick={handleEventDelete}>Yes</Button>
-            </DialogActions>
-          </Dialog>
-        </>
         <Box
           component="form"
           sx={{
             '& .MuiTextField-root': { mt: 1 },
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
-            backdropFilter: "blur(25px)",
-            marginTop: "10px",
-            padding: "10px",
-            borderRadius: "5px",
-            marginBottom: "10px"
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            backdropFilter: 'blur(25px)',
+            marginTop: '10px',
+            padding: '10px',
+            borderRadius: '5px',
+            marginBottom: '10px',
           }}
           autoComplete="off"
           onSubmit={handleEventSubmit}
@@ -343,6 +286,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
                 autoFocus
                 onChange={(e) => handleEventChange(e)}
                 value={eventName}
+                inputProps={{ maxLength: 50 }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -385,7 +329,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
               </LocalizationProvider>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <FormControl fullWidth>
+              <FormControl disabled fullWidth>
                 <InputLabel id="demo-simple-select-label">Type</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
@@ -446,11 +390,13 @@ const EditEvent = ({ eventInfo, user_token }) => {
                 label="Event Venue"
                 name="eventVenue"
                 value={eventVenue}
+                inputProps={{ maxLength: 25 }}
               />
             </Grid>
             {eventType == `TEAM` && (
               <Grid item xs={6} sm={3}>
                 <TextField
+                  disabled
                   required
                   fullWidth
                   type={'number'}
@@ -464,6 +410,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
             {eventType == `TEAM` && (
               <Grid item xs={6} sm={3}>
                 <TextField
+                  disabled
                   required
                   fullWidth
                   type={'number'}
@@ -482,33 +429,6 @@ const EditEvent = ({ eventInfo, user_token }) => {
                 name="rulesLink"
                 value={rulesLink}
               />
-            </Grid>
-            <Grid item sm={6}>
-              <InputLabel id="google-map-label">Uploaded Image</InputLabel>
-              <Image
-                width={400}
-                height={400}
-                src={eventInfo.image_url}
-                alt="Poster"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <DropzoneArea
-                acceptedFiles={['image/*']}
-                dropzoneText={'Change Event Poster'}
-                filesLimit={1}
-                Icon={UploadFileIcon}
-                maxFileSize={2097152}
-                onChange={(e) => handleEventChange(e)}
-                name="eventPoster"
-                clearOnUnmount
-                key={dropzoneKey}
-              />
-              {imgDimError && (
-                <Alert severity="warning">
-                  Please Upload Posters In A 1:1 Aspect Ratio
-                </Alert>
-              )}
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
@@ -545,24 +465,33 @@ const EditEvent = ({ eventInfo, user_token }) => {
                 value={pocNumber}
               />
             </Grid>
-            {/* <Grid item style={{ width: '100%' }}>
-              <div style={{ height: '250px', width: '100%' }}>
-                <InputLabel id="google-map-label">Select Location</InputLabel>
-                <GoogleMapReact
-                  bootstrapURLKeys={{
-                    key: 'AIzaSyD5vRetEsh-ytb4Te898z89vWl6H_giTzI',
-                  }}
-                  defaultCenter={defaultMapProps.center}
-                  defaultZoom={defaultMapProps.zoom}
-                >
-                  <AnyReactComponent
-                    lat={59.955413}
-                    lng={30.337844}
-                    text="My Marker"
-                  />
-                </GoogleMapReact>
-              </div>
-            </Grid> */}
+            <Grid item sm={6}>
+              <InputLabel id="google-map-label">Uploaded Image</InputLabel>
+              <Image
+                width={400}
+                height={400}
+                src={eventInfo.image_url}
+                alt="Poster"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <DropzoneArea
+                acceptedFiles={['image/*']}
+                dropzoneText={'Change Event Poster'}
+                filesLimit={1}
+                Icon={UploadFileIcon}
+                maxFileSize={204800}
+                onChange={(e) => handleEventChange(e)}
+                name="eventPoster"
+                clearOnUnmount
+                key={dropzoneKey}
+              />
+              {imgDimError && (
+                <Alert severity="warning">
+                  Please Upload Posters In A 1:1 Aspect Ratio
+                </Alert>
+              )}
+            </Grid>
             <Grid item xs={12} sm={12}>
               <Button fullWidth variant="contained" type="submit">
                 Edit Event
