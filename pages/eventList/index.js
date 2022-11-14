@@ -27,12 +27,18 @@ const MegaShowEvent = (props) => {
       setEvents(props.evts);
       const filtersAvailable = [];
       const subFiltersAvailable = [];
+
+      filtersAvailable.push("TECHNICAL");
+      filtersAvailable.push("CULTURAL");
+      filtersAvailable.push("WORKSHOPS");
+      filtersAvailable.push("MEGASHOWS");
+      
       props.evts.forEach((evt) => {
         filtersAvailable.push(evt.category.toUpperCase());
         filtersAvailable.push(evt.type.toUpperCase());
-        filtersAvailable.push(evt.club_name.toUpperCase());
         subFiltersAvailable.push(evt.subcategory.toUpperCase());
       });
+
 
       setAllFilters([...new Set(filtersAvailable)]);
       setAllSubFilters([...new Set(subFiltersAvailable)]);
