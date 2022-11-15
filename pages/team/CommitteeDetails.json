@@ -82,6 +82,16 @@
             "Email": "puneetbansal.bt19cse@pec.edu.in"
         },
         {
+            "Name": "Aman Gupta",
+            "Type": "Head",
+            "Committee": "Website Development",
+            "Contact": 7568938710,
+            "Instagram": "https://www.instagram.com/amangupta._07/",
+            "Linkedin": "https://www.linkedin.com/in/amangupta0709",
+            "Photo": "/developers/Aman Gupta.jpg",
+            "Email": "amangupta.bt19ece@pec.edu.in"
+           },
+        {
             "Name": "Shubham Bansal",
             "Type": "Head",
             "Committee": "Website Development",
@@ -423,11 +433,22 @@
             "Contact": 9814430582
         },
         {
+            "Email": "garvitbanga.bt19ece@pec.edu.in",
+            "Type": "Head",
+            "Committee": "Security & Discipline",
+            "Name": "Garvit Banga",
+            "Photo": "/team/Garvit Banga.jpg",
+            "Instagram": "https://www.instagram.com/garvitbanga007/",
+            "Linkedin": "https://www.linkedin.com/in/garvit-banga-bbb43b199",
+            "Contact": 7015319263
+        },
+
+        {
             "Email": "kulvirsingh.bt19cse@pec.edu.in",
             "Type": "Head",
             "Committee": "Security & Discipline",
             "Name": "Kulvir singh",
-            "Photo": "/team/Kulvir singh.jpg",
+            "Photo": "/team/Kulvir Singh.jpg",
             "Instagram": "NA",
             "Linkedin": "NA",
             "Contact": 8427188971

@@ -30,8 +30,6 @@ import getServerCookieData from '../../../lib/auth/getServerCookieData';
 import { useRouter } from 'next/router';
 import styles from './adminevent.module.css';
 
-// const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
 const EditEvent = ({ eventInfo, user_token }) => {
   const defaultMapProps = {
     center: {
@@ -222,13 +220,11 @@ const EditEvent = ({ eventInfo, user_token }) => {
           body: formData,
         }
       );
-
       if (!res) {
         setEventCreationStatus(`FAILURE: Event Updation Failed.`);
       }
 
       const data = await res.json();
-
       if (data && data.event_id && data.message) {
         setEventCreationStatus(`SUCCESS: Event Updation Successful`);
       }
@@ -242,7 +238,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
   return (
     <div className={styles.background}>
       <Head>
-        <title>Admin Panel</title>
+        <title>Pecfest 2022|Admin Panel</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Container>

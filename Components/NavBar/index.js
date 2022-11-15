@@ -1,7 +1,6 @@
 import styles from './Navbar.module.css';
 import pecfest from '../../public/PECFEST_Logo_Small.png';
 import React, { useState, useEffect } from 'react';
-import Collapse from '@mui/material/Collapse';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -11,11 +10,9 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
-import Menu, { MenuProps } from '@mui/material/Menu';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -23,7 +20,6 @@ import Image from 'next/image';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import NavData from './links.json';
 import Link from 'next/link';
-import Cookies from 'universal-cookie';
 import logout from '../../lib/auth/logout';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
@@ -152,15 +148,6 @@ const Navbar = (props) => {
         )}
       </List>
       <Divider />
-      {/* <Button>Enter</Button> */}
-      <Divider />
-      {/* <ListItem>
-        <Link href={`/ambassador`}>
-          <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText primary={'Campus Ambassador'} />
-          </ListItemButton>
-        </Link>
-      </ListItem> */}
     </Box>
   );
 
