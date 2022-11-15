@@ -24,7 +24,11 @@ const EventCard = ({ id, image, event_name, event_id }) => {
       <CardContent>
         <CardHeader
           titleTypographyProps={{ fontSize: `1rem`, textAlign: `center` }}
-          title={event_name}
+          title={
+            event_name.length > 20
+              ? `${event_name.slice(0, 20)}...`
+              : event_name
+          }
         ></CardHeader>
         <CardMedia
           component="img"

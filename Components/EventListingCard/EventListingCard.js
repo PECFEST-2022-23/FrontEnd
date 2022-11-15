@@ -54,7 +54,9 @@ function EventListingCard(props) {
         <div className={styles.middle}>
           <p className={styles.eventElementHeading}>
             {props.eventDetails && props.eventDetails.name
-              ? props.eventDetails.name.toUpperCase()
+              ? props.eventDetails.name.length > 20
+                ? `${props.eventDetails.name.toUpperCase().slice(0, 22)}...`
+                : props.eventDetails.name.toUpperCase()
               : ''}
           </p>
           <p className={styles.eventElementSubHeading}>
