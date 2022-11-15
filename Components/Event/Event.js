@@ -17,6 +17,7 @@ import Fade from '@mui/material/Fade';
 import TextField from '@mui/material/TextField';
 import RoomIcon from '@mui/icons-material/Room';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
 import EventIcon from '@mui/icons-material/Event';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import PersonIcon from '@mui/icons-material/Person';
@@ -521,6 +522,11 @@ const Event = (props) => {
                     style={{ color: 'white', verticalAlign: '-5px' }}
                   />{' '}
                   {props.eventDetails?.venue}
+                  <br />
+                    <PermPhoneMsgIcon 
+                      style={{ color: 'white', verticalAlign: '-5px' }}
+                    />{' '}
+                    {props.eventDetails?.description.split("Point of Contact:")[1]}
                 </span>
               }
             />
