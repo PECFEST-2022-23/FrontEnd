@@ -467,7 +467,7 @@ const Event = (props) => {
                 </span>
               }
               subheader={
-                <span style={{ color: 'rgb(102, 255, 255)' }}>
+                <span style={{ color: '#FFF' }}>
                   <div>
                     <Chip
                       size="small"
