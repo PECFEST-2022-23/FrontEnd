@@ -48,29 +48,29 @@ export default function Home() {
       <section className={styles.parallax}>
         <div className={styles.parallaxBackground}>
           <picture>
-            <source srcSet="/landing/Sun and Clouds.png" />
+            <source srcSet="/landing/SunAndClouds.png" />
             <img
               className={styles.parallaxSunClouds}
               style={{ transform: `translateY(${offsetY * 0.6}px)` }}
-              src="/landing/Sun and Clouds.png"
+              src="/landing/SunAndClouds.png"
               alt="Sun and Clouds"
             />
           </picture>
           <picture>
-            <source srcSet="/landing/Building Layer 3.png" />
+            <source srcSet="/landing/BuildingLayer3.png" />
             <img
               className={styles.parallaxBuildings3}
               style={{ transform: `translateY(${offsetY * 0.5}px)` }}
-              src="/landing/Building Layer 3.png"
+              src="/landing/BuildingLayer3.png"
               alt="Building Layer 3"
             />
           </picture>
           <picture>
-            <source srcSet="/landing/Building Layer 2.png" />
+            <source srcSet="/landing/BuildingLayer2.png" />
             <img
               className={styles.parallaxBuildings2}
               style={{ transform: `translateY(${offsetY * 0.3}px)` }}
-              src="/landing/Building Layer 2.png"
+              src="/landing/BuildingLayer2.png"
               alt="Building Layer 2"
             />
           </picture>
@@ -84,11 +84,11 @@ export default function Home() {
           />
         </picture>
         <picture>
-          <source srcSet="/landing/plane with path.png" />
+          <source srcSet="/landing/planeWithPath.png" />
           <img
             className={styles.parallaxPlaneWithPath}
             style={{ transform: `translateY(${offsetY * 0.4}px)` }}
-            src="/landing/plane with path.png"
+            src="/landing/planeWithPath.png"
             alt="Plane with path"
           />
         </picture>
@@ -111,10 +111,10 @@ export default function Home() {
           />
         </picture>
         <picture>
-          <source srcSet="/landing/An indian odyssey.png" />
+          <source srcSet="/landing/AnIndianOdyssey.png" />
           <img
             className={styles.parallaxIndianOdyssey}
-            src="/landing/An indian odyssey.png"
+            src="/landing/AnIndianOdyssey.png"
             alt="An indian odyssey"
           />
         </picture>
