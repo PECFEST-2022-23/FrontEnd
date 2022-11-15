@@ -28,17 +28,16 @@ const MegaShowEvent = (props) => {
       const filtersAvailable = [];
       const subFiltersAvailable = [];
 
-      filtersAvailable.push("TECHNICAL");
-      filtersAvailable.push("CULTURAL");
-      filtersAvailable.push("WORKSHOPS");
-      filtersAvailable.push("MEGASHOWS");
+      filtersAvailable.push('TECHNICAL');
+      filtersAvailable.push('CULTURAL');
+      filtersAvailable.push('WORKSHOPS');
+      filtersAvailable.push('MEGASHOWS');
 
       props.evts.forEach((evt) => {
         filtersAvailable.push(evt.category.toUpperCase());
         filtersAvailable.push(evt.type.toUpperCase());
         subFiltersAvailable.push(evt.subcategory.toUpperCase());
       });
-
 
       setAllFilters([...new Set(filtersAvailable)]);
       setAllSubFilters([...new Set(subFiltersAvailable)]);
@@ -253,7 +252,9 @@ const MegaShowEvent = (props) => {
                 onChange={inputHandler}
               />
             </div>
-            <div style={{ textAlign: 'center', marginBottom: 40, paddingTop: 0 }}>
+            <div
+              style={{ textAlign: 'center', marginBottom: 40, paddingTop: 0 }}
+            >
               {allFilters.map((filter, id) => (
                 <Filters
                   key={filter}

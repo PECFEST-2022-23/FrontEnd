@@ -1,11 +1,39 @@
 import { useState, useEffect } from 'react';
+import Slider from 'react-slick';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
+import '../node_modules/slick-carousel/slick/slick.css';
+import '../node_modules/slick-carousel/slick/slick-theme.css';
 
 export default function Home() {
   const [offsetY, setOffsetY] = useState(0);
+  const [imgIndex, setImgIndex] = useState(0);
+
+  const carouselSettings = {
+    speed: 400,
+    slidesToShow: 3,
+    slidesToSwipe: 4,
+    centerMode: true,
+    centerPadding: '20px',
+    arrows: false,
+    focusOnSelect: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnFocues: false,
+    infinite: true,
+    beforeChange: (current, next) => setImgIndex(next),
+    responsive: [
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 1,
+          infinite: true,
+        },
+      },
+    ],
+  };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -151,15 +179,40 @@ export default function Home() {
         </div>
       </section>
       <section className={styles.festMegashows}>
-        <div className={styles.festThemeBlur}>
-          <div className={styles.festMegashowsHeader}>
+        <div className={styles.festMegashowsHeader}>
+          <span>
             {
               "Raising the bar of stellar events, PECFEST'22 brings you an array of roof raisers"
             }
-          </div>
+          </span>
+        </div>
+        <div className={styles.carousel}>
+          <Slider {...carouselSettings}>
+            {[
+              ['GuruRandhawa.jpg', 'Guru Randhawa'],
+              ['JavedAli.JPG', 'Javed Ali'],
+              ['SaraSantini.JPG', 'DJ Sara Santini'],
+              ['TheYellowDiaries.JPG', 'The Yellow Diary'],
+            ].map((img, idx) => (
+              <div
+                key={idx}
+                className={
+                  idx === imgIndex
+                    ? `${styles.slide} ${styles.activeSlide}`
+                    : `${styles.slide}`
+                }
+              >
+                <picture>
+                  <source srcSet={'/FestPics/' + img[0]} />
+                  <img src={'/FestPics/' + img[0]} alt={idx} />
+                </picture>
+                <div className={styles.starName}>{img[1]}</div>
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
-      {/* <section className={styles.about5}></section> */}
+      <section className={styles.about5}></section>
     </div>
   );
 }
