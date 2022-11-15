@@ -54,8 +54,9 @@ export default function Login() {
     } else {
       toast.success('Login successful.');
       const user = res.user,
-        token = res.token;
-      const data = { user: user, token: token };
+        token = res.token,
+        user_status = res.user_status;
+      const data = { user: user, token: token, user_status: user_status, };
       cookies.set('session-token', JSON.stringify(data));
       const redirectPath = cookies.get('redirectPath') || '/';
       cookies.remove('redirectPath');

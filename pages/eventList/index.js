@@ -27,12 +27,18 @@ const MegaShowEvent = (props) => {
       setEvents(props.evts);
       const filtersAvailable = [];
       const subFiltersAvailable = [];
+
+      filtersAvailable.push("TECHNICAL");
+      filtersAvailable.push("CULTURAL");
+      filtersAvailable.push("WORKSHOPS");
+      filtersAvailable.push("MEGASHOWS");
+
       props.evts.forEach((evt) => {
         filtersAvailable.push(evt.category.toUpperCase());
         filtersAvailable.push(evt.type.toUpperCase());
-        filtersAvailable.push(evt.club_name.toUpperCase());
         subFiltersAvailable.push(evt.subcategory.toUpperCase());
       });
+
 
       setAllFilters([...new Set(filtersAvailable)]);
       setAllSubFilters([...new Set(subFiltersAvailable)]);
@@ -233,7 +239,7 @@ const MegaShowEvent = (props) => {
           <Grid item xs={12} md={3}>
             <div className={styles.search}>
               <TextField
-                style={{ width: '90%' }}
+                style={{ width: '88%' }}
                 sx={{
                   input: { color: 'white' },
                 }}
@@ -247,7 +253,7 @@ const MegaShowEvent = (props) => {
                 onChange={inputHandler}
               />
             </div>
-            <div style={{ textAlign: 'center', marginBottom: 40 }}>
+            <div style={{ textAlign: 'center', marginBottom: 40, paddingTop: 0 }}>
               {allFilters.map((filter, id) => (
                 <Filters
                   key={filter}
