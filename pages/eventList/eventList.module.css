@@ -103,4 +103,8 @@
   .background {
     background-image: url('/mobile designs/event desc mobile.jpg');
   }
+
+  .mainHeading {
+    font-size: 32px;
+  }
 }

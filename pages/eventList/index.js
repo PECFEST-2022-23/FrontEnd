@@ -237,7 +237,11 @@ const MegaShowEvent = (props) => {
           <h2 className={styles.mainHeading}>{heading}</h2>
         </Grid>
       </Grid>
-      <Container fluid className={styles.main_container} maxWidth={false}>
+      <Container
+        fluid="true"
+        className={styles.main_container}
+        maxWidth={false}
+      >
         <Grid container>
           <Grid item xs={12} md={3}>
             <div className={styles.search}>
