@@ -1,48 +1,27 @@
 import { useEffect, useState } from 'react';
 import {
-  Container,
   Box,
-  CssBaseline,
-  Typography,
   Button,
   Dialog,
   DialogTitle,
   DialogActions,
   DialogContent,
-  DialogContentText,
   TextField,
   Grid,
-  Input,
   FormHelperText,
-  Card,
-  CardContent,
-  CardActions,
-  CardMedia,
-  CardHeader,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   Alert,
   Snackbar,
-  Divider,
 } from '@mui/material';
 import { DropzoneArea } from 'mui-file-dropzone';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { DateTimePicker } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import Image from 'next/image';
-import { useSession } from 'next-auth/react';
-import { SignalCellularNullOutlined } from '@mui/icons-material';
-import getCookieData from '../../lib/auth/getCookieData';
-import getServerCookieData from '../../lib/auth/getServerCookieData';
-import { useRouter } from 'next/router';
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
   const defaultMapProps = {
@@ -261,7 +240,6 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
       }
 
       const data = await res.json();
-      console.log(data);
       if (data && data.event_id && data.message) {
         setEventCreationStatus(`SUCCESS: Event Creation Successful`);
       }
@@ -514,24 +492,6 @@ const EventDialog = ({ onClose, open, eventInfo, user_token }) => {
                 name="pocNumber"
               />
             </Grid>
-            {/* <Grid item style={{ width: '100%' }}>
-              <div style={{ height: '250px', width: '100%' }}>
-                <InputLabel id="google-map-label">Select Location</InputLabel>
-                <GoogleMapReact
-                  bootstrapURLKeys={{
-                    key: 'AIzaSyD5vRetEsh-ytb4Te898z89vWl6H_giTzI',
-                  }}
-                  defaultCenter={defaultMapProps.center}
-                  defaultZoom={defaultMapProps.zoom}
-                >
-                  <AnyReactComponent
-                    lat={59.955413}
-                    lng={30.337844}
-                    text="My Marker"
-                  />
-                </GoogleMapReact>
-              </div>
-            </Grid> */}
             <Grid item xs={12} sm={12}>
               <Button fullWidth variant="contained" type="submit">
                 {eventInfo ? `Edit Event` : `Add Event`}

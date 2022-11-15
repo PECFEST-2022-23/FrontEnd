@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
-import NextLink from 'next/link';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,6 +11,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import validator from 'validator';
 import styles from './ResetPassword.module.css';
+import Head from 'next/head';
 
 export default function ResetPassword() {
   const router = useRouter();
@@ -51,6 +50,10 @@ export default function ResetPassword() {
 
   return (
     <div className={styles.main}>
+      <Head>
+        <title>Pecfest 2022|Reset Password</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Container component="main" maxWidth="xs" className={styles.main__frame}>
         <CssBaseline />
         <Box

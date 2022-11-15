@@ -18,7 +18,6 @@ import validator from 'validator';
 export default function Profile() {
   const router = useRouter();
   const { data: session, status } = useSession();
-  // console.log(session.token)
   const cookies = new Cookies();
   let sessdata = '';
   if (session) {
@@ -79,7 +78,6 @@ export default function Profile() {
       return;
     }
     if (update) {
-      console.log(sessdata.token);
       const res = await fetch(
         process.env.NEXT_PUBLIC_BACKEND_API + 'auth/profile/',
         {
@@ -123,7 +121,7 @@ export default function Profile() {
   return (
     <div className={styles.main}>
       <Head>
-        <title>Profile</title>
+        <title>Pecfest 2022|Profile</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
@@ -192,13 +190,6 @@ export default function Profile() {
 
 export async function getServerSideProps(context) {
   const { data } = getServerCookieData(context);
-  // const res = await fetch(
-  //   process.env.NEXT_PUBLIC_BACKEND_API + '/profile',
-  //   {
-  //     method: 'GET',
-  //   }
-  // ).then((res) => res.json());
-  //   console.log(res);
   if (data == null) {
     return {
       redirect: {

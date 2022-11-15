@@ -11,7 +11,7 @@ function Developers() {
   return (
     <div className={styles.background}>
       <Head>
-        <title>Developers</title>
+        <title>Pecfest 2022|Developers</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Container fluid className={styles.main_container}>

@@ -45,6 +45,10 @@ export default function Home() {
 
   return (
     <div className={styles.landing}>
+      <Head>
+        <title>Pecfest 2022|Home</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <section className={styles.parallax}>
         <div className={styles.parallaxBackground}>
           <picture>
