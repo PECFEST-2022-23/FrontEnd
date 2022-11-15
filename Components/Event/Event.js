@@ -467,7 +467,7 @@ const Event = (props) => {
                 </span>
               }
               subheader={
-                <span style={{ color: 'rgb(102, 255, 255)' }}>
+                <span style={{ color: '#FFF' }}>
                   <div>
                     <Chip
                       size="small"
@@ -528,7 +528,7 @@ const Event = (props) => {
               {props.eventDetails.rulebook_url ? (
                 <Button
                   variant="contained"
-                  style={{ border: '1px solid white', marginRight: '10px' }}
+                  style={{ border: '1px solid white', margin: '5px' }}
                   size="small"
                   target="_blank"
                   href={props.eventDetails.rulebook_url}
@@ -541,7 +541,7 @@ const Event = (props) => {
               {!loading && (
                 <Button
                   variant="contained"
-                  style={{ border: '1px solid white' }}
+                  style={{ border: '1px solid white', margin: '5px' }}
                   onClick={handleRegisterClick}
                   size="small"
                 >
