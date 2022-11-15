@@ -187,7 +187,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
         type: eventType.toUpperCase(),
         category: eventCategory.toUpperCase(),
         subcategory: eventCategorySubType.toUpperCase(),
-        description: `${eventDescription}\n\nPoint of Contact:\n${pocName}:${pocNumber}`,
+        description: `${eventDescription.trim()}\n\nPoint of Contact:\n${pocName.trim()}:${pocNumber}`,
         startdatetime: eventStart.toISOString(),
         enddatetime: eventEnd.toISOString(),
         venue: eventVenue,
