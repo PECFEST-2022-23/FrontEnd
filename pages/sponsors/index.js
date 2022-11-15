@@ -18,7 +18,7 @@ function Sponsor() {
   return (
     <div className={styles.background}>
       <Head>
-        <title>Sponsors</title>
+        <title>Pecfest 2022|Sponsors</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Container className={styles.main_container}>

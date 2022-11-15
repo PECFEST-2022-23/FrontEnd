@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import CallIcon from '@mui/icons-material/Call';
 import styles from './TeamMemberCard.module.css';
 import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
-import puneet from './puneet.jpeg';
 
 function TeamMemberCard(props) {
   return (
@@ -17,7 +15,7 @@ function TeamMemberCard(props) {
           <img
             src={props.image}
             className={styles.card__image}
-            alt="Display Picture"
+            alt={props.name}
           />
         </picture>
         <div className={styles.card__overlay}>

@@ -1,5 +1,4 @@
 import NextLink from 'next/link';
-import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
@@ -56,7 +55,7 @@ export default function Login() {
       const user = res.user,
         token = res.token,
         user_status = res.user_status;
-      const data = { user: user, token: token, user_status: user_status, };
+      const data = { user: user, token: token, user_status: user_status };
       cookies.set('session-token', JSON.stringify(data));
       const redirectPath = cookies.get('redirectPath') || '/';
       cookies.remove('redirectPath');
@@ -75,7 +74,7 @@ export default function Login() {
     return (
       <div className={styles.main}>
         <Head>
-          <title>Login</title>
+          <title>Pecfest 2022|Login</title>
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"

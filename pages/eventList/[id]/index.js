@@ -1,6 +1,7 @@
 import Event from '../../../Components/Event/Event';
 import { useRouter } from 'next/router';
 import classes from './event.module.css';
+import Head from 'next/head';
 
 const EventDetails = (props) => {
   const router = useRouter();
@@ -11,6 +12,10 @@ const EventDetails = (props) => {
 
   return (
     <section style={{ minHeight: '91vh' }} className={classes.background}>
+      <Head>
+        <title>Pecfest 2022|Event</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div suppressHydrationWarning>
         <Event eventDetails={props.eventDetails} teamId={tid} />
       </div>

@@ -16,7 +16,7 @@ function ContactUs() {
   return (
     <div className={styles.background}>
       <Head>
-        <title>Contact Us</title>
+        <title>Pecfest 2022|Contact Us</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       {/* <section className={styles.contact}> */}
@@ -32,7 +32,7 @@ function ContactUs() {
               </div>
               <div className={styles.text}>
                 <h3>Call us directly at:</h3>
-                <p>+91 81465 39939</p>
+                <p>+91 98769 78123</p>
               </div>
             </Grid>
             <Grid container item className={styles.box}>

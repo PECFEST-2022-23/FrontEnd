@@ -28,17 +28,16 @@ const MegaShowEvent = (props) => {
       const filtersAvailable = [];
       const subFiltersAvailable = [];
 
-      filtersAvailable.push("TECHNICAL");
-      filtersAvailable.push("CULTURAL");
-      filtersAvailable.push("WORKSHOPS");
-      filtersAvailable.push("MEGASHOWS");
+      filtersAvailable.push('TECHNICAL');
+      filtersAvailable.push('CULTURAL');
+      filtersAvailable.push('WORKSHOPS');
+      filtersAvailable.push('MEGASHOWS');
 
       props.evts.forEach((evt) => {
         filtersAvailable.push(evt.category.toUpperCase());
         filtersAvailable.push(evt.type.toUpperCase());
         subFiltersAvailable.push(evt.subcategory.toUpperCase());
       });
-
 
       setAllFilters([...new Set(filtersAvailable)]);
       setAllSubFilters([...new Set(subFiltersAvailable)]);
@@ -165,10 +164,14 @@ const MegaShowEvent = (props) => {
         </Head>
         <Grid container>
           <Grid item xs={12} mt={4} mb={2} justifyContent="center">
-            <h2 className={styles.mainHeading}>EVENTS</h2>
+            <h2 className={styles.mainHeading}>Events</h2>
           </Grid>
         </Grid>
-        <Container fluid className={styles.main_container} maxWidth={false}>
+        <Container
+          fluid="true"
+          className={styles.main_container}
+          maxWidth={false}
+        >
           <Grid container>
             <Grid item xs={12} md={3}>
               <div className={styles.search}>
@@ -226,7 +229,7 @@ const MegaShowEvent = (props) => {
   return (
     <div className={styles.background}>
       <Head>
-        <title>Events</title>
+        <title>Pecfest 2022|List</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Grid container>
@@ -253,7 +256,9 @@ const MegaShowEvent = (props) => {
                 onChange={inputHandler}
               />
             </div>
-            <div style={{ textAlign: 'center', marginBottom: 40, paddingTop: 0 }}>
+            <div
+              style={{ textAlign: 'center', marginBottom: 40, paddingTop: 0 }}
+            >
               {allFilters.map((filter, id) => (
                 <Filters
                   key={filter}

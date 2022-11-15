@@ -21,14 +21,12 @@ import EventIcon from '@mui/icons-material/Event';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import PersonIcon from '@mui/icons-material/Person';
 import { useRouter } from 'next/router';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Cookies from 'universal-cookie';
-import getServerCookieData from '../../lib/auth/getServerCookieData';
 import getCookieData from '../../lib/auth/getCookieData';
 import redirectToLogin from '../../lib/auth/redirectToLogin';
 import logout from '../../lib/auth/logout';
 import { useState, useEffect } from 'react';
-import useSWR from 'swr';
 import classes from './Event.module.css';
 import { toast } from 'react-toastify';
 
@@ -44,17 +42,7 @@ const Event = (props) => {
   const { data: session } = useSession();
   const cookies = new Cookies();
 
-  // const fetcher = (url) => fetch(url, {
-  //   method: "GET",
-  //   headers: {
-  //     'Authorization': `Token ${cookieData.token}`
-  //   }
-  // }).then((res) => res.json());
-
-  // const { teamData, teamError } = useSWR(isLoggedIn ? `${process.env.NEXT_PUBLIC_BACKEND_API}events/${props.eventDetails.id}/team/` : null, fetcher, { refreshInterval: 5000 });
-
   const resFetch = async (req) => {
-    console.log(...req);
     const res = await fetch(...req);
     if (!(res.ok || res.created)) {
       throw new Error(res.status);
@@ -71,7 +59,6 @@ const Event = (props) => {
         },
       ])
         .then((res) => {
-          console.log('teamData res' + res);
           setTeamData((prevState) => ({ ...prevState, ...res, id: ID }));
         })
         .catch((error) => {
@@ -85,7 +72,6 @@ const Event = (props) => {
         },
       ])
         .then((res) => {
-          console.log('teamData res' + res);
           setTeamData((prevState) => ({ ...prevState, ...res }));
         })
         .catch((error) => {
@@ -100,12 +86,10 @@ const Event = (props) => {
       setIsLoggedIn(false);
       setLoading(false);
     } else {
-      console.log(data);
       setCookieData(data);
       setIsLoggedIn(true);
     }
-    console.log(data);
-    if(data && data.user_status!=3) {
+    if (data && data.user_status != 3) {
       setIsCompleted(false);
     }
   }, [session, props]);
@@ -119,7 +103,6 @@ const Event = (props) => {
         },
       ])
         .then((res) => {
-          console.log('teamData res' + res);
           setTeamData((prevState) => ({
             ...prevState,
             ...res,
@@ -145,12 +128,10 @@ const Event = (props) => {
         },
       ])
         .then((res) => {
-          console.log('team info' + res);
           setTeamData({ ...teamData, ...res });
           setLoading(false);
         })
         .catch((error) => {
-          console.log(error.message);
           if (error.message == 401) {
             logout(router, session);
           }
@@ -183,27 +164,27 @@ const Event = (props) => {
               }
             });
         } else {
-          if(!isCompleted){
-            toast.info("Please complete your profile first");
+          if (!isCompleted) {
+            toast.info('Please complete your profile first');
             router.push('/profile');
-          }
-          else {resFetch([
-            `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
-            {
-              method: 'POST',
-              headers: {
-                Authorization: `Token ${cookieData.token}`,
+          } else {
+            resFetch([
+              `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
+              {
+                method: 'POST',
+                headers: {
+                  Authorization: `Token ${cookieData.token}`,
+                },
               },
-            },
-          ])
-            .then((res) => {
-              setTeamData({ ...teamData, is_registered: true, id: res.id });
-            })
-            .catch((error) => {
-              if (error.message == 401) {
-                logout(router, session);
-              }
-            });
+            ])
+              .then((res) => {
+                setTeamData({ ...teamData, is_registered: true, id: res.id });
+              })
+              .catch((error) => {
+                if (error.message == 401) {
+                  logout(router, session);
+                }
+              });
           }
         }
       } else redirectToLogin(router);
@@ -229,7 +210,6 @@ const Event = (props) => {
           });
         fetchTeamData();
       } else if (!isLoggedIn && !teamData?.id) {
-        console.log(teamData);
         redirectToLogin(router);
       } else setIsModalOpen(true);
     }
@@ -238,11 +218,10 @@ const Event = (props) => {
   const handleTeamRegisterClick = () => {
     if (isLoggedIn) {
       if (!teamData.is_registered && props.eventDetails.type == 'TEAM') {
-        if(!isCompleted){
-          toast.info("Please complete your profile first");
+        if (!isCompleted) {
+          toast.info('Please complete your profile first');
           router.push('/profile');
-        }
-        else if (teamData.id) {
+        } else if (teamData.id) {
           resFetch([
             `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/`,
             {
@@ -297,10 +276,6 @@ const Event = (props) => {
       }
     } else redirectToLogin(router);
   };
-
-  // console.log(props);
-  // console.log(teamData);
-  // console.log(teamData?.members.length, props.eventDetails?.max_team_size);
 
   const styles = {
     newTeamModal: {
@@ -550,17 +525,19 @@ const Event = (props) => {
               }
             />
             <CardActions className={classes.cardActions}>
-            {
-              props.eventDetails.rulebook_url ? (<Button
-                variant="contained"
-                style={{ border: '1px solid white', marginRight: '10px' }}
-                size="small"
-                target="_blank"
-                href={props.eventDetails.rulebook_url}
-              >
-                Rulebook
-              </Button>
-              ) : <></>}
+              {props.eventDetails.rulebook_url ? (
+                <Button
+                  variant="contained"
+                  style={{ border: '1px solid white', marginRight: '10px' }}
+                  size="small"
+                  target="_blank"
+                  href={props.eventDetails.rulebook_url}
+                >
+                  Rulebook
+                </Button>
+              ) : (
+                <></>
+              )}
               {!loading && (
                 <Button
                   variant="contained"
