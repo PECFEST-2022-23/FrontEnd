@@ -5,11 +5,12 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  /* overflow-y: auto;  */
 }
 
 .main_container {
   padding-top: 0.5em;
-  overflow-x: hidden; 
+  overflow-x: hidden;
   width: 100%;
 }
 
@@ -54,6 +55,13 @@
   margin-top: 0px;
   margin-bottom: 30px;
   width: 100% !important;
+}
+
+.filtersContainer {
+  background-color: rgba(236, 236, 236, 0.3);
+  margin-right: 20px;
+  margin-left: 20px;
+  border-radius: 10px;
 }
 
 .center {
@@ -102,5 +110,12 @@
 
   .background {
     background-image: url('/mobile designs/event desc mobile.jpg');
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .eventCards {
+    height: 100vh;
+    margin-top: 50px;
   }
 }
