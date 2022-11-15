@@ -169,23 +169,23 @@ const Event = (props) => {
           //   toast.info('Please complete your profile first');
           //   router.push('/profile');
           // } else {
-            resFetch([
-              `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
-              {
-                method: 'POST',
-                headers: {
-                  Authorization: `Token ${cookieData.token}`,
-                },
+          resFetch([
+            `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
+            {
+              method: 'POST',
+              headers: {
+                Authorization: `Token ${cookieData.token}`,
               },
-            ])
-              .then((res) => {
-                setTeamData({ ...teamData, is_registered: true, id: res.id });
-              })
-              .catch((error) => {
-                if (error.message == 401) {
-                  logout(router, session);
-                }
-              });
+            },
+          ])
+            .then((res) => {
+              setTeamData({ ...teamData, is_registered: true, id: res.id });
+            })
+            .catch((error) => {
+              if (error.message == 401) {
+                logout(router, session);
+              }
+            });
           // }
         }
       } else redirectToLogin(router);
@@ -535,49 +535,57 @@ const Event = (props) => {
               }
             />
             <CardActions className={classes.cardActions}>
-              {props.eventDetails.rulebook_url ? (
-                <Button
-                  variant="contained"
-                  style={{ border: '1px solid white', margin: '5px' }}
-                  size="small"
-                  target="_blank"
-                  href={props.eventDetails.rulebook_url}
-                >
-                  Rulebook
-                </Button>
-              ) : (
-                <></>
-              )}
-              {!loading && (
-                <Button
-                  variant="contained"
-                  style={{ border: '1px solid white', margin: '5px' }}
-                  onClick={handleRegisterClick}
-                  size="small"
-                >
-                  {isLoggedIn && teamData?.is_registered
-                    ? 'Unregister'
-                    : 'Register'}
-                </Button>
-              )}
-              {!loading &&
-                isLoggedIn &&
-                props.eventDetails.type == 'TEAM' &&
-                teamData?.is_registered && (
-                  <PeopleAltIcon
-                    sx={{
-                      color: '#fff',
-                      fontSize: '2.4rem',
-                      padding: 0,
-                      margin: '0 0 -0.3rem 0.5rem',
-                      cursor: 'pointer',
-                    }}
-                    onClick={() => {
-                      fetchTeamData();
-                      setIsModalOpen(true);
-                    }}
-                  />
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                }}
+              >
+                {props.eventDetails.rulebook_url ? (
+                  <Button
+                    variant="contained"
+                    style={{ border: '1px solid white', margin: '5px' }}
+                    size="small"
+                    target="_blank"
+                    href={props.eventDetails.rulebook_url}
+                  >
+                    Rulebook
+                  </Button>
+                ) : (
+                  <></>
                 )}
+                {!loading && (
+                  <Button
+                    variant="contained"
+                    style={{ border: '1px solid white', margin: '5px' }}
+                    onClick={handleRegisterClick}
+                    size="small"
+                  >
+                    {isLoggedIn && teamData?.is_registered
+                      ? 'Unregister'
+                      : 'Register'}
+                  </Button>
+                )}
+                {!loading &&
+                  isLoggedIn &&
+                  props.eventDetails.type == 'TEAM' &&
+                  teamData?.is_registered && (
+                    <PeopleAltIcon
+                      sx={{
+                        color: '#fff',
+                        fontSize: '2.4rem',
+                        padding: 0,
+                        margin: '5px',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => {
+                        fetchTeamData();
+                        setIsModalOpen(true);
+                      }}
+                    />
+                  )}
+              </div>
               <div className={classes.teamSize}>
                 <Chip
                   label={
