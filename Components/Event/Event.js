@@ -129,7 +129,7 @@ const Event = (props) => {
         },
       ])
         .then((res) => {
-          setTeamData({ ...teamData, ...res });
+          setTeamData((prevState) => ({ ...prevState, ...res }));
           setLoading(false);
         })
         .catch((error) => {
@@ -523,10 +523,14 @@ const Event = (props) => {
                   />{' '}
                   {props.eventDetails?.venue}
                   <br />
-                    <PermPhoneMsgIcon 
-                      style={{ color: 'white', verticalAlign: '-5px' }}
-                    />{' '}
-                    {props.eventDetails?.description.split("Point of Contact:")[1]}
+                  <PermPhoneMsgIcon
+                    style={{ color: 'white', verticalAlign: '-5px' }}
+                  />{' '}
+                  {
+                    props.eventDetails?.description.split(
+                      'Point of Contact:'
+                    )[1]
+                  }
                 </span>
               }
             />
