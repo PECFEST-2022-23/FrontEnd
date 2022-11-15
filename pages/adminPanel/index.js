@@ -76,7 +76,6 @@ export default function AdminPanel(props) {
           <EventDialog
             open={eventDialogOpen}
             onClose={handleAddEventClose}
-            eventInfo={null}
             user_token={currentToken}
           />
         </Box>

@@ -91,10 +91,6 @@
     margin: 0;
 }
 
-.text p:hover {
-  transform: scale(1.1);
-}
-
 .socialInfo {
     display: flex;
     flex-direction: column;
