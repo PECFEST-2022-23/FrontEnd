@@ -30,8 +30,6 @@ import getServerCookieData from '../../../lib/auth/getServerCookieData';
 import { useRouter } from 'next/router';
 import styles from './adminevent.module.css';
 
-// const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
 const EditEvent = ({ eventInfo, user_token }) => {
   const defaultMapProps = {
     center: {
@@ -42,7 +40,6 @@ const EditEvent = ({ eventInfo, user_token }) => {
   };
 
   const router = useRouter();
-  console.log('Token', user_token);
   const [eventName, setEventName] = useState();
   const [eventStart, setEventStart] = useState(dayjs(`2022-11-25T00:00:00Z`));
   const [eventEnd, setEventEnd] = useState(dayjs(`2022-11-28T00:00:00Z`));
@@ -253,13 +250,11 @@ const EditEvent = ({ eventInfo, user_token }) => {
           body: JSON.stringify(formData),
         }
       );
-      console.log(res);
       if (!res) {
         setEventCreationStatus(`FAILURE: Event Updation Failed.`);
       }
 
       const data = await res.json();
-      console.log(data);
       if (data && data.event_id && data.message) {
         setEventCreationStatus(`SUCCESS: Event Updation Successful`);
       }
@@ -273,7 +268,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
   return (
     <div className={styles.background}>
       <Head>
-        <title>Admin Panel</title>
+        <title>Pecfest 2022|Admin Panel</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Container>
@@ -534,24 +529,6 @@ const EditEvent = ({ eventInfo, user_token }) => {
                 value={pocNumber}
               />
             </Grid>
-            {/* <Grid item style={{ width: '100%' }}>
-              <div style={{ height: '250px', width: '100%' }}>
-                <InputLabel id="google-map-label">Select Location</InputLabel>
-                <GoogleMapReact
-                  bootstrapURLKeys={{
-                    key: 'AIzaSyD5vRetEsh-ytb4Te898z89vWl6H_giTzI',
-                  }}
-                  defaultCenter={defaultMapProps.center}
-                  defaultZoom={defaultMapProps.zoom}
-                >
-                  <AnyReactComponent
-                    lat={59.955413}
-                    lng={30.337844}
-                    text="My Marker"
-                  />
-                </GoogleMapReact>
-              </div>
-            </Grid> */}
             <Grid item xs={12} sm={12}>
               <Button fullWidth variant="contained" type="submit">
                 Edit Event

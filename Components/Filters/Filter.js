@@ -1,18 +1,7 @@
-import {
-  Checkbox,
-  FormControl,
-  InputLabel,
-  ListItemText,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  Chip,
-} from '@mui/material';
 import { useState } from 'react';
 import EventIcon from '@mui/icons-material/Event';
 import Button from '@mui/material/Button';
 import styles from './Filters.module.css';
-import classes from './Filters.module.css';
 
 const Filters = (props) => {
   const [active, setActive] = useState(false);

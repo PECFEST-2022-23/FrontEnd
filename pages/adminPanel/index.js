@@ -23,8 +23,6 @@ export default function AdminPanel(props) {
   const { data: session } = useSession();
   useEffect(() => {
     const { data } = getCookieData(session);
-    // const user = JSON.parse(decrypt(cookies.get('user')));
-    // setUser(() => user);
     if (data) {
       setCurrentUser(() => data.user);
       setCurrentToken(() => data.token);
@@ -45,14 +43,13 @@ export default function AdminPanel(props) {
   return (
     <div className={styles.background}>
       <Head>
-        <title>Admin Panel</title>
+        <title>Pecfest 2022|Edit Event</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Container component={`main`}>
         <CssBaseline />
         <Box
           sx={{
-            // maxWidth: '440px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
