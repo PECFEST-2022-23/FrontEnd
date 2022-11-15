@@ -38,7 +38,7 @@ const Event = (props) => {
   const [teamData, setTeamData] = useState(null);
   const [teamName, setTeamName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(true);
+  // const [isCompleted, setIsCompleted] = useState(true);
   const router = useRouter();
   const { data: session } = useSession();
   const cookies = new Cookies();
@@ -90,9 +90,9 @@ const Event = (props) => {
       setCookieData(data);
       setIsLoggedIn(true);
     }
-    if (data && data.user_status != 3) {
-      setIsCompleted(false);
-    }
+    // if (data && data.user_status != 3) {
+    //   setIsCompleted(false);
+    // }
   }, [session, props]);
 
   useEffect(() => {
@@ -165,10 +165,10 @@ const Event = (props) => {
               }
             });
         } else {
-          if (!isCompleted) {
-            toast.info('Please complete your profile first');
-            router.push('/profile');
-          } else {
+          // if (!isCompleted) {
+          //   toast.info('Please complete your profile first');
+          //   router.push('/profile');
+          // } else {
             resFetch([
               `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
               {
@@ -186,7 +186,7 @@ const Event = (props) => {
                   logout(router, session);
                 }
               });
-          }
+          // }
         }
       } else redirectToLogin(router);
     } else {
@@ -219,10 +219,10 @@ const Event = (props) => {
   const handleTeamRegisterClick = () => {
     if (isLoggedIn) {
       if (!teamData.is_registered && props.eventDetails.type == 'TEAM') {
-        if (!isCompleted) {
-          toast.info('Please complete your profile first');
-          router.push('/profile');
-        } else if (teamData.id) {
+        // if (!isCompleted) {
+        //   toast.info('Please complete your profile first');
+        //   router.push('/profile');
+        if (teamData.id) {
           resFetch([
             `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/`,
             {
