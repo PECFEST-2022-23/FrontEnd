@@ -10,27 +10,19 @@
 .imageGridItem {
   position: relative;
   object-fit: cover;
-  width: auto;
+  width: 550px;
   aspect-ratio: 1;
   height: 550px;
-  margin: 12px auto;
+  margin: 28px auto;
   background: white;
-  border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
   color: white;
-  box-shadow: 20px 20px rgba(0, 0, 0, 0.85);
+  box-shadow: 15px 15px rgba(0, 0, 0, 0.85);
   transition: all 0.4s ease;
-}
-
-.imageGridItem:hover {
-  border-radius: 0% 0% 50% 50% / 0% 0% 5% 5%;
-  box-shadow: 10px 10px rgba(0, 0, 0, 0.95);
 }
 
 .Card {
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
-  border: dashed 5px rgb(192, 180, 180);
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
   letter-spacing: 0.3ch;
   position: relative;
 }
@@ -40,9 +32,13 @@
   white-space: pre-line;
   height: 32vh;
   overflow-y: auto;
-  mask-image: linear-gradient(to bottom,
-      black calc(100% - 48px),
-      transparent 100%);
+  padding-bottom: 5%;
+  padding-right: 3%;
+  mask-image: linear-gradient(
+    to bottom,
+    black calc(100% - 48px),
+    transparent 100%
+  );
 }
 
 .chipsGridItem {
@@ -81,9 +77,10 @@
 
   .cardActions {
     display: block;
+    padding-left: 5%;
   }
 
   .imageGridItem {
-    height: 380px;
+    height: auto;
   }
 }

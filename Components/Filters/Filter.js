@@ -1,18 +1,7 @@
-import {
-  Checkbox,
-  FormControl,
-  InputLabel,
-  ListItemText,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  Chip,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import EventIcon from '@mui/icons-material/Event';
 import Button from '@mui/material/Button';
 import styles from './Filters.module.css';
-import classes from './Filters.module.css';
 
 const Filters = (props) => {
   const [active, setActive] = useState(false);
@@ -23,9 +12,8 @@ const Filters = (props) => {
   }, []);
 
   const setButtonTypeFromListing = () => {
-    if(props.filterValue === props.eventType)
-      setButtonType("contained");
-  }
+    if (props.filterValue === props.eventType) setButtonType('contained');
+  };
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;

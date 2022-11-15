@@ -57,7 +57,7 @@ export default function SignUp() {
   return (
     <div className={styles.main}>
       <Head>
-        <title>SignUp</title>
+        <title>Pecfest 2022|SignUp</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
