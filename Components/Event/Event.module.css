@@ -13,10 +13,10 @@
   width: auto;
   aspect-ratio: 1;
   height: 550px;
-  margin: 12px auto;
+  margin: 28px auto;
   background: white;
   color: white;
-  box-shadow: 20px 20px rgba(0, 0, 0, 0.85);
+  box-shadow: 15px 15px rgba(0, 0, 0, 0.85);
   transition: all 0.4s ease;
 }
 
@@ -81,6 +81,6 @@
   }
 
   .imageGridItem {
-    height: 380px;
+    height: auto;
   }
 }

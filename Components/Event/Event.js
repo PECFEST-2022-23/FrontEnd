@@ -528,7 +528,7 @@ const Event = (props) => {
               {props.eventDetails.rulebook_url ? (
                 <Button
                   variant="contained"
-                  style={{ border: '1px solid white', marginRight: '10px' }}
+                  style={{ border: '1px solid white', margin: '5px' }}
                   size="small"
                   target="_blank"
                   href={props.eventDetails.rulebook_url}
@@ -541,7 +541,7 @@ const Event = (props) => {
               {!loading && (
                 <Button
                   variant="contained"
-                  style={{ border: '1px solid white' }}
+                  style={{ border: '1px solid white', margin: '5px' }}
                   onClick={handleRegisterClick}
                   size="small"
                 >
@@ -559,7 +559,7 @@ const Event = (props) => {
                       color: '#fff',
                       fontSize: '2.4rem',
                       padding: 0,
-                      margin: '0 0 -0.3rem 0.5rem',
+                      margin: '0 0 -0.2rem 0.5rem',
                       cursor: 'pointer',
                     }}
                     onClick={() => {
