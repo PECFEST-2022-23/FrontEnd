@@ -1,7 +1,7 @@
 .main {
   background-image: url('/login/background.jpg');
   width: 100%;
-  height: calc(100vh - 55px);
+  height: calc(100% - 55px);
   background-size: cover;
   background-repeat: no-repeat;
   margin: 0;
