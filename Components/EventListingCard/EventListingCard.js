@@ -43,7 +43,6 @@ function EventListingCard(props) {
                   })
                 }
                 component="img"
-                height={'220'}
                 image={props.eventDetails.image_url}
                 alt="green iguana"
                 className={styles.imageCardMedia}
