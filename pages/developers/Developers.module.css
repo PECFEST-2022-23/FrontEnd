@@ -1,42 +1,45 @@
 .background {
-  background-image: url('/website designs/sponsors.jpg');
+  background-image: url('/website designs/login.jpg');
   min-height: 91vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
 }
-.main_container {
-    padding-top: 3.5em;
-    overflow-x: hidden;
-}
-  
-  .pageheader {
-    color: white !important;
-    font-family: "Audiowide", cursive;
-    font-size: 45px;
-    font-weight: 700;
-    letter-spacing: 5px;
-    text-shadow: 5px 5px 5px #000;
-    text-align: center;
-    /* margin: 20px auto; */
-    /* padding: 10px 10px; */
-  }
-  
-@media screen and (max-width: 600px) {
-  .background {
-    background-image: url('/mobile designs/sponsor mobile.jpg');
-  }
 
-  .pageheader {
-    font-size: 28px;
-  }
+.main_container {
+  overflow-x: hidden;
+}
+
+.pageheader {
+  color: white !important;
+  font-family: "Audiowide", cursive;
+  font-size: 45px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-shadow: 5px 5px 5px #000;
+  text-align: center;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+  /* margin: 20px auto; */
+  /* padding: 10px 10px; */
 }
 
 .third {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
+@media screen and (max-width: 600px) {
 
-    
+  .background {
+    background-image: url('/mobile designs/login mobile.jpg');
+  }
+
+  .pageheader {
+    font-size: 2rem;
+    padding-bottom: 1.5rem;
+  }
+}

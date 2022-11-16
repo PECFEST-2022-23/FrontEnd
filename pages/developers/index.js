@@ -14,11 +14,11 @@ function Developers() {
         <title>Pecfest 2022|Developers</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Container fluid className={styles.main_container}>
+      <div className={styles.main_container}>
         <div>
           <div className={styles.pageheader}>Frontend Developers</div>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container item spacing={2} className={styles.third}>
+          <div>
+            <div className={styles.third}>
               {developers.frontend.map((item) => (
                 <TeamMemberCard
                   image={item.Photo}
@@ -31,13 +31,13 @@ function Developers() {
                   github={item.Github}
                 />
               ))}
-            </Grid>
-          </Box>
+            </div>
+          </div>
         </div>
         <div>
           <div className={styles.pageheader}>Backend Developers</div>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container item spacing={2} className={styles.third}>
+          <div>
+            <div className={styles.third}>
               {developers.backend.map((item) => (
                 <TeamMemberCard
                   image={item.Photo}
@@ -50,14 +50,14 @@ function Developers() {
                   github="NA"
                 />
               ))}
-            </Grid>
-          </Box>
+            </div>
+          </div>
         </div>
         <div>
           <div className={styles.pageheader}>UI/UX Designers</div>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={1}>
-              <Grid container item spacing={2} className={styles.third}>
+          <div>
+            <div>
+              <div className={styles.third}>
                 {developers.ui.map((item) => (
                   <TeamMemberCard
                     image={item.Photo}
@@ -70,11 +70,11 @@ function Developers() {
                     github="NA"
                   />
                 ))}
-              </Grid>
-            </Grid>
-          </Box>
+              </div>
+            </div>
+          </div>
         </div>
-      </Container>
+      </div>
     </div>
   );
 }

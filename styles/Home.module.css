@@ -96,8 +96,9 @@
   overflow: hidden;
 }
 
-.about {
-  background-image: url('/website designs/Landing 2.jpg');
+.landingBg {
+  background-image: url('/website designs/combined.jpg');
+  background-size: cover;
 }
 
 .aboutBlur {
@@ -125,7 +126,6 @@
 }
 
 .festPhotos {
-  background-image: url('/website designs/Landing 3.jpg');
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -280,10 +280,6 @@
   }
 }
 
-.festTheme {
-  background-image: url('/website designs/Landing 4.jpg');
-}
-
 .festThemeBlur {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(20px);
@@ -310,7 +306,6 @@
 
 .festMegashows {
   width: 100%;
-  background-image: url('/website designs/Landing 5.jpg');
   background-size: cover;
   text-align: center;
 }
@@ -368,7 +363,6 @@
 
 .about5 {
   width: 100%;
-  background-image: url('/website designs/Landing 6.jpg');
   background-size: cover;
 }
 
@@ -399,10 +393,6 @@
     bottom: 5%;
   }
 
-  .about {
-    background-image: url('/mobile designs/landing 1 mobile.jpg');
-  }
-
   .aboutHeader {
     font-size: 2.5rem;
   }
@@ -419,10 +409,6 @@
     justify-content: center;
     text-align: center;
     flex-direction: column;
-  }
-
-  .festPhotos {
-    background-image: url('/mobile designs/landing 2 mobile.jpg');
   }
 
   .festThemePics {
@@ -475,10 +461,6 @@
     left: 77%;
   }
 
-  .festTheme {
-    background-image: url('/mobile designs/landing 3 mobile.jpg');
-  }
-
   .festThemeHeader {
     font-size: 2.5rem;
     padding-left: 0.2rem;
@@ -497,10 +479,6 @@
     justify-content: center;
     text-align: center;
     flex-direction: column;
-  }
-
-  .festMegashows {
-    background-image: url('/mobile designs/landing 4 mobile.jpg');
   }
 
   .festMegashowsHeader span {
