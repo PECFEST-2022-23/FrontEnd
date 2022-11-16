@@ -555,7 +555,7 @@ const Event = (props) => {
                 ) : (
                   <></>
                 )}
-                {!loading &&  (
+                {!loading && (
                   <Button
                     variant="contained"
                     style={{ border: '1px solid white', margin: '5px' }}

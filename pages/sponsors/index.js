@@ -18,7 +18,7 @@ function Sponsor() {
     'Engagement Partner',
     // 'Technical Partener',
     // 'Photography Partner',
-    'Event Sponsors'
+    'Event Sponsors',
   ];
   return (
     <div className={styles.background}>
