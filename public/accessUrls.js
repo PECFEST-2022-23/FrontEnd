@@ -1,1 +1,1 @@
-export const frontendBaseUrl = 'http://localhost:3000/';
+export const frontendBaseUrl = 'https://www.pecfest.co.in/';
