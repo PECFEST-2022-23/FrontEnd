@@ -221,7 +221,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
       );
 
       setIsLoading(false);
-      
+
       if (!res) {
         setEventCreationStatus(`FAILURE: Event Updation Failed.`);
       }
@@ -501,7 +501,11 @@ const EditEvent = ({ eventInfo, user_token }) => {
             </Grid>
             <Grid item xs={12} sm={12}>
               <Button fullWidth variant="contained" type="submit">
-                {!isLoading ? `Edit Event` : <RestartAltIcon className={styles.loader} />}
+                {!isLoading ? (
+                  `Edit Event`
+                ) : (
+                  <RestartAltIcon className={styles.loader} />
+                )}
               </Button>
             </Grid>
           </Grid>
