@@ -4,9 +4,6 @@ import {
   Box,
   Typography,
   Button,
-  Dialog,
-  DialogTitle,
-  DialogActions,
   TextField,
   Grid,
   FormHelperText,
@@ -20,7 +17,7 @@ import {
 import Head from 'next/head';
 import { DropzoneArea } from 'mui-file-dropzone';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -60,7 +57,7 @@ const EditEvent = ({ eventInfo, user_token }) => {
 
   const [dateError, setDateError] = useState(false);
   const [eventCreationStatus, setEventCreationStatus] = useState();
-  const [delDialogOpen, setDelDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (eventInfo) {
@@ -182,6 +179,8 @@ const EditEvent = ({ eventInfo, user_token }) => {
     e.preventDefault();
     if (!dateError) {
       // make POST request
+      setIsLoading(true);
+
       const formDataObj = {
         name: eventName,
         type: eventType.toUpperCase(),
@@ -220,6 +219,9 @@ const EditEvent = ({ eventInfo, user_token }) => {
           body: formData,
         }
       );
+
+      setIsLoading(false);
+
       if (!res) {
         setEventCreationStatus(`FAILURE: Event Updation Failed.`);
       }
@@ -370,11 +372,20 @@ const EditEvent = ({ eventInfo, user_token }) => {
                   label="Sub-Category"
                   name="eventSubCategory"
                   onChange={handleEventChange}
+                  MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
                 >
                   <MenuItem value={`DANCE`}>Dance</MenuItem>
                   <MenuItem value={`MUSIC`}>Music</MenuItem>
                   <MenuItem value={`CODING`}>Coding</MenuItem>
                   <MenuItem value={`HARDWARE`}>Hardware</MenuItem>
+                  <MenuItem value={`ART`}>Art</MenuItem>
+                  <MenuItem value={`PHOTOGRAPHY`}>Photography</MenuItem>
+                  <MenuItem value={`CINEMATOGRAPHY`}>Cinematography</MenuItem>
+                  <MenuItem value={`LITERARY`}>Literary</MenuItem>
+                  <MenuItem value={`QUIZ`}>Quiz</MenuItem>
+                  <MenuItem value={`DRAMATICS`}>Dramatics</MenuItem>
+                  <MenuItem value={`GAMING`}>Gaming</MenuItem>
+                  <MenuItem value={`FUN`}>Fun</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -490,7 +501,11 @@ const EditEvent = ({ eventInfo, user_token }) => {
             </Grid>
             <Grid item xs={12} sm={12}>
               <Button fullWidth variant="contained" type="submit">
-                Edit Event
+                {!isLoading ? (
+                  `Edit Event`
+                ) : (
+                  <RestartAltIcon className={styles.loader} />
+                )}
               </Button>
             </Grid>
           </Grid>

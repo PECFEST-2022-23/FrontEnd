@@ -1,0 +1,12 @@
+.loader {
+  animation: rotateInf infinite 1s;
+}
+
+@keyframes rotateInf {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
