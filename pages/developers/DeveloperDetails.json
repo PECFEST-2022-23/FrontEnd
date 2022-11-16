@@ -1,99 +1,98 @@
 {
     "frontend": [{
-        "Name": "Puneet Bansal",
-        "Designation": "Frontend Developer",
-        "Contact": 8968315422,
-        "Insta": "https://www.instagram.com/puneet_bansal15/",
-        "Linkedin": "https://www.linkedin.com/in/puneet-bansal15/",
-        "Github": "https://github.com/bansalpuneet15",
-        "Photo": "/team/Puneet Bansal.jpg",
-        "Email": "puneetbansal.bt19cse@pec.edu.in"
-    },
-    {
-        "Name": "Arjun Kathail",
-        "Designation": "Frontend Developer",
-        "Contact": 7009719991,
-        "Insta": "https://www.instagram.com/arjunkathail/",
-        "Github": "https://github.com/arjun-kathail",
-        "Linkedin": "https://www.linkedin.com/in/arjun-kathail/",
-        "Photo": "/developers/Arjun Kathail.jpg"
-       },
-       {
-        "Name": "Utkarsh Goel",
-        "Designation": "Frontend Developer",
-        "Contact": 8968667107,
-        "Insta": "NA",
-        "Github": "https://github.com/UtkarshGoelUT",
-        "Linkedin": "https://www.linkedin.com/in/utkarshgoelut/",
-        "Photo": "/developers/Utkarsh Goel.jpg"
-       },
-       {
-        "Name": "Shubh Ashish",
-        "Designation": "Frontend Developer",
-        "Contact": 7018010785,
-        "Insta": "NA",
-        "Github": "https://github.com/solarconstant",
-        "Linkedin": "https://www.linkedin.com/in/shubh-ashish-a4a415190/",
-        "Photo": "/developers/Shubh Ashish.jpg"
-       },
-       {
-        "Name": "Bhavesh Kumar ",
-        "Designation": "Frontend Developer",
-        "Contact": 7027297692,
-        "Insta": "https://www.instagram.com/_bhavesh__kumar/",
-        "Github": "https://github.com/bhaveshkumarpassi",
-        "Linkedin": "https://www.linkedin.com/in/bhavesh-kumar-9ab7061b1/",
-        "Photo": "/developers/Bhavesh Kumar.jpg"
-       },
-       {
-        "Name": "Arsh Kashyap",
-        "Designation": "Frontend Developer",
-        "Contact": 7696908108,
-        "Insta": "https://www.instagram.com/_arsh_kashyap_/",
-        "Github": "https://github.com/Arsh-Kashyap",
-        "Linkedin": "https://www.linkedin.com/in/arsh-kashyap/",
-        "Photo": "/developers/Arsh Kashyap.jpg"
-       }],
-       "backend" : [{
-        "Name": "Aman Gupta",
-        "Designation": "Backend Developer",
-        "Contact": 7568938710,
-        "Insta": "https://www.instagram.com/amangupta._07/",
-        "Github": "https://github.com/amangupta0709",
-        "Linkedin": "https://www.linkedin.com/in/amangupta0709",
-        "Photo": "/developers/Aman Gupta.jpg"
-       },{
-        "Name": "Shubham Bansal",
-        "Designation": "Banckend Developer",
-        "Contact": 9041512088,
-        "Instagram": "https://instagram.com/shubham_bansal0110/",
-        "Linkedin": "https://www.linkedin.com/in/shubham-bansal-01/",
-        "Photo": "/developers/Shubham Bansal.jpg",
-        "Github": "https://www.github.com/shubhambansalgit"
-    },
-       {
-        "Name": "Priyanshu Kaushal ",
-        "Designation": "Backend Developer",
-        "Contact": 8708889606,
-        "Insta": "https://www.instagram.com/_priyanshukaushal/",
-        "Github": "https://github.com/priyanshukaushal",
-        "Linkedin": "https://www.linkedin.com/in/priyanshu-kaushal",
-        "Photo": "/developers/Priyanshu Kaushal.jpg"
-       },
-       
-       
-       {
-        "Name": "Daksh Verma",
-        "Designation": "Backend Developer",
-        "Contact": 7015854780,
-        "Insta": "https://www.instagram.com/daksh__verma/",
-        "Github": "Github.com/dakshverma2411",
-        "Linkedin": "Linkedin.com/in/daksh-verma",
-        "Photo": "/developers/Daksh Verma.jpg"
-       }
-    ],
-       "ui": [
+            "Name": "Arjun Kathail",
+            "Designation": "Frontend Developer",
+            "Contact": 7009719991,
+            "Insta": "https://www.instagram.com/arjunkathail/",
+            "Github": "https://github.com/arjun-kathail",
+            "Linkedin": "https://www.linkedin.com/in/arjun-kathail/",
+            "Photo": "/developers/Arjun Kathail.jpg"
+        },
         {
+            "Name": "Puneet Bansal",
+            "Designation": "Frontend Developer",
+            "Contact": 8968315422,
+            "Insta": "https://www.instagram.com/puneet_bansal15/",
+            "Linkedin": "https://www.linkedin.com/in/puneet-bansal15/",
+            "Github": "https://github.com/bansalpuneet15",
+            "Photo": "/team/Puneet Bansal.jpg",
+            "Email": "puneetbansal.bt19cse@pec.edu.in"
+        },
+        {
+            "Name": "Utkarsh Goel",
+            "Designation": "Frontend Developer",
+            "Contact": 8968667107,
+            "Insta": "NA",
+            "Github": "https://github.com/UtkarshGoelUT",
+            "Linkedin": "https://www.linkedin.com/in/utkarshgoelut/",
+            "Photo": "/developers/Utkarsh Goel.jpg"
+        },
+        {
+            "Name": "Shubh Ashish",
+            "Designation": "Frontend Developer",
+            "Contact": 7018010785,
+            "Insta": "NA",
+            "Github": "https://github.com/solarconstant",
+            "Linkedin": "https://www.linkedin.com/in/shubh-ashish-a4a415190/",
+            "Photo": "/developers/Shubh Ashish.jpg"
+        },
+        {
+            "Name": "Bhavesh Kumar ",
+            "Designation": "Frontend Developer",
+            "Contact": 7027297692,
+            "Insta": "https://www.instagram.com/_bhavesh__kumar/",
+            "Github": "https://github.com/bhaveshkumarpassi",
+            "Linkedin": "https://www.linkedin.com/in/bhavesh-kumar-9ab7061b1/",
+            "Photo": "/developers/Bhavesh Kumar.jpg"
+        },
+        {
+            "Name": "Arsh Kashyap",
+            "Designation": "Frontend Developer",
+            "Contact": 7696908108,
+            "Insta": "https://www.instagram.com/_arsh_kashyap_/",
+            "Github": "https://github.com/Arsh-Kashyap",
+            "Linkedin": "https://www.linkedin.com/in/arsh-kashyap/",
+            "Photo": "/developers/Arsh Kashyap.jpg"
+        }
+    ],
+    "backend": [{
+            "Name": "Aman Gupta",
+            "Designation": "Backend Developer",
+            "Contact": 7568938710,
+            "Insta": "https://www.instagram.com/amangupta._07/",
+            "Github": "https://github.com/amangupta0709",
+            "Linkedin": "https://www.linkedin.com/in/amangupta0709",
+            "Photo": "/developers/Aman Gupta.jpg"
+        },
+        {
+            "Name": "Priyanshu Kaushal ",
+            "Designation": "Backend Developer",
+            "Contact": 8708889606,
+            "Insta": "https://www.instagram.com/_priyanshukaushal/",
+            "Github": "https://github.com/priyanshukaushal",
+            "Linkedin": "https://www.linkedin.com/in/priyanshu-kaushal",
+            "Photo": "/developers/Priyanshu Kaushal.jpg"
+        },
+        {
+            "Name": "Daksh Verma",
+            "Designation": "Backend Developer",
+            "Contact": 7015854780,
+            "Insta": "https://www.instagram.com/daksh__verma/",
+            "Github": "Github.com/dakshverma2411",
+            "Linkedin": "Linkedin.com/in/daksh-verma",
+            "Photo": "/developers/Daksh Verma.jpg"
+        },
+        {
+            "Name": "Shubham Bansal",
+            "Designation": "Banckend Developer",
+            "Contact": 9041512088,
+            "Instagram": "https://instagram.com/shubham_bansal0110/",
+            "Linkedin": "https://www.linkedin.com/in/shubham-bansal-01/",
+            "Photo": "/developers/Shubham Bansal.jpg",
+            "Github": "https://www.github.com/shubhambansalgit"
+        }
+    ],
+    "ui": [{
             "Name": "Isha Garg",
             "Designation": "UI/UX Designer",
             "Contact": 9876978123,
@@ -101,8 +100,8 @@
             "Github": "NA",
             "Linkedin": "https://www.linkedin.com/in/isha-garg-/",
             "Photo": "/developers/Isha Garg.jpg"
-           },
-           {
+        },
+        {
             "Name": "Rajbir Singh ",
             "Designation": "UI/UX Designer",
             "Contact": 7986244977,
@@ -110,6 +109,6 @@
             "Github": "NA",
             "Linkedin": "NA",
             "Photo": "/developers/Rajbir Singh.jpg"
-           }
-       ]
+        }
+    ]
 }
