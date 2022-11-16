@@ -1,3 +1,23 @@
 {
+    "Title sponsor": [{
+        "Name": "Trident",
+        "Logo": "/sponsors/Trident.png"
+    }],
+
+    "Associate Partner":[
+        {"Name": "JLPL",
+    "Logo": "/sponsors/Jlpl.png"},
+    {"Name": "Quark City",
+    "Logo": "/sponsors/Quarkcity.png"}],
+ 
+    "Corporate Partner":[{"Name": "Venus Education",
+    "Logo": "/sponsors/Venus.png"}],
+    "Engagement Partner":[{"Name": "100 things in Ldh",
+    "Logo": "/sponsors/100things.png"}],
     
+    "Event Sponsors":[{"Name": "Canva",
+    "Logo": "/sponsors/Canva.png"},{
+        "Name": "Crimsoune",
+        "Logo": "/sponsors/Crimsoune.png"
+    }]
 }

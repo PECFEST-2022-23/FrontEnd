@@ -10,9 +10,9 @@
 .imageGridItem {
   position: relative;
   object-fit: cover;
-  width: 550px;
+  width: 100%;
   aspect-ratio: 1;
-  height: 550px;
+  height: 100%;
   margin: 28px auto;
   background: white;
   color: white;

@@ -47,7 +47,7 @@ function Developers() {
                   insta={item.Insta}
                   linkedin={item.Linkedin}
                   contact={item.Contact}
-                  github="NA"
+                  github={item.Github}
                 />
               ))}
             </div>
