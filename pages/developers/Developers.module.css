@@ -8,7 +8,9 @@
 }
 
 .main_container {
-  overflow-x: hidden;
+  padding-top: 3.5em;
+      overflow-x: hidden;
+      height: 100%;
 }
 
 .pageheader {

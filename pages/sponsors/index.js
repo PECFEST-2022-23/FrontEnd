@@ -10,10 +10,15 @@ import sponsor from './SponsorDetails.json';
 function Sponsor() {
   const type = [
     'Title sponsor',
-    'Powered By',
-    'Co Sponsor',
-    'Technical Partener',
-    'Photography Partner',
+    // 'Powered By',
+    // 'Driven By',
+    'Associate Partner',
+    // 'Co Sponsor',
+    'Corporate Partner',
+    'Engagement Partner',
+    // 'Technical Partener',
+    // 'Photography Partner',
+    'Event Sponsors'
   ];
   return (
     <div className={styles.background}>
@@ -21,25 +26,25 @@ function Sponsor() {
         <title>Pecfest 2022|Sponsors</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Container className={styles.main_container}>
+      <div className={styles.main_container}>
         {type.map((tp) => (
-          <div key={tp}>
+          <div key={tp} className={styles.box}>
             <div className={styles.pageheader}>{tp}</div>
-            <Box sx={{ flexGrow: 1 }}>
-              <Grid container item spacing={2} className={styles.third}>
+            <div>
+              <div className={styles.third}>
                 {sponsor[`${tp}`] &&
                   sponsor[`${tp}`].map((item) => (
                     <SponsorCard
-                      image={item.Photo}
+                      image={item.Logo}
                       key={item.val}
                       name={item.Name}
                     />
                   ))}
-              </Grid>
-            </Box>
+              </div>
+            </div>
           </div>
         ))}
-      </Container>
+      </div>
     </div>
   );
 }
