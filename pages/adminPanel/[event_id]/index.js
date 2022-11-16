@@ -517,6 +517,16 @@ export default EditEvent;
 
 export async function getServerSideProps(context) {
   const { data } = getServerCookieData(context);
+
+  if (data == null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
+
   const { token } = data;
 
   const eventId = context.params.event_id;

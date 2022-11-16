@@ -261,7 +261,8 @@ const MegaShowEvent = (props) => {
               />
             </div>
             <div
-              style={{ textAlign: 'center', marginBottom: 40, paddingTop: 0 }}
+              style={{ textAlign: 'center', paddingTop: 20, paddingBottom: 20 }}
+              className={styles.filtersContainer}
             >
               {allFilters.map((filter, id) => (
                 <Filters
