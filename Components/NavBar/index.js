@@ -11,6 +11,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -235,7 +236,7 @@ const Navbar = (props) => {
                   disableRipple
                   onClick={handleProfileClick}
                 >
-                  {user.first_name}
+                  <AccountCircleIcon />
                 </Button>
                 <Menu
                   id="navbar-about-menu"
@@ -271,7 +272,7 @@ const Navbar = (props) => {
                 disableRipple
                 onClick={handleProfileClick}
               >
-                {user.first_name}
+                <AccountCircleIcon />
               </Button>
               <Menu
                 id="navbar-about-menu"
