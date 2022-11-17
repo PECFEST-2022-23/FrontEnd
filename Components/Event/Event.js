@@ -169,24 +169,24 @@ const Event = (props) => {
             toast.info('Please complete your profile first');
             router.push('/profile');
           } else {
-          resFetch([
-            `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
-            {
-              method: 'POST',
-              headers: {
-                Authorization: `Token ${cookieData.token}`,
+            resFetch([
+              `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
+              {
+                method: 'POST',
+                headers: {
+                  Authorization: `Token ${cookieData.token}`,
+                },
               },
-            },
-          ])
-            .then((res) => {
-              setTeamData({ ...teamData, is_registered: true, id: res.id });
-            })
-            .catch((error) => {
-              if (error.message == 401) {
-                logout(router, session);
-              }
-            });
-          // }
+            ])
+              .then((res) => {
+                setTeamData({ ...teamData, is_registered: true, id: res.id });
+              })
+              .catch((error) => {
+                if (error.message == 401) {
+                  logout(router, session);
+                }
+              });
+          }
         }
       } else redirectToLogin(router);
     } else {
