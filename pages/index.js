@@ -3,11 +3,14 @@ import Slider from 'react-slick';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import Button from '@mui/material/Button';
 import styles from '../styles/Home.module.css';
 import '../node_modules/slick-carousel/slick/slick.css';
 import '../node_modules/slick-carousel/slick/slick-theme.css';
 
 export default function Home() {
+  const router = useRouter();
   const [offsetY, setOffsetY] = useState(0);
   const [imgIndex, setImgIndex] = useState(0);
 
@@ -217,7 +220,53 @@ export default function Home() {
             </Slider>
           </div>
         </section>
-        <section className={styles.about5}></section>
+        <section className={styles.collab}>
+          <div className={styles.collabHeader}>In Collaboration with</div>
+          <div className={styles.collabLogos}>
+            <div className={styles.collabMoodIndigo}>
+              <Image
+                src={'/landing/moodIndigoLong.png'}
+                alt="Mood Indigo"
+                layout="fill"
+                objectFit="contain"
+              />
+            </div>
+            <div className={styles.collabTechfest}>
+              <Image
+                src={'/landing/techfest.png'}
+                alt="Techfest"
+                layout="fill"
+                objectFit="contain"
+              />
+            </div>
+          </div>
+          <div className={styles.collabContent}>
+            {
+              'The fest will cover a wide range of events encompassing every genre of innovation, technology and knowledge with the aim to infuse a scientific and rational temperament in the young minds. Culminated in an extravaganza, the fest is organizing a series of challenging competitions, curiosity triggering demonstrations and interesting lecture series and mega-shows.'
+            }
+            <div className={styles.collabDate}>
+              {'25th - 27th November, 2022'}
+            </div>
+            <div className={styles.collabButtons}>
+              <Button
+                variant="contained"
+                onClick={() => router.push('/signup')}
+              >
+                Register
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  const url =
+                    'https://drive.google.com/file/d/1D7CHEBgpwjL8XMiAVNG8eGRf3QtVz_nS/view?usp=sharing';
+                  if (typeof window !== undefined) window.open(url, '_blank');
+                }}
+              >
+                Brochure
+              </Button>
+            </div>
+          </div>
+        </section>
       </section>
     </div>
   );

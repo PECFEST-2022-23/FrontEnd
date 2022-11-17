@@ -87,7 +87,7 @@
 .festTheme,
 .festPhotos,
 .festMegashows,
-.about5 {
+.collab {
   position: relative;
   height: 91vh;
   width: 100%;
@@ -102,7 +102,7 @@
 }
 
 .aboutBlur {
-  -webkit-backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   width: 80%;
   border-radius: 2rem;
@@ -281,7 +281,7 @@
 }
 
 .festThemeBlur {
-  -webkit-backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   width: 80%;
   border-radius: 2rem;
@@ -361,9 +361,77 @@
   opacity: 1;
 }
 
-.about5 {
+.collab {
   width: 100%;
   background-size: cover;
+}
+
+.collabHeader {
+  width: 80%;
+  margin: auto;
+  font-size: 2.5rem;
+  font-weight: 500;
+  text-align: center;
+  padding-top: 3rem;
+}
+
+.collabLogos {
+  position: relatve;
+  height: 15%;
+  width: 75%;
+  margin: auto;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rem;
+  flex-wrap: wrap;
+}
+
+.collabMoodIndigo,
+.collabTechfest {
+  position: relative;
+  height: 100%;
+  width: 250px;
+  max-width: 50%;
+}
+
+.collabMoodIndigo {
+  height: 70%;
+}
+
+.collabContent {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  padding: 2rem;
+  -webkit-backdrop-filter: blur(40px);
+  backdrop-filter: blur(40px);
+  border-radius: 2rem;
+}
+
+.collabDate {
+  margin-top: 1rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.collabButtons {
+  width: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.collabButtons>* {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background-color: rgb(255, 0, 93);
 }
 
 @media only screen and (max-width: 900px) {
@@ -502,5 +570,49 @@
     font-size: 1.3rem;
     font-weight: 600;
     padding: 1rem 0 2rem 0;
+  }
+
+  .collabHeader {
+    width: 80%;
+    font-size: 1.7rem;
+    padding-top: 4rem;
+  }
+
+  .collabLogos {
+    height: 10%;
+    width: 90%;
+    margin-top: 1rem;
+    gap: 2rem;
+  }
+
+  .collabMoodIndigo,
+  .collabTechfest {
+    height: 100%;
+    width: 150px;
+  }
+
+  .collabMoodIndigo {
+    height: 55%;
+  }
+
+  .collabContent {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    padding: 1.5rem;
+  }
+
+  .collabDate {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .collabButtons {
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .collabButtons>* {
+    font-size: 1rem;
   }
 }
