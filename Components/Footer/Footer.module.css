@@ -1,0 +1,73 @@
+.main {
+    background-color: #000;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+}
+
+.directions {
+    padding: 1rem;
+    padding-left: 5rem;
+}
+
+.directionsHeader {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.address {
+    padding-top: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.address div {
+    padding-top: 0.3rem;
+}
+
+.icons {
+    padding-top: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+}
+
+.contact {
+    text-align: right;
+    padding: 1rem;
+    padding-right: 5rem;
+}
+
+.contactHeader {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.contacts {
+    padding-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 900px) {
+    .main {
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .directions,
+    .contact {
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .icons {
+        justify-content: center;
+        text-align: center;
+    }
+}
