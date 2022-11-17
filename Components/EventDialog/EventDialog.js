@@ -191,8 +191,13 @@ const EventDialog = ({ onClose, open, user_token }) => {
       formData.append(`startdatetime`, eventStart.toISOString());
       formData.append(`enddatetime`, eventEnd.toISOString());
       formData.append(`venue`, eventVenue);
-      formData.append(`min_team_size`, minTeamSize);
-      formData.append(`max_team_size`, maxTeamSize);
+      if (eventType == 'INDIVIDUAL') {
+        formData.append(`min_team_size`, 1);
+        formData.append(`max_team_size`, 1);
+      } else {
+        formData.append(`min_team_size`, minTeamSize);
+        formData.append(`max_team_size`, maxTeamSize);
+      }
       formData.append(`image_url`, eventPoster);
       formData.append(`latitude`, defaultMapProps.center.lat);
       formData.append(`longitude`, defaultMapProps.center.lng);
