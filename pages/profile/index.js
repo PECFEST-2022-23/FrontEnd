@@ -112,6 +112,7 @@ export default function Profile() {
         }
       ).then((res) => res.json());
       if (res.message === 'Additional Details added') {
+        cookies.set('isCompleted', 'true');
         toast.info(res.message);
         router.push('/');
       } else toast.error(res.message);
