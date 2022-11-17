@@ -26,10 +26,27 @@ const style = {
 };
 
 function ShareComponent(props) {
-  const eventUrl = frontendBaseUrl + 'eventList/' + props.eventId;
-  const eventTitle =
-    'Are you attending ' + props.eventName + ' in Pecfest 2022 ?';
-  const eventHashtag = '#Pecfest22';
+  var shareUrl;
+  var shareTitle;
+  var shareHashtag;
+  if (props.shareType === 'event') {
+    shareUrl = frontendBaseUrl + 'eventList/' + props.eventId;
+    shareTitle = 'Are you attending ' + props.eventName + ' in Pecfest 2022 ?';
+    shareHashtag = '#Pecfest22';
+  } else {
+    shareUrl =
+      process.env.NEXT_PUBLIC_URL +
+      `eventList/${props.eventId}` +
+      '/?tid=' +
+      props.teamId;
+    shareTitle =
+      'Is team ' +
+      props.teamName +
+      ' ready for ride with ' +
+      props.eventName +
+      ' in Pecfest 2022 ?';
+    shareHashtag = '#Pecfest22';
+  }
 
   return (
     <Modal
@@ -39,30 +56,30 @@ function ShareComponent(props) {
     >
       <Box sx={style}>
         <FacebookShareButton
-          url={eventUrl}
-          title={eventTitle}
-          quote={eventTitle}
-          hashtag={eventHashtag}
+          url={shareUrl}
+          title={shareTitle}
+          quote={shareTitle}
+          hashtag={shareHashtag}
         >
           <FacebookIcon round={true}></FacebookIcon>
         </FacebookShareButton>
-        <LinkedinShareButton url={eventUrl} title={eventTitle}>
+        <LinkedinShareButton url={shareUrl} title={shareTitle}>
           <LinkedinIcon round></LinkedinIcon>
         </LinkedinShareButton>
-        <WhatsappShareButton url={eventUrl} title={eventTitle} separator={'\n'}>
+        <WhatsappShareButton url={shareUrl} title={shareTitle} separator={'\n'}>
           <WhatsappIcon round={true}></WhatsappIcon>
         </WhatsappShareButton>
-        <TelegramShareButton url={eventUrl} title={eventTitle}>
+        <TelegramShareButton url={shareUrl} title={shareTitle}>
           <TelegramIcon round></TelegramIcon>
         </TelegramShareButton>
         <TwitterShareButton
-          url={eventUrl}
-          title={eventTitle}
-          hashtags={eventHashtag}
+          url={shareUrl}
+          title={shareTitle}
+          hashtags={shareHashtag}
         >
           <TwitterIcon round></TwitterIcon>
         </TwitterShareButton>
-        <RedditShareButton url={eventUrl} title={eventTitle}>
+        <RedditShareButton url={shareUrl} title={shareTitle}>
           <RedditIcon round></RedditIcon>
         </RedditShareButton>
       </Box>
