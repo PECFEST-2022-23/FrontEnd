@@ -166,7 +166,6 @@ const Event = (props) => {
             });
         } else {
           if (!isCompleted) {
-            toast.info('Please complete your profile first');
             router.push('/profile');
           } else {
             resFetch([
@@ -219,10 +218,10 @@ const Event = (props) => {
   const handleTeamRegisterClick = () => {
     if (isLoggedIn) {
       if (!teamData.is_registered && props.eventDetails.type == 'TEAM') {
-        // if (!isCompleted) {
-        //   toast.info('Please complete your profile first');
-        //   router.push('/profile');
-        if (teamData.id) {
+        if (!isCompleted) {
+           router.push('/profile');
+        }
+        else if (teamData.id) {
           resFetch([
             `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/`,
             {
