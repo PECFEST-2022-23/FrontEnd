@@ -340,15 +340,9 @@ const Event = (props) => {
         <Fade in={isModalOpen}>
           {teamData?.is_registered ? (
             <Box sx={styles.teamDetailsModal}>
-              <div className={classes.teamName}>{teamData.team_name}</div>
+              <div className={classes.teamName}>Hi Team {teamData.team_name}</div>
               <div>
-                Link to join team:{' '}
-                <span>
-                  {process.env.NEXT_PUBLIC_URL +
-                    `eventList/${props.eventDetails.id}` +
-                    '/?tid=' +
-                    teamData.id}
-                </span>
+                Copy Link to join team:{' '}
                 <ContentCopy
                   sx={{
                     color: '#000',
@@ -392,21 +386,15 @@ const Event = (props) => {
             </Box>
           ) : teamData?.id ? (
             <Box sx={styles.teamDetailsModal}>
-              <div className={classes.teamName}>{teamData.team_name}</div>
+              <div className={classes.teamName}>Hi Team {teamData.team_name}</div>
               <div>
-                Link to join team:{' '}
-                <span>
-                  {process.env.NEXT_PUBLIC_URL +
-                    `eventList / ${props.eventDetails.id}` +
-                    '/?tid=' +
-                    teamData.id}
-                </span>
+                Copy Link to join team:{' '}
                 <ContentCopy
                   sx={{
                     color: '#000',
                     fontSize: '2rem',
                     padding: 0,
-                    margin: '5rem 2rem 5rem 1rem',
+                    margin: '0 0 -0.2rem 1rem',
                     cursor: 'pointer',
                   }}
                   onClick={() => {
