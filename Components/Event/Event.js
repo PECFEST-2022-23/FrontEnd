@@ -1,4 +1,4 @@
-import { Chip, Grid } from '@mui/material';
+import { Chip, Grid, Tooltip } from '@mui/material';
 import Image from 'next/image';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -491,13 +491,24 @@ const Event = (props) => {
                       variant="filled"
                       className={classes.chip}
                     />
-                    <Chip
-                      size="small"
-                      label={props.eventDetails?.club_name?.toUpperCase()}
-                      color="info"
-                      variant="filled"
-                      className={classes.chip}
-                    />
+                    <Tooltip
+                      title={props.eventDetails?.club_name?.toUpperCase()}
+                      arrow
+                    >
+                      <Chip
+                        size="small"
+                        label={
+                          props.eventDetails?.club_name?.length > 40
+                            ? props.eventDetails?.club_name
+                                ?.toUpperCase()
+                                .slice(0, 40) + '...'
+                            : props.eventDetails?.club_name?.toUpperCase()
+                        }
+                        color="info"
+                        variant="filled"
+                        className={classes.chip}
+                      />
+                    </Tooltip>
                   </div>
                   <br />
                   <EventIcon
