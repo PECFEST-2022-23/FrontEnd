@@ -64,7 +64,7 @@ export default function MyApp(props) {
 
               <Component {...pageProps} />
 
-              <Footer />
+              {/* <Footer /> */}
             </>
           )}
           <ToastContainer

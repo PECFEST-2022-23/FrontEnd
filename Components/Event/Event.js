@@ -340,7 +340,9 @@ const Event = (props) => {
         <Fade in={isModalOpen}>
           {teamData?.is_registered ? (
             <Box sx={styles.teamDetailsModal}>
-              <div className={classes.teamName}>Hi Team {teamData.team_name}</div>
+              <div className={classes.teamName}>
+                Hi Team {teamData.team_name}
+              </div>
               <div>
                 Copy Link to join team:{' '}
                 <ContentCopy
@@ -386,7 +388,9 @@ const Event = (props) => {
             </Box>
           ) : teamData?.id ? (
             <Box sx={styles.teamDetailsModal}>
-              <div className={classes.teamName}>Hi Team {teamData.team_name}</div>
+              <div className={classes.teamName}>
+                Hi Team {teamData.team_name}
+              </div>
               <div>
                 Copy Link to join team:{' '}
                 <ContentCopy
