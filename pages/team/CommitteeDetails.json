@@ -262,6 +262,16 @@
             "Contact": 9888356676
         },
         {
+            "Email": "eic@pec.edu.in",
+            "Type": "Head",
+            "Committee": "Publicity ",
+            "Name": "Harshita Bakshi",
+            "Photo": "/team/Harshita Bakshi.jpg",
+            "Instagram": "https://www.instagram.com/_harshita_bakshi_/",
+            "Linkedin": "https://www.linkedin.com/in/harshita-bakshi-3317b81a4",
+            "Contact": 7087532312
+        },
+        {
             "Email": "ujjwalbansal.bt19mech@pec.edu.in",
             "Type": "Head",
             "Committee": "Infrastructure ",
@@ -280,6 +290,16 @@
             "Instagram": "https://www.instagram.com/vasudhaaggar04/",
             "Linkedin": "https://www.linkedin.com/in/vasudha-aggarwal-1685711b3/",
             "Contact": 9466206926
+        },
+        {
+            "Email": "ritikasharma.bt19meta@pec.edu.in",
+            "Type": "Head",
+            "Committee": "Publicity",
+            "Name": "Ritika Sharma",
+            "Photo": "/team/Ritika Sharma.jpg",
+            "Instagram": "https://www.instagram.com/ritikasharma_09/",
+            "Linkedin": "https://www.linkedin.com/in/ritika-sharma-82a187191",
+            "Contact": 9464121095
         },
         {
             "Email": "sanyammittal.bt19ele@pec.edu.in",
@@ -302,6 +322,15 @@
             "Contact": 9501000640
         },
         {
+            "Type": "Head",
+            "Committee": "Event Coord (Cultural)",
+            "Name": "Hardik Baweja",
+            "Photo": "/team/hardik Baweja.jpg",
+            "Instagram": "https://instagram.com/hardik.baweja1/",
+            "Linkedin": "www.linkedin.com/in/hardik-baweja-3357591a9/",
+            "Contact":  8708759320
+        },
+        {
             "Email": "saachitalwar.bt19mech@pec.edu.in",
             "Type": "Head",
             "Committee": "Public Relations & Media",
@@ -312,16 +341,6 @@
             "Contact": 9041960780
         },
         {
-            "Email": "ritikasharma.bt19meta@pec.edu.in",
-            "Type": "Head",
-            "Committee": "Publicity",
-            "Name": "Ritika Sharma",
-            "Photo": "/team/Ritika Sharma.jpg",
-            "Instagram": "https://www.instagram.com/ritikasharma_09/",
-            "Linkedin": "https://www.linkedin.com/in/ritika-sharma-82a187191",
-            "Contact": 9464121095
-        },
-        {
             "Email": "ruhaanpratapsinghsaini.bt19ece@pec.edu.in",
             "Type": "Head",
             "Committee": "Publicity",
@@ -330,16 +349,6 @@
             "Instagram": "https://www.instagram.com/ruhaan_with_double_a/",
             "Linkedin": "NA",
             "Contact": 6280079962
-        },
-        {
-            "Email": "eic@pec.edu.in",
-            "Type": "Head",
-            "Committee": "Publicity ",
-            "Name": "Harshita Bakshi",
-            "Photo": "/team/Harshita Bakshi.jpg",
-            "Instagram": "https://www.instagram.com/_harshita_bakshi_/",
-            "Linkedin": "https://www.linkedin.com/in/harshita-bakshi-3317b81a4",
-            "Contact": 7087532312
         },
         {
             "Email": "yashkumarbhagat.bt19aero@pec.edu.in",
@@ -419,7 +428,7 @@
             "Photo": "/team/Karan Naurd.jpg",
             "Instagram": "https://instagram.com/karan_naurd/",
             "Linkedin": "NA",
-            "Contact": 9814430582
+            "Contact": 9876730582
         },
         {
 
