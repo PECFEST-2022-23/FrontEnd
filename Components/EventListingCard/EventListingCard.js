@@ -135,6 +135,9 @@ function EventListingCard(props) {
         handleClose={shareModalHandler}
         eventId={props.id}
         eventName={props.eventDetails.name}
+        shareType={'event'}
+        teamId={''}
+        teamName={''}
       />
     </Grid>
   );

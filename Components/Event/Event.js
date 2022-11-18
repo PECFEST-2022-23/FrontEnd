@@ -16,6 +16,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Fade from '@mui/material/Fade';
 import TextField from '@mui/material/TextField';
 import RoomIcon from '@mui/icons-material/Room';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
 import EventIcon from '@mui/icons-material/Event';
@@ -27,9 +28,11 @@ import Cookies from 'universal-cookie';
 import getCookieData from '../../lib/auth/getCookieData';
 import redirectToLogin from '../../lib/auth/redirectToLogin';
 import logout from '../../lib/auth/logout';
+import ShareComponent from '../Share';
 import { useState, useEffect } from 'react';
 import classes from './Event.module.css';
 import { toast } from 'react-toastify';
+import { ContentCopy } from '@mui/icons-material';
 
 const Event = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,6 +41,11 @@ const Event = (props) => {
   const [teamData, setTeamData] = useState(null);
   const [teamName, setTeamName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+
+  const shareModalHandler = () => {
+    setShareModalOpen(!shareModalOpen);
+  };
   // const [isCompleted, setIsCompleted] = useState(true);
   const router = useRouter();
   const { data: session } = useSession();
@@ -51,7 +59,7 @@ const Event = (props) => {
     return res.json();
   };
 
-  const fetchTeamData = (ID) => {
+  const fetchTeamData = async (ID) => {
     if (ID) {
       resFetch([
         `${process.env.NEXT_PUBLIC_BACKEND_API}events/team/${ID}`,
@@ -332,15 +340,27 @@ const Event = (props) => {
         <Fade in={isModalOpen}>
           {teamData?.is_registered ? (
             <Box sx={styles.teamDetailsModal}>
-              <div className={classes.teamName}>{teamData.team_name}</div>
+              <div className={classes.teamName}>Hi Team {teamData.team_name}</div>
               <div>
-                Link to join team:{' '}
-                <span>
-                  {process.env.NEXT_PUBLIC_URL +
-                    `eventList/${props.eventDetails.id}` +
-                    '/?tid=' +
-                    teamData.id}
-                </span>
+                Copy Link to join team:{' '}
+                <ContentCopy
+                  sx={{
+                    color: '#000',
+                    fontSize: '2rem',
+                    padding: 0,
+                    margin: '0 0 -0.2rem 1rem',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      process.env.NEXT_PUBLIC_URL +
+                        `eventList/${props.eventDetails.id}` +
+                        '/?tid=' +
+                        teamData.id
+                    );
+                    toast.success('Team link Copied to clipboard.');
+                  }}
+                />
               </div>
               <List>
                 {teamData?.members ? (
@@ -366,15 +386,27 @@ const Event = (props) => {
             </Box>
           ) : teamData?.id ? (
             <Box sx={styles.teamDetailsModal}>
-              <div className={classes.teamName}>{teamData.team_name}</div>
+              <div className={classes.teamName}>Hi Team {teamData.team_name}</div>
               <div>
-                Link to join team:{' '}
-                <span>
-                  {process.env.NEXT_PUBLIC_URL +
-                    `eventList / ${props.eventDetails.id}` +
-                    '/?tid=' +
-                    teamData.id}
-                </span>
+                Copy Link to join team:{' '}
+                <ContentCopy
+                  sx={{
+                    color: '#000',
+                    fontSize: '2rem',
+                    padding: 0,
+                    margin: '0 0 -0.2rem 1rem',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      process.env.NEXT_PUBLIC_URL +
+                        `eventList/${props.eventDetails.id}` +
+                        '/?tid=' +
+                        teamData.id
+                    );
+                    toast.success('Team link Copied to clipboard.');
+                  }}
+                />
               </div>
               <List>
                 {teamData?.members ? (
