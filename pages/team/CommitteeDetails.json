@@ -31,6 +31,16 @@
             "Contact": 9876978123
         },
         {
+            "Email": "palashvij.bt19ece@pec.edu.in",
+            "Type": "Secretary",
+            "Committee": "Security & Discipline, Printing, Publishing and Stationary ",
+            "Name": "Palash Vij",
+            "Photo": "/team/Palash Vij.jpg",
+            "Instagram": "https://www.instagram.com/_palashvij/",
+            "Linkedin": "https://www.linkedin.com/in/palash-vij",
+            "Contact": 9888848179
+        },
+        {
             "Email": "kshitijrastogi.bt19mech@pec.edu.in",
             "Type": "Secretary",
             "Committee": "Megashows, Infrastructure, Logistics & Hospitality",
@@ -49,16 +59,6 @@
             "Instagram": "https://www.instagram.com/kansal_shivam/",
             "Linkedin": "https://www.linkedin.com/in/shivam-kansal-09773a199",
             "Contact": 7837010005
-        },
-        {
-            "Email": "palashvij.bt19ece@pec.edu.in",
-            "Type": "Secretary",
-            "Committee": "Security & Discipline, Printing, Publishing and Stationary ",
-            "Name": "Palash Vij",
-            "Photo": "/team/Palash Vij.jpg",
-            "Instagram": "https://www.instagram.com/_palashvij/",
-            "Linkedin": "https://www.linkedin.com/in/palash-vij",
-            "Contact": 9888848179
         }
     ],
     "head": [{

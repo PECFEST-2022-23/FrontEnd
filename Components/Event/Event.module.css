@@ -5,6 +5,8 @@
 .teamName {
   font-size: 2rem;
   font-weight: 500;
+  max-width: 90%;
+  word-wrap: break-word;
 }
 
 .imageGridItem {
@@ -34,11 +36,9 @@
   overflow-y: auto;
   padding-bottom: 5%;
   padding-right: 3%;
-  mask-image: linear-gradient(
-    to bottom,
-    black calc(100% - 48px),
-    transparent 100%
-  );
+  mask-image: linear-gradient(to bottom,
+      black calc(100% - 48px),
+      transparent 100%);
 }
 
 .chipsGridItem {
