@@ -312,6 +312,7 @@ const Event = (props) => {
       left: '50%',
       transform: 'translate(-50%, -50%)',
       width: 500,
+      maxWidth: '95%',
       bgcolor: '#fff',
       borderRadius: '0.5rem',
       boxShadow: 24,
