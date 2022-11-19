@@ -71,7 +71,11 @@ const EventCard = ({ id, image, event_name, event_id, token, type }) => {
     ])
       .then((res) => {
         const registeredParticipants = res.data.filter((participant) => {
-          return participant.length != 0 ? participant : null;
+          if (type == 'INDIVIDUAL')
+            return participant.length != 0 ? participant : null;
+          else {
+            return participant.members.length != 0 ? participant : null;
+          }
         });
         setParticipants(registeredParticipants);
       })
