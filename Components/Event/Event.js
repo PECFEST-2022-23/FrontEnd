@@ -41,6 +41,7 @@ const Event = (props) => {
   const [teamData, setTeamData] = useState(null);
   const [teamName, setTeamName] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(true);
   const [shareModalOpen, setShareModalOpen] = useState(false);
 
   const shareModalHandler = () => {
@@ -90,7 +91,8 @@ const Event = (props) => {
   };
 
   useEffect(() => {
-    const { data } = getCookieData(session);
+    const { data, isProfileCompleted } = getCookieData(session);
+    console.log(data, isProfileCompleted);
     if (typeof data == 'undefined' || data.user == null) {
       setIsLoggedIn(false);
       setLoading(false);
@@ -98,9 +100,9 @@ const Event = (props) => {
       setCookieData(data);
       setIsLoggedIn(true);
     }
-    // if (data && data.user_status != 3) {
-    //   setIsCompleted(false);
-    // }
+    if (data && data.user_status != 3 && isProfileCompleted === 'false') {
+      setIsCompleted(false);
+    }
   }, [session, props]);
 
   useEffect(() => {
@@ -166,35 +168,38 @@ const Event = (props) => {
                 ...prevState,
                 is_registered: false,
               }));
+              toast.success('Unregistered Successfully');
             })
             .catch((error) => {
               if (error.message == 401) {
                 logout(router, session);
+                toast.error('Please login again');
               }
             });
         } else {
-          // if (!isCompleted) {
-          //   toast.info('Please complete your profile first');
-          //   router.push('/profile');
-          // } else {
-          resFetch([
-            `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
-            {
-              method: 'POST',
-              headers: {
-                Authorization: `Token ${cookieData.token}`,
+          if (!isCompleted) {
+            redirectToLogin(router, '/profile');
+          } else {
+            resFetch([
+              `${process.env.NEXT_PUBLIC_BACKEND_API}events/register/${props.eventDetails.id}/`,
+              {
+                method: 'POST',
+                headers: {
+                  Authorization: `Token ${cookieData.token}`,
+                },
               },
-            },
-          ])
-            .then((res) => {
-              setTeamData({ ...teamData, is_registered: true, id: res.id });
-            })
-            .catch((error) => {
-              if (error.message == 401) {
-                logout(router, session);
-              }
-            });
-          // }
+            ])
+              .then((res) => {
+                setTeamData({ ...teamData, is_registered: true, id: res.id });
+                toast.success('Registered Successfully');
+              })
+              .catch((error) => {
+                if (error.message == 401) {
+                  logout(router, session);
+                  toast.error('Please login again');
+                }
+              });
+          }
         }
       } else redirectToLogin(router);
     } else {
@@ -211,10 +216,12 @@ const Event = (props) => {
         ])
           .then((res) => {
             setTeamData({ ...teamData, is_registered: false });
+            toast.success('Unregistered Successfully');
           })
           .catch((error) => {
             if (error.message == 401) {
               logout(router, session);
+              toast.error('Please login again');
             }
           });
         fetchTeamData();
@@ -227,10 +234,9 @@ const Event = (props) => {
   const handleTeamRegisterClick = () => {
     if (isLoggedIn) {
       if (!teamData.is_registered && props.eventDetails.type == 'TEAM') {
-        // if (!isCompleted) {
-        //   toast.info('Please complete your profile first');
-        //   router.push('/profile');
-        if (teamData.id) {
+        if (!isCompleted) {
+          redirectToLogin(router, '/profile');
+        } else if (teamData.id) {
           resFetch([
             `${process.env.NEXT_PUBLIC_BACKEND_API}events/add/${teamData.id}/`,
             {
@@ -246,10 +252,12 @@ const Event = (props) => {
                 ...prevState,
                 is_registered: true,
               }));
+              toast.success('Registered Successfully');
             })
             .catch((error) => {
               if (error.message == 401) {
                 logout(router, session);
+                toast.error('Please login again');
               }
             });
         } else if (teamName.trim().length > 0) {
@@ -275,10 +283,12 @@ const Event = (props) => {
                 id: res.id,
                 team_name: teamName,
               }));
+              toast.success('Registered Successfully');
             })
             .catch((error) => {
               if (error.message == 401) {
                 logout(router, session);
+                toast.error('Please login again');
               }
             });
         }
