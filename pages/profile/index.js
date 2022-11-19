@@ -112,8 +112,11 @@ export default function Profile() {
         }
       ).then((res) => res.json());
       if (res.message === 'Additional Details added') {
+        cookies.set('isCompleted', 'true');
         toast.info(res.message);
-        router.push('/');
+        const redirectPath = cookies.get('redirectPath') || '/';
+        cookies.remove('redirectPath');
+        router.push(redirectPath);
       } else toast.error(res.message);
     }
   };
