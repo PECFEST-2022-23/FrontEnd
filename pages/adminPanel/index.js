@@ -92,6 +92,8 @@ export default function AdminPanel(props) {
                   id={idx}
                   image={curr_event.image_url}
                   event_id={curr_event.id}
+                  token={currentToken}
+                  type={curr_event.type}
                 />
               </div>
             ))}
