@@ -11,7 +11,7 @@ function Sponsor() {
   const type = [
     'Title sponsor',
     // 'Powered By',
-    // 'Driven By',
+    'Driven By',
     'Associate Partner',
     // 'Co Sponsor',
     'Corporate Partner',
@@ -19,6 +19,7 @@ function Sponsor() {
     // 'Technical Partener',
     // 'Photography Partner',
     'Event Sponsors',
+    'Food Partner',
   ];
   return (
     <div className={styles.background}>
