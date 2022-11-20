@@ -1,5 +1,5 @@
 {
-    "Title sponsor": [{
+    "Title Sponsor": [{
             "Name": "Trident",
             "Logo": "/sponsors/Trident.png"
         }
@@ -7,6 +7,11 @@
     "Driven By": [{
             "Name": "Sparx",
             "Logo": "/sponsors/Sparx.png"
+        }
+    ],
+    "Co Sponsor": [{
+            "Name": "Golmedal",
+            "Logo": "/sponsors/Goldmedal.png"
         }
     ],
     "Associate Partner":[{
@@ -32,6 +37,11 @@
             "Logo": "/sponsors/100things.png"
         }
     ],
+    "Official Hydration Partner": [{
+        "Name": "Jal",
+        "Logo": "/sponsors/Jal.png"
+    }
+],
     "Event Sponsors":[{
             "Name": "Canva",
             "Logo": "/sponsors/Canva.png"
@@ -39,6 +49,10 @@
         {
             "Name": "Crimsoune",
             "Logo": "/sponsors/Crimsoune.png"
+        },
+        {
+            "Name": "Roadies Koffeehouz",
+            "Logo": "/sponsors/Roadies.png"
         }
     ],
     "Food Partner": [{

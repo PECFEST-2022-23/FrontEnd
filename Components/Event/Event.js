@@ -367,7 +367,7 @@ const Event = (props) => {
                 Hi Team {teamData.team_name}
               </div>
               <div>
-                Copy Link to join team:{' '}
+                Copy Link and share with your team-mates to join team:{' '}
                 <ContentCopy
                   sx={{
                     color: '#000',
@@ -476,7 +476,7 @@ const Event = (props) => {
                 Hi Team {teamData.team_name}
               </div>
               <div>
-                Copy Link to join team:{' '}
+                Copy Link and share with your team-mates to join team:{' '}
                 <ContentCopy
                   sx={{
                     color: '#000',

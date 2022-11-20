@@ -19,7 +19,6 @@ function ContactUs() {
         <title>Pecfest 2022|Contact Us</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      {/* <section className={styles.contact}> */}
       <Container className={styles.main_container}>
         <div className={styles.pageheader}>ContactUs</div>
         <Box className={styles.container}>
@@ -31,8 +30,9 @@ function ContactUs() {
                 </a>
               </div>
               <div className={styles.text}>
-                <h3>Call us directly at:</h3>
-                <p>+91 98769 78123</p>
+                <h3>Call us directly at</h3>
+                <p>Arjun Kathail: 70097 19991</p>
+                <p>Puneet Bansal: 89683 15422</p>
               </div>
             </Grid>
             <Grid container item className={styles.box}>
@@ -111,7 +111,6 @@ function ContactUs() {
           </Grid>
         </Box>
       </Container>
-      {/* </section> */}
     </div>
   );
 }
