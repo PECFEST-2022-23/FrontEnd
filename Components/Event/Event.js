@@ -22,6 +22,20 @@ import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
 import EventIcon from '@mui/icons-material/Event';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import PersonIcon from '@mui/icons-material/Person';
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  RedditIcon,
+  RedditShareButton,
+  TelegramIcon,
+  TelegramShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from 'react-share';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Cookies from 'universal-cookie';
@@ -340,7 +354,9 @@ const Event = (props) => {
         <Fade in={isModalOpen}>
           {teamData?.is_registered ? (
             <Box sx={styles.teamDetailsModal}>
-              <div className={classes.teamName}>Hi Team {teamData.team_name}</div>
+              <div className={classes.teamName}>
+                Hi Team {teamData.team_name}
+              </div>
               <div>
                 Copy Link to join team:{' '}
                 <ContentCopy
@@ -361,6 +377,54 @@ const Event = (props) => {
                     toast.success('Team link Copied to clipboard.');
                   }}
                 />
+                <br/>
+                <div style={{marginTop: 20}}>
+                  <FacebookShareButton
+                    url={process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id}
+                    title={"Join my team !!\n"}
+                    quote={"Join my team !!\n"}
+                    hashtag={'#Pecfest22'}
+                  >
+                    <FacebookIcon round={true}></FacebookIcon>
+                  </FacebookShareButton>
+                  <LinkedinShareButton url={process.env.NEXT_PUBLIC_URL +
+                        `eventList/${props.eventDetails.id}` +
+                        '/?tid=' +
+                        teamData.id} title={"Join my team !!\n"}>
+                    <LinkedinIcon round></LinkedinIcon>
+                  </LinkedinShareButton>
+                  <WhatsappShareButton url={process.env.NEXT_PUBLIC_URL +
+                        `eventList/${props.eventDetails.id}` +
+                        '/?tid=' +
+                        teamData.id} title={"Join my team !!\n"} separator={'\n'}>
+                    <WhatsappIcon round={true}></WhatsappIcon>
+                  </WhatsappShareButton>
+                  <TelegramShareButton url={process.env.NEXT_PUBLIC_URL +
+                        `eventList/${props.eventDetails.id}` +
+                        '/?tid=' +
+                        teamData.id} title={"Join my team !!\n"}>
+                    <TelegramIcon round></TelegramIcon>
+                  </TelegramShareButton>
+                  <TwitterShareButton
+                    url={process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id}
+                    title={"Join my team !!\n"}
+                    hashtags={'#Pecfest22'}
+                  >
+                    <TwitterIcon round></TwitterIcon>
+                  </TwitterShareButton>
+                  <RedditShareButton url={process.env.NEXT_PUBLIC_URL +
+                        `eventList/${props.eventDetails.id}` +
+                        '/?tid=' +
+                        teamData.id} title={"Join my team !!\n"}>
+                    <RedditIcon round></RedditIcon>
+                  </RedditShareButton>
+                </div>
               </div>
               <List>
                 {teamData?.members ? (
@@ -386,7 +450,9 @@ const Event = (props) => {
             </Box>
           ) : teamData?.id ? (
             <Box sx={styles.teamDetailsModal}>
-              <div className={classes.teamName}>Hi Team {teamData.team_name}</div>
+              <div className={classes.teamName}>
+                Hi Team {teamData.team_name}
+              </div>
               <div>
                 Copy Link to join team:{' '}
                 <ContentCopy
@@ -407,6 +473,54 @@ const Event = (props) => {
                     toast.success('Team link Copied to clipboard.');
                   }}
                 />
+                <br/>
+                <div style={{marginTop: 20}}>
+                  <FacebookShareButton
+                    url={process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id}
+                    title={"Join my team !!\n"}
+                    quote={"Join my team !!\n"}
+                    hashtag={'#Pecfest22'}
+                  >
+                    <FacebookIcon round={true}></FacebookIcon>
+                  </FacebookShareButton>
+                  <LinkedinShareButton url={process.env.NEXT_PUBLIC_URL +
+                        `eventList/${props.eventDetails.id}` +
+                        '/?tid=' +
+                        teamData.id} title={"Join my team !!\n"}>
+                    <LinkedinIcon round></LinkedinIcon>
+                  </LinkedinShareButton>
+                  <WhatsappShareButton url={process.env.NEXT_PUBLIC_URL +
+                        `eventList/${props.eventDetails.id}` +
+                        '/?tid=' +
+                        teamData.id} title={"Join my team !!\n"} separator={'\n'}>
+                    <WhatsappIcon round={true}></WhatsappIcon>
+                  </WhatsappShareButton>
+                  <TelegramShareButton url={process.env.NEXT_PUBLIC_URL +
+                        `eventList/${props.eventDetails.id}` +
+                        '/?tid=' +
+                        teamData.id} title={"Join my team !!\n"}>
+                    <TelegramIcon round></TelegramIcon>
+                  </TelegramShareButton>
+                  <TwitterShareButton
+                    url={process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id}
+                    title={"Join my team !!\n"}
+                    hashtags={'#Pecfest22'}
+                  >
+                    <TwitterIcon round></TwitterIcon>
+                  </TwitterShareButton>
+                  <RedditShareButton url={process.env.NEXT_PUBLIC_URL +
+                        `eventList/${props.eventDetails.id}` +
+                        '/?tid=' +
+                        teamData.id} title={"Join my team !!\n"}>
+                    <RedditIcon round></RedditIcon>
+                  </RedditShareButton>
+                </div>
               </div>
               <List>
                 {teamData?.members ? (
