@@ -9,13 +9,14 @@ import sponsor from './SponsorDetails.json';
 
 function Sponsor() {
   const type = [
-    'Title sponsor',
+    'Title Sponsor',
     // 'Powered By',
     'Driven By',
+    'Co Sponsor',
     'Associate Partner',
-    // 'Co Sponsor',
     'Corporate Partner',
     'Engagement Partner',
+    'Official Hydration Partner',
     // 'Technical Partener',
     // 'Photography Partner',
     'Event Sponsors',
