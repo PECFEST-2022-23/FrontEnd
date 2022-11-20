@@ -8,8 +8,6 @@ import {
   RedditShareButton,
   TelegramIcon,
   TelegramShareButton,
-  TwitterIcon,
-  TwitterShareButton,
   WhatsappIcon,
   WhatsappShareButton,
 } from 'react-share';
@@ -72,13 +70,6 @@ function ShareComponent(props) {
         <TelegramShareButton url={shareUrl} title={shareTitle}>
           <TelegramIcon round></TelegramIcon>
         </TelegramShareButton>
-        <TwitterShareButton
-          url={shareUrl}
-          title={shareTitle}
-          hashtags={shareHashtag}
-        >
-          <TwitterIcon round></TwitterIcon>
-        </TwitterShareButton>
         <RedditShareButton url={shareUrl} title={shareTitle}>
           <RedditIcon round></RedditIcon>
         </RedditShareButton>

@@ -22,6 +22,18 @@ import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
 import EventIcon from '@mui/icons-material/Event';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import PersonIcon from '@mui/icons-material/Person';
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  RedditIcon,
+  RedditShareButton,
+  TelegramIcon,
+  TelegramShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from 'react-share';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Cookies from 'universal-cookie';
@@ -374,6 +386,67 @@ const Event = (props) => {
                     toast.success('Team link Copied to clipboard.');
                   }}
                 />
+                <br />
+                <div style={{ marginTop: 20 }}>
+                  <FacebookShareButton
+                    url={
+                      process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id
+                    }
+                    title={'Join my team !!\n'}
+                    quote={'Join my team !!\n'}
+                    hashtag={'#Pecfest22'}
+                  >
+                    <FacebookIcon round={true}></FacebookIcon>
+                  </FacebookShareButton>
+                  <LinkedinShareButton
+                    url={
+                      process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id
+                    }
+                    title={'Join my team !!\n'}
+                  >
+                    <LinkedinIcon round></LinkedinIcon>
+                  </LinkedinShareButton>
+                  <WhatsappShareButton
+                    url={
+                      process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id
+                    }
+                    title={'Join my team !!\n'}
+                    separator={'\n'}
+                  >
+                    <WhatsappIcon round={true}></WhatsappIcon>
+                  </WhatsappShareButton>
+                  <TelegramShareButton
+                    url={
+                      process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id
+                    }
+                    title={'Join my team !!\n'}
+                  >
+                    <TelegramIcon round></TelegramIcon>
+                  </TelegramShareButton>
+                  <RedditShareButton
+                    url={
+                      process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id
+                    }
+                    title={'Join my team !!\n'}
+                  >
+                    <RedditIcon round></RedditIcon>
+                  </RedditShareButton>
+                </div>
               </div>
               <List>
                 {teamData?.members ? (
@@ -422,6 +495,67 @@ const Event = (props) => {
                     toast.success('Team link Copied to clipboard.');
                   }}
                 />
+                <br />
+                <div style={{ marginTop: 20 }}>
+                  <FacebookShareButton
+                    url={
+                      process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id
+                    }
+                    title={'Join my team !!\n'}
+                    quote={'Join my team !!\n'}
+                    hashtag={'#Pecfest22'}
+                  >
+                    <FacebookIcon round={true}></FacebookIcon>
+                  </FacebookShareButton>
+                  <LinkedinShareButton
+                    url={
+                      process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id
+                    }
+                    title={'Join my team !!\n'}
+                  >
+                    <LinkedinIcon round></LinkedinIcon>
+                  </LinkedinShareButton>
+                  <WhatsappShareButton
+                    url={
+                      process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id
+                    }
+                    title={'Join my team !!\n'}
+                    separator={'\n'}
+                  >
+                    <WhatsappIcon round={true}></WhatsappIcon>
+                  </WhatsappShareButton>
+                  <TelegramShareButton
+                    url={
+                      process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id
+                    }
+                    title={'Join my team !!\n'}
+                  >
+                    <TelegramIcon round></TelegramIcon>
+                  </TelegramShareButton>
+                  <RedditShareButton
+                    url={
+                      process.env.NEXT_PUBLIC_URL +
+                      `eventList/${props.eventDetails.id}` +
+                      '/?tid=' +
+                      teamData.id
+                    }
+                    title={'Join my team !!\n'}
+                  >
+                    <RedditIcon round></RedditIcon>
+                  </RedditShareButton>
+                </div>
               </div>
               <List>
                 {teamData?.members ? (
