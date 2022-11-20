@@ -17,9 +17,11 @@ import {
 } from '@mui/material';
 import { DropzoneArea } from 'mui-file-dropzone';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import styles from './EventDialog.module.css';
 
 const EventDialog = ({ onClose, open, user_token }) => {
   const defaultMapProps = {
@@ -53,6 +55,7 @@ const EventDialog = ({ onClose, open, user_token }) => {
   const [dateError, setDateError] = useState(false);
   const [eventCreationStatus, setEventCreationStatus] = useState();
   const [teamSizeError, setTeamSizeError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleEventChange = (e, type) => {
     if ('$d' in e) {
@@ -173,6 +176,9 @@ const EventDialog = ({ onClose, open, user_token }) => {
     e.preventDefault();
     if (!dateError && !teamSizeError && eventPoster) {
       // make POST request
+
+      setIsLoading(true);
+
       const formData = new FormData();
       formData.append(`name`, eventName);
       formData.append(`type`, eventType.toUpperCase());
@@ -185,8 +191,13 @@ const EventDialog = ({ onClose, open, user_token }) => {
       formData.append(`startdatetime`, eventStart.toISOString());
       formData.append(`enddatetime`, eventEnd.toISOString());
       formData.append(`venue`, eventVenue);
-      formData.append(`min_team_size`, minTeamSize);
-      formData.append(`max_team_size`, maxTeamSize);
+      if (eventType == 'INDIVIDUAL') {
+        formData.append(`min_team_size`, 1);
+        formData.append(`max_team_size`, 1);
+      } else {
+        formData.append(`min_team_size`, minTeamSize);
+        formData.append(`max_team_size`, maxTeamSize);
+      }
       formData.append(`image_url`, eventPoster);
       formData.append(`latitude`, defaultMapProps.center.lat);
       formData.append(`longitude`, defaultMapProps.center.lng);
@@ -201,6 +212,8 @@ const EventDialog = ({ onClose, open, user_token }) => {
         },
         body: formData,
       });
+
+      setIsLoading(false);
 
       if (!res) {
         setEventCreationStatus(`FAILURE: Event Creation Failed.`);
@@ -333,11 +346,20 @@ const EventDialog = ({ onClose, open, user_token }) => {
                   label="Sub-Category"
                   name="eventSubCategory"
                   onChange={handleEventChange}
+                  MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
                 >
                   <MenuItem value={`DANCE`}>Dance</MenuItem>
                   <MenuItem value={`MUSIC`}>Music</MenuItem>
                   <MenuItem value={`CODING`}>Coding</MenuItem>
                   <MenuItem value={`HARDWARE`}>Hardware</MenuItem>
+                  <MenuItem value={`ART`}>Art</MenuItem>
+                  <MenuItem value={`PHOTOGRAPHY`}>Photography</MenuItem>
+                  <MenuItem value={`CINEMATOGRAPHY`}>Cinematography</MenuItem>
+                  <MenuItem value={`LITERARY`}>Literary</MenuItem>
+                  <MenuItem value={`QUIZ`}>Quiz</MenuItem>
+                  <MenuItem value={`DRAMATICS`}>Dramatics</MenuItem>
+                  <MenuItem value={`GAMING`}>Gaming</MenuItem>
+                  <MenuItem value={`FUN`}>Fun</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -448,7 +470,11 @@ const EventDialog = ({ onClose, open, user_token }) => {
             </Grid>
             <Grid item xs={12} sm={12}>
               <Button fullWidth variant="contained" type="submit">
-                Add Event
+                {!isLoading ? (
+                  `Add Event`
+                ) : (
+                  <RestartAltIcon className={styles.loader} />
+                )}
               </Button>
             </Grid>
           </Grid>

@@ -11,6 +11,7 @@ import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import Navbar from '../Components/NavBar';
 import Loader from '../Components/Loader';
+import Footer from '../Components/Footer';
 import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -62,6 +63,8 @@ export default function MyApp(props) {
               <Navbar />
 
               <Component {...pageProps} />
+
+              {/* <Footer /> */}
             </>
           )}
           <ToastContainer

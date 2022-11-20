@@ -1,3 +1,53 @@
 {
-    
+    "Title sponsor": [{
+            "Name": "Trident",
+            "Logo": "/sponsors/Trident.png"
+        }
+    ],
+    "Driven By": [{
+            "Name": "Sparx",
+            "Logo": "/sponsors/Sparx.png"
+        }
+    ],
+    "Associate Partner":[{
+            "Name": "JLPL",
+            "Logo": "/sponsors/Jlpl.png"
+        },   
+        {
+            "Name": "Quark City",
+            "Logo": "/sponsors/Quarkcity.png"
+        },
+        {
+            "Name": "Jubilee Group",
+            "Logo": "/sponsors/Jubilee.png"
+        }
+    ],
+    "Corporate Partner":[{
+            "Name": "Venus Education",
+            "Logo": "/sponsors/Venus.png"
+        }
+    ],
+    "Engagement Partner":[{
+            "Name": "100 things in Ldh",
+            "Logo": "/sponsors/100things.png"
+        }
+    ],
+    "Event Sponsors":[{
+            "Name": "Canva",
+            "Logo": "/sponsors/Canva.png"
+        },
+        {
+            "Name": "Crimsoune",
+            "Logo": "/sponsors/Crimsoune.png"
+        }
+    ],
+    "Food Partner": [{
+            "Name": "Le Burger",
+            "Logo": "/sponsors/LeBurger.png"
+        },
+        {
+            "Name": "Awadhi Central",
+            "Logo": "/sponsors/Avadhi.png"
+        }
+    ]
 }

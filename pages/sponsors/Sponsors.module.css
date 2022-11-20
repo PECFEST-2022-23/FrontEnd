@@ -23,6 +23,23 @@
       /* margin: 20px auto; */
       padding: 10px 10px;
     }
+
+    .box {
+      width: 85%;
+      margin: 2rem auto;
+      padding: 2% 5%;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(30px);
+      border-radius: 20px;
+    }
+
+    .third {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
     
   @media screen and (max-width: 576px) {
     .background {
@@ -31,13 +48,9 @@
     
     .pageheader {
       font-size: 28px;
+    padding-bottom: 1.5rem;
     }
   
-  }
-  
-  .third {
-    display: flex;
-    justify-content: center;
   }
   
   

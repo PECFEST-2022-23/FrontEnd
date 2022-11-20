@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import styles from './ScheduleGrid.module.css';
-import { Button } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import Link from 'next/link';
 
 function ScheduleGrid(props) {
@@ -18,7 +18,13 @@ function ScheduleGrid(props) {
           </p>
         </div>
         <div className={styles.text}>
-          <h3>{props.name.slice(0, 22)}</h3>
+          <Tooltip title={props.name} placement="top-start" arrow>
+            <h3>
+              {props.name.length > 22
+                ? props.name.slice(0, 22) + '...'
+                : props.name}
+            </h3>
+          </Tooltip>
           <p>{props.venue}</p>
         </div>
         <div className={styles.button}>

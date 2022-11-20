@@ -14,11 +14,11 @@ function Team() {
         <title>Pecfest 2022|Team</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Container fluid className={styles.main_container}>
+      <div className={styles.main_container}>
         <div>
           <div className={styles.pageheader}>Conveners</div>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container item className={styles.third}>
+          <div>
+            <div className={styles.third}>
               {committee.convener &&
                 committee.convener.map((item) => (
                   <TeamMemberCard
@@ -32,13 +32,13 @@ function Team() {
                     github="NA"
                   />
                 ))}
-            </Grid>
-          </Box>
+            </div>
+          </div>
         </div>
         <div>
           <div className={styles.pageheader}>Secretaries</div>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container item className={styles.third}>
+          <div>
+            <div className={styles.third}>
               {committee.secretary.map((item) => (
                 <TeamMemberCard
                   image={item.Photo}
@@ -51,13 +51,13 @@ function Team() {
                   github="NA"
                 />
               ))}
-            </Grid>
-          </Box>
+            </div>
+          </div>
         </div>
         <div>
           <div className={styles.pageheader}>Heads</div>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container item className={styles.third}>
+          <div>
+            <div className={styles.third}>
               {committee.head.map((item) => (
                 <TeamMemberCard
                   image={item.Photo}
@@ -70,10 +70,10 @@ function Team() {
                   github="NA"
                 />
               ))}
-            </Grid>
-          </Box>
+            </div>
+          </div>
         </div>
-      </Container>
+      </div>
     </div>
   );
 }
