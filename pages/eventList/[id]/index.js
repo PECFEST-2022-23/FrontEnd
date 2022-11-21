@@ -29,7 +29,7 @@ export async function getStaticPaths() {
   ).then((res) => res.json());
 
   return {
-    fallback: true,
+    fallback: false,
     paths: events.map((event) => {
       const eventId = event.id;
       return {

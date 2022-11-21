@@ -366,14 +366,14 @@ const Event = (props) => {
               <div className={classes.teamName}>
                 Hi Team {teamData.team_name}
               </div>
-              <div>
-                Copy Link and share with your team-mates to join team:{' '}
+              <div style={{ textAlign: 'center' }}>
+                Share link with your team-mates to join team -{' '}
                 <ContentCopy
                   sx={{
                     color: '#000',
-                    fontSize: '2rem',
+                    fontSize: '1.5rem',
                     padding: 0,
-                    margin: '0 0 -0.2rem 1rem',
+                    margin: '0 0 -0.4rem 0.4rem',
                     cursor: 'pointer',
                   }}
                   onClick={() => {
@@ -387,7 +387,14 @@ const Event = (props) => {
                   }}
                 />
                 <br />
-                <div style={{ marginTop: 20 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: 20,
+                  }}
+                >
                   <FacebookShareButton
                     url={
                       process.env.NEXT_PUBLIC_URL +
@@ -475,14 +482,14 @@ const Event = (props) => {
               <div className={classes.teamName}>
                 Hi Team {teamData.team_name}
               </div>
-              <div>
-                Copy Link and share with your team-mates to join team:{' '}
+              <div style={{ textAlign: 'center' }}>
+                Share link with your team-mates to join team -{' '}
                 <ContentCopy
                   sx={{
                     color: '#000',
-                    fontSize: '2rem',
+                    fontSize: '1.5rem',
                     padding: 0,
-                    margin: '0 0 -0.2rem 1rem',
+                    margin: '0 0 -0.4rem 0.4rem',
                     cursor: 'pointer',
                   }}
                   onClick={() => {
@@ -496,7 +503,14 @@ const Event = (props) => {
                   }}
                 />
                 <br />
-                <div style={{ marginTop: 20 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: 20,
+                  }}
+                >
                   <FacebookShareButton
                     url={
                       process.env.NEXT_PUBLIC_URL +
