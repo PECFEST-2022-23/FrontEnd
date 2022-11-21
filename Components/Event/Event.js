@@ -104,16 +104,12 @@ const Event = (props) => {
 
   useEffect(() => {
     const { data, isProfileCompleted } = getCookieData(session);
-    console.log(data, isProfileCompleted);
     if (typeof data == 'undefined' || data.user == null) {
       setIsLoggedIn(false);
       setLoading(false);
     } else {
       setCookieData(data);
       setIsLoggedIn(true);
-      toast.info(
-        'Make sure that you have enabled cookies in your browser in order to register and then login again'
-      );
     }
     if (data && data.user_status != 3 && isProfileCompleted === 'false') {
       setIsCompleted(false);
@@ -164,6 +160,15 @@ const Event = (props) => {
         });
     }
   }, [isLoggedIn, cookieData, props, router, session]);
+
+  useEffect(() => {
+    if (!loading) {
+      if (isLoggedIn && teamData && !teamData.is_registered)
+        toast.info(
+          'Make sure that you have enabled cookies in your browser in order to register and then login again'
+        );
+    }
+  }, [loading]);
 
   const handleRegisterClick = () => {
     if (props.eventDetails.type == 'INDIVIDUAL') {

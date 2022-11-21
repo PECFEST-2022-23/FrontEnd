@@ -12,21 +12,20 @@ import {
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import Tooltip from '@mui/material/Tooltip';
 import { useRouter } from 'next/router';
-import Modal from '@mui/material/Modal';
 import { useState } from 'react';
-import Backdrop from '@mui/material/Backdrop';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import * as XLSX from 'xlsx';
 import styles from './EventCard.module.css';
 
 const EventCard = ({ id, image, event_name, event_id, token, type }) => {
@@ -83,13 +82,66 @@ const EventCard = ({ id, image, event_name, event_id, token, type }) => {
         console.log(error.message);
       });
   };
+
+  const saveAsExcel = () => {
+    if (participants && participants.length > 0) {
+      if (type == 'INDIVIDUAL') {
+        const heading = [['Name', 'Email Id', 'College', 'Contact']];
+        const file = participants.map((user) => [
+          `${user[0].first_name} ${user[0].last_name}`,
+          user[0].email,
+          user[0].college ? user[0].college : '',
+          user[0].mobile ? user[0].mobile : '',
+        ]);
+        const worksheet = XLSX.utils.json_to_sheet(file, {
+          origin: 'A2',
+          skipHeader: true,
+        });
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.sheet_add_aoa(worksheet, heading, { origin: 'A1' });
+        XLSX.utils.book_append_sheet(workbook, worksheet, `${event_name}`);
+        XLSX.writeFile(workbook, `${event_name}.xlsx`);
+      } else {
+        const heading = [
+          ['Team Name', 'Name', 'Email Id', 'College', 'Contact'],
+        ];
+        const file = participants
+          .map((user) =>
+            user.members.map((member) => [
+              user.team_name,
+              `${member.first_name} ${member.last_name}`,
+              member.email,
+              member.college ? member.college : '',
+              member.mobile ? member.mobile : '',
+            ])
+          )
+          .flat();
+        const worksheet = XLSX.utils.json_to_sheet(file, {
+          origin: 'A2',
+          skipHeader: true,
+        });
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.sheet_add_aoa(worksheet, heading, { origin: 'A1' });
+        XLSX.utils.book_append_sheet(workbook, worksheet, `${event_name}`);
+        XLSX.writeFile(workbook, `${event_name}.xlsx`);
+        console.log(file);
+      }
+    }
+  };
+
   return (
     <div className={styles.dialog}>
       <Dialog open={isModalOpen} onClose={closeUserModal}>
         {type == 'INDIVIDUAL' ? (
           <div>
             <DialogTitle>
-              Registered Users - {participants ? participants.length : ''}
+              Registered Users - {participants ? participants.length : ''}{' '}
+              {participants && participants.length && (
+                <FileDownloadIcon
+                  sx={{ margin: '0 0 -0.35rem 0', cursor: 'pointer' }}
+                  onClick={() => saveAsExcel()}
+                />
+              )}
             </DialogTitle>
             <DialogContent>
               <TableContainer>
@@ -136,7 +188,13 @@ const EventCard = ({ id, image, event_name, event_id, token, type }) => {
         ) : (
           <div>
             <DialogTitle>
-              Registered Teams - {participants ? participants.length : ''}
+              Registered Teams - {participants ? participants.length : ''}{' '}
+              {participants && participants.length && (
+                <FileDownloadIcon
+                  sx={{ margin: '0 0 -0.35rem 0', cursor: 'pointer' }}
+                  onClick={() => saveAsExcel()}
+                />
+              )}
             </DialogTitle>
             <DialogContent>
               {participants &&
