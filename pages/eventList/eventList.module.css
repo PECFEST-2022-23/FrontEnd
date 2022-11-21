@@ -128,7 +128,7 @@
 
 @media only screen and (max-width: 900px) {
   .eventCards {
-    height: 100vh;
+    height: max-content;
     margin-top: 50px;
   }
 }

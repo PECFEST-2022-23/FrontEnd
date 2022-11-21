@@ -111,6 +111,9 @@ const Event = (props) => {
     } else {
       setCookieData(data);
       setIsLoggedIn(true);
+      toast.info(
+        'Make sure that you have enabled cookies in your browser in order to register and then login again'
+      );
     }
     if (data && data.user_status != 3 && isProfileCompleted === 'false') {
       setIsCompleted(false);
