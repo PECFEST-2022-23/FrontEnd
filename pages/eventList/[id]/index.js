@@ -2,9 +2,14 @@ import Event from '../../../Components/Event/Event';
 import { useRouter } from 'next/router';
 import classes from './event.module.css';
 import Head from 'next/head';
+import Loader from '../../../Components/Loader';
 
 const EventDetails = (props) => {
   const router = useRouter();
+
+  if (!props.eventDetails) {
+    return <Loader />;
+  }
 
   const {
     query: { tid },
@@ -29,7 +34,7 @@ export async function getStaticPaths() {
   ).then((res) => res.json());
 
   return {
-    fallback: false,
+    fallback: 'blocking',
     paths: events.map((event) => {
       const eventId = event.id;
       return {
