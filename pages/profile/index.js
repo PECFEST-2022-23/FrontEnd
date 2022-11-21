@@ -159,6 +159,8 @@ export default function Profile() {
                   autoComplete="college"
                   autoFocus
                   onChange={(e) => handleEventChange(e)}
+                  error={collegeName && collegeName.length > 50 ? 'Should be less than 50 characters' : ''}
+                  helperText={collegeName && collegeName.length > 50 ? 'Should be less than 50 characters' : ''}
                   value={collegeName}
                 />
               </Grid>
