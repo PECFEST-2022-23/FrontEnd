@@ -1,5 +1,6 @@
 import NextLink from 'next/link';
 import Head from 'next/head';
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -20,6 +21,10 @@ export default function Login() {
   const router = useRouter();
   const { data: session } = useSession();
   const cookies = new Cookies();
+
+  useEffect(() => {
+    if (session) router.push('/');
+  }, [session]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -63,13 +68,7 @@ export default function Login() {
     }
   };
 
-  if (session)
-    return (
-      <div>
-        <p>Welcome {JSON.stringify(session)}</p>{' '}
-        <Button onClick={() => signOut()}>Logout</Button>
-      </div>
-    );
+  if (session) return <div></div>;
   else
     return (
       <div className={styles.main}>
