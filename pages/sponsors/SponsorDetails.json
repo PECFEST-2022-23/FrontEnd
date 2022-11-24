@@ -30,18 +30,58 @@
     "Corporate Partner":[{
             "Name": "Venus Education",
             "Logo": "/sponsors/Venus.png"
+        },
+        {
+            "Name": "Hit Bulls Eye",
+            "Logo": "/sponsors/Hitbulls.png"
+        },
+        {
+            "Name": "Xeam",
+            "Logo": "/sponsors/xeam.png"
+        },
+        {
+            "Name": "IBS",
+            "Logo": "/sponsors/IBS.png"
+        },
+        {
+            "Name": "Trishla City",
+            "Logo": "/sponsors/Trishla.jpg"
         }
     ],
+    "Merchandise Partner":[{
+            "Name": "Bonkers Corner",
+            "Logo": "/sponsors/bonker.png"
+    }],
     "Engagement Partner":[{
             "Name": "100 things in Ldh",
             "Logo": "/sponsors/100things.png"
         }
     ],
-    "Official Hydration Partner": [{
-        "Name": "Jal",
-        "Logo": "/sponsors/Jal.png"
+    "Experience Partner":[{
+        "Name": "Tinder",
+        "Logo": "/sponsors/tinder.png"
     }
 ],
+    "Official Hydration Partner": [{
+            "Name": "Jal",
+            "Logo": "/sponsors/Jal.png"
+        }
+    ],
+    "Official Snack Partner": [{
+            "Name": "Crax",
+            "Logo": "/sponsors/Crax.png"
+        }
+    ],
+    "Photography Partner": [{
+            "Name": "Instax",
+            "Logo": "/sponsors/instax.png"
+        }
+    ],
+    "Official Payment Partner": [{
+            "Name": "SBI",
+            "Logo": "/sponsors/sbi.jpg"
+        }
+    ],
     "Event Sponsors":[{
             "Name": "Canva",
             "Logo": "/sponsors/Canva.png"
@@ -62,6 +102,10 @@
         {
             "Name": "Awadhi Central",
             "Logo": "/sponsors/Avadhi.png"
+        },
+        {
+            "Name": "Baker's In",
+            "Logo": "/sponsors/Bakers.png"
         }
     ]
 }
