@@ -46,6 +46,26 @@
         {
             "Name": "Trishla City",
             "Logo": "/sponsors/Trishla.jpg"
+        },
+        {
+            "Name": "Zoom Car",
+            "Logo": "/sponsors/ZoomCar.png"
+        },
+        {
+            "Name": "Union Bank",
+            "Logo": "/sponsors/UBILogo.png"
+        },
+        {
+            "Name": "HLP Galleria",
+            "Logo": "/sponsors/HLPGalleria.png"
+        },
+        {
+            "Name": "JSW Steel",
+            "Logo": "/sponsors/JSWSteel.png"
+        },
+        {
+            "Name": "Canara",
+            "Logo": "/sponsors/Canara.png"
         }
     ],
     "Merchandise Partner":[{
@@ -55,13 +75,17 @@
     "Engagement Partner":[{
             "Name": "100 things in Ldh",
             "Logo": "/sponsors/100things.png"
+        },
+        {
+            "Name": "Chandigarh Bytes",
+            "Logo": "/sponsors/CHD BYTES.jpg"
         }
     ],
     "Experience Partner":[{
-        "Name": "Tinder",
-        "Logo": "/sponsors/tinder.png"
-    }
-],
+            "Name": "Tinder",
+            "Logo": "/sponsors/tinder.png"
+        }
+    ],
     "Official Hydration Partner": [{
             "Name": "Jal",
             "Logo": "/sponsors/Jal.png"
@@ -72,6 +96,11 @@
             "Logo": "/sponsors/Crax.png"
         }
     ],
+    "Official Hospitality Partner": [{
+        "Name": "Lalit Chnadigarh",
+        "Logo": "/sponsors/Lalit.jpg"
+    }
+],
     "Photography Partner": [{
             "Name": "Instax",
             "Logo": "/sponsors/instax.png"
@@ -93,6 +122,10 @@
         {
             "Name": "Roadies Koffeehouz",
             "Logo": "/sponsors/Roadies.png"
+        },
+        {
+            "Name": "Ikarus 3D",
+            "Logo": "/sponsors/icarus3D.jpg"
         }
     ],
     "Food Partner": [{
@@ -106,6 +139,26 @@
         {
             "Name": "Baker's In",
             "Logo": "/sponsors/Bakers.png"
+        },
+        {
+            "Name": "Birinj",
+            "Logo": "/sponsors/birinjlogo.jpg"
+        },
+        {
+            "Name": "Hangry",
+            "Logo": "/sponsors/Hangry.jpg"
+        },
+        {
+            "Name": "Peggy",
+            "Logo": "/sponsors/Peggy.jpg"
+        },
+        {
+            "Name": "Chaat Current",
+            "Logo": "/sponsors/ChaatCurrent.png"
+        },
+        {
+            "Name": "Tandoori Zaika",
+            "Logo": "/sponsors/Tandoori.jpg"
         }
     ]
 }
